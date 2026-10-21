@@ -1,0 +1,13 @@
+# Next.js app at repo root.
+# publish must differ from base (repo root) or @netlify/plugin-nextjs fails;
+# the plugin rewrites publish during the build.
+
+[build]
+  command = "pnpm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
