@@ -1,0 +1,60 @@
+---
+description: Convenciones de trabajo de High Valley Oil
+alwaysApply: true
+---
+
+# Convenciones de trabajo
+
+Todo el código de `src/` es TypeScript (`.ts` / `.tsx`). No añadir `.js` ni `.jsx`.
+
+## Herramientas
+
+- Instalar dependencias y ejecutar scripts solo con pnpm. No usar npm ni yarn.
+- ESLint es el verificador: `pnpm run lint` tiene que pasar.
+- Prettier formatea el código: `pnpm run format:check` tiene que pasar. El estilo sale de `.prettierrc.json`; no se ajusta a mano.
+- Un cambio no está listo si lint o Prettier fallan.
+
+## Ramas
+
+- El trabajo nuevo sale de `develop` y vuelve a `develop`.
+- `main` solo se actualiza para el deploy.
+- No dejar trabajo de producto directo en `main`.
+
+## Colores
+
+Solo la paleta 60/30/10, con los tokens de `src/app/globals.css`:
+
+- `canvas` (60%) `#ffffff` — fondo, y texto colocado sobre `ink`
+- `ink` (30%) `#172B2D` — texto sobre `canvas`, y superficies como la barra
+- `accent` (10%) `#E5C376` — estado activo, foco y acentos. Nunca como texto corrido sobre `canvas`
+
+No introducir otros hex ni colores de Tailwind (`bg-red-500`, `text-black`). Sí se puede variar la opacidad de un token (`text-canvas/80`).
+
+## Carpetas
+
+- `src/app/` — rutas, layouts y páginas
+- `src/components/` — UI
+- `src/fonts/` — archivos de fuente y su registro
+- `src/i18n/` — idiomas, diccionarios y rutas
+
+Cada componente vive en su propia carpeta. Lo que no es UI no va en `components/`.
+
+## Componentes
+
+El archivo va en kebab-case y termina en `.component.tsx`. El identificador de React sigue en PascalCase. Cada carpeta exporta desde `index.ts`. Quien lo use importa el barrel, no el archivo interno.
+
+```
+src/components/name-component/
+  name-component.component.tsx
+  index.ts
+```
+
+```tsx
+export function NameComponent() {}
+```
+
+```ts
+export { NameComponent } from "./name-component.component";
+```
+
+`src/components/index.ts` reexporta los componentes públicos. Desde un componente, importar el barrel de la carpeta vecina (`@/components/name-component`), no el barrel raíz, para no crear un ciclo.
