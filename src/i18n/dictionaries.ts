@@ -6,6 +6,7 @@ import type { PageKey } from "./pages";
 export type Dictionary = {
   meta: {
     siteName: string;
+    brandName: string;
     description: string;
   };
   nav: Record<PageKey | "main" | "language", string>;

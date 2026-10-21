@@ -19,12 +19,13 @@ Todo el código de `src/` es TypeScript (`.ts` / `.tsx`). No añadir `.js` ni `.
 - El trabajo nuevo sale de `develop` y vuelve a `develop`.
 - `main` solo se actualiza para el deploy.
 - No dejar trabajo de producto directo en `main`.
+- El nombre de la rama describe el cambio: `header-style-and-motion`, no `header`.
 
 ## Colores
 
 Solo la paleta 60/30/10, con los tokens de `src/app/globals.css`:
 
-- `canvas` (60%) `#ffffff` — fondo, y texto colocado sobre `ink`
+- `canvas` (60%) `#f3f3f3` — fondo, y texto colocado sobre `ink`
 - `ink` (30%) `#172B2D` — texto sobre `canvas`, y superficies como la barra
 - `accent` (10%) `#E5C376` — estado activo, foco y acentos. Nunca como texto corrido sobre `canvas`
 

@@ -1,20 +1,21 @@
 {
   "meta": {
     "siteName": "HIGH VALLEY OIL PRODUCTION LLC",
+    "brandName": "HIGH VALLEY",
     "description": "HIGH VALLEY OIL PRODUCTION LLC"
   },
   "nav": {
     "main": "Main navigation",
-    "ourCompany": "Our Company",
-    "ourBusiness": "Our Business",
+    "ourCompany": "Company",
+    "ourBusiness": "Business",
     "services": "Services",
     "venezuela": "Venezuela",
-    "contact": "Contact Us",
+    "contact": "Contact",
     "language": "Language"
   },
   "language": {
-    "en": "English",
-    "es": "Español"
+    "en": "EN",
+    "es": "ES"
   },
   "notFound": {
     "title": "Page not found"
