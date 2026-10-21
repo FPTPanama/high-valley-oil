@@ -1,1 +1,5 @@
-export { SiteHeaderNav } from "./site-header-nav.component";
+export {
+  SiteHeaderNav,
+  type NavItem,
+  type SiteHeaderNavProps,
+} from "./site-header-nav.component";
