@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { lang } from "next/root-params";
 import { GeneralLayout } from "@/components/general-layout";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { urbanist } from "@/fonts/urbanist";
 import { defaultLocale, isLocale, locales } from "@/i18n/config";
@@ -38,6 +39,7 @@ export default async function RootLayout({
       <body className="flex min-h-full flex-col bg-canvas text-ink">
         <SiteHeader />
         <GeneralLayout>{children}</GeneralLayout>
+        <SiteFooter />
       </body>
     </html>
   );

@@ -31,6 +31,14 @@ Solo la paleta 60/30/10, con los tokens de `src/app/globals.css`:
 
 No introducir otros hex ni colores de Tailwind (`bg-red-500`, `text-black`). Sí se puede variar la opacidad de un token (`text-canvas/80`).
 
+## Botones
+
+Los CTA de producto usan `SiteButton` (`src/components/site-button`):
+
+- Relleno `accent` en reposo; en hover pasa a `canvas` mientras una línea `ink` recorre el perímetro hasta cerrar el borde.
+- El gap label ↔ icono se abre con fuerza en hover (`duration-100`).
+- Icono por defecto: `ArrowRight`. No reinventar este hover en botones sueltos.
+
 ## Carpetas
 
 - `src/app/` — rutas, layouts y páginas

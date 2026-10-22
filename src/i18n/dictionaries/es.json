@@ -17,6 +17,16 @@
     "en": "EN",
     "es": "ES"
   },
+  "footer": {
+    "eyebrow": "Tu próximo proyecto.",
+    "headline": "Nuestra próxima conversación.",
+    "cta": "Iniciar una conversación",
+    "addressLabel": "Dirección",
+    "addressLines": ["1925 Lovering Avenue", "Wilmington DE 19806"],
+    "addressCountry": "Estados Unidos",
+    "company": ["High Valley", "Oil Production LLC"],
+    "copyrightOwner": "High Valley Oil Production LLC"
+  },
   "notFound": {
     "title": "Página no encontrada"
   }
