@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "siteName": "HIGH VALLEY OIL PRODUCTION LLC",
+    "brandName": "HIGH VALLEY",
+    "description": "HIGH VALLEY OIL PRODUCTION LLC"
+  },
+  "nav": {
+    "main": "Main navigation",
+    "ourCompany": "Company",
+    "ourBusiness": "Business",
+    "services": "Services",
+    "venezuela": "Venezuela",
+    "contact": "Contact",
+    "language": "Language"
+  },
+  "language": {
+    "en": "EN",
+    "es": "ES"
+  },
+  "footer": {
+    "eyebrow": "Your next project.",
+    "headline": "Our next conversation.",
+    "cta": "Start a conversation",
+    "addressLabel": "Address",
+    "addressLines": ["1925 Lovering Avenue", "Wilmington DE 19806"],
+    "addressCountry": "United States",
+    "company": ["High Valley", "Oil Production LLC"],
+    "copyrightOwner": "High Valley Oil Production LLC"
+  },
+  "notFound": {
+    "title": "Page not found"
+  }
+}
