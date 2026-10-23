@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { contentFrame } from "@/components/general-layout";
+import { contentFrame, contentInset } from "@/components/general-layout";
 import {
   SiteHeaderNav,
   type SiteHeaderNavProps,
@@ -51,15 +51,15 @@ export function SiteHeaderBar(props: SiteHeaderNavProps) {
   }, [scrolled]);
 
   return (
-    <header className="sticky top-0 z-40 pt-25">
+    <header className="fixed inset-x-0 top-0 z-40 pt-25">
       <div className={contentFrame}>
-        <div className="relative overflow-hidden">
+        <div className={`relative overflow-hidden ${contentInset}`}>
           <div
             ref={surface}
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 origin-left scale-x-0 bg-canvas"
           />
-          <div className="relative px-4 py-4 sm:px-6">
+          <div className="relative py-4">
             <SiteHeaderNav {...props} />
           </div>
         </div>

@@ -17,6 +17,21 @@
     "en": "EN",
     "es": "ES"
   },
+  "home": {
+    "hero": {
+      "title": ["Experiencia energética.", "Conectada."],
+      "subtitle": "Reunimos producción, visión comercial y capacidades operativas a lo largo de la cadena de valor del petróleo y el gas.",
+      "cta": "Explorar nuestro negocio"
+    },
+    "company": {
+      "index": "01",
+      "eyebrow": "Nuestra empresa",
+      "title": ["Una visión conectada.", "Un enfoque práctico."],
+      "lead": "High Valley Oil Production LLC es una empresa energética enfocada en la producción de petróleo, la comercialización de crudo y servicios petroleros integrados.",
+      "body": "Reunimos consideraciones técnicas, comerciales y logísticas. En Venezuela, coordinamos socios locales especializados para alinear servicios de campo, ingeniería y suministro a cada proyecto.",
+      "cta": "Cómo abordamos tu proyecto"
+    }
+  },
   "footer": {
     "eyebrow": "Tu próximo proyecto.",
     "headline": "Nuestra próxima conversación.",
