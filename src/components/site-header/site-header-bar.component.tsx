@@ -57,7 +57,7 @@ export function SiteHeaderBar(props: SiteHeaderNavProps) {
           <div
             ref={surface}
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 origin-left scale-x-0 bg-[var(--canvas)]"
+            className="pointer-events-none absolute inset-0 origin-left scale-x-0 bg-canvas"
           />
           <div className="relative py-4">
             <SiteHeaderNav {...props} />
