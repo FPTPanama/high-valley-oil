@@ -4,7 +4,11 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { contentFrame, contentInset } from "@/components/general-layout";
+import {
+  contentFrame,
+  contentInset,
+  sectionShell,
+} from "@/components/general-layout";
 import { SiteButton } from "@/components/site-button";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -16,7 +20,8 @@ export type HomeHeroProps = {
   ctaHref: string;
 };
 
-const HERO_VIDEO_SRC = "/media/oil_and_gas.mp4";
+const HERO_VIDEO_WEBM = "/media/oil_and_gas.webm";
+const HERO_VIDEO_MP4 = "/media/oil_and_gas.mp4";
 
 export function HomeHero({
   title,
@@ -122,18 +127,24 @@ export function HomeHero({
     <section
       ref={section}
       aria-label={title.join(" ")}
-      className="relative flex min-h-dvh w-full flex-col overflow-hidden bg-canvas"
+      className={`${sectionShell} overflow-hidden bg-canvas`}
     >
       <div className="absolute inset-0" aria-hidden="true">
-        <video
-          className="absolute inset-0 size-full object-cover grayscale"
-          src={HERO_VIDEO_SRC}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-        />
+        {/* Grayscale + ink color blend → luminance kept, hue from brand ink */}
+        <div className="absolute inset-0">
+          <video
+            className="absolute inset-0 size-full object-cover grayscale contrast-[1.05]"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+          >
+            <source src={HERO_VIDEO_WEBM} type="video/webm" />
+            <source src={HERO_VIDEO_MP4} type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-ink mix-blend-color" />
+        </div>
         <div className="absolute inset-0 bg-linear-to-b from-canvas/70 via-canvas/55 to-canvas" />
       </div>
 

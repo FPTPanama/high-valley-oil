@@ -17,6 +17,14 @@ export type Dictionary = {
       subtitle: string;
       cta: string;
     };
+    company: {
+      index: string;
+      eyebrow: string;
+      title: string[];
+      lead: string;
+      body: string;
+      cta: string;
+    };
   };
   footer: {
     eyebrow: string;

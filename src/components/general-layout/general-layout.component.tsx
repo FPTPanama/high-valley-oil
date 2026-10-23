@@ -9,6 +9,12 @@ export const contentInset = "px-4 sm:px-6 lg:px-8";
 /** Frame + inset in one class (typical page columns). */
 export const contentFramePadded = `${contentFrame} ${contentInset}`;
 
+/** Optional full-viewport shell (e.g. home hero). Not required for every section. */
+export const sectionShell = "relative flex min-h-dvh w-full flex-col";
+
+/** Stack for home sections (no forced gap; height comes from each block’s content). */
+export const sectionStackGap = "gap-0";
+
 export function GeneralLayout({ children }: { children: ReactNode }) {
   return (
     <div
