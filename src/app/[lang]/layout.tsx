@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { lang } from "next/root-params";
-import { GeneralLayout } from "@/components/general-layout";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { SmoothScroll } from "@/components/smooth-scroll";
 import { urbanist } from "@/fonts/urbanist";
 import { defaultLocale, isLocale, locales } from "@/i18n/config";
 import { loadDictionary } from "@/i18n/dictionaries";
@@ -36,10 +36,15 @@ export default async function RootLayout({
 
   return (
     <html lang={htmlLang} className={`${urbanist.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col bg-canvas text-ink">
+      <body className="bg-canvas text-ink">
+        {/* Fixed chrome stays outside the smoother wrapper. */}
         <SiteHeader />
-        <GeneralLayout>{children}</GeneralLayout>
-        <SiteFooter />
+        <SmoothScroll>
+          <div className="flex min-h-dvh flex-col">
+            <div className="flex flex-1 flex-col">{children}</div>
+            <SiteFooter />
+          </div>
+        </SmoothScroll>
       </body>
     </html>
   );

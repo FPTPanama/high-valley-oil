@@ -40,3 +40,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# Large hero media stays local until a compressed webm is ready.
+public/media/*.mp4
+public/media/*.webm
+!public/media/.gitkeep

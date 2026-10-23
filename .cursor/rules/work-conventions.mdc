@@ -39,6 +39,10 @@ Los CTA de producto usan `SiteButton` (`src/components/site-button`):
 - El gap label ↔ icono se abre con fuerza en hover (`duration-100`).
 - Icono por defecto: `ArrowRight`. No reinventar este hover en botones sueltos.
 
+## Scroll
+
+`ScrollSmoother` solo en desktop (`min-width: 1024px`, `pointer: fine`, sin reduced-motion). Nunca `smoothTouch` en móvil. El header fijo vive fuera de `#smooth-wrapper`.
+
 ## Carpetas
 
 - `src/app/` — rutas, layouts y páginas

@@ -37,8 +37,8 @@ let headerIntroPlayed = false;
 let indicatorReady = false;
 
 const navLinkClass = (active: boolean) =>
-  `relative inline-block text-[13px] font-light uppercase tracking-[0.16em] text-ink transition-[opacity,font-weight] duration-200 hover:font-medium hover:opacity-100 ${linkFocus} ${
-    active ? "font-medium opacity-100" : "opacity-55"
+  `relative inline-block text-[13px] font-semibold uppercase tracking-[0.16em] text-ink transition-opacity duration-200 hover:opacity-100 ${linkFocus} ${
+    active ? "opacity-100" : "opacity-55"
   }`;
 
 function NavLink({
@@ -129,7 +129,7 @@ function LanguageSwitch({
       prefetch
       data-header-item
       aria-label={`${languageLabel}: ${nextLabel}`}
-      className={`inline-flex items-center gap-2 text-[13px] font-light uppercase tracking-[0.16em] text-ink transition-[opacity,font-weight] duration-200 hover:font-medium hover:opacity-100 ${linkFocus}`}
+      className={`inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.16em] text-ink transition-opacity duration-200 hover:opacity-100 ${linkFocus}`}
     >
       <Languages aria-hidden="true" className="size-3.5" />
       <span

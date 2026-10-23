@@ -17,6 +17,13 @@
     "en": "EN",
     "es": "ES"
   },
+  "home": {
+    "hero": {
+      "title": ["Experiencia energética.", "Conectada."],
+      "subtitle": "Reunimos producción, visión comercial y capacidades operativas a lo largo de la cadena de valor del petróleo y el gas.",
+      "cta": "Explorar nuestro negocio"
+    }
+  },
   "footer": {
     "eyebrow": "Tu próximo proyecto.",
     "headline": "Nuestra próxima conversación.",

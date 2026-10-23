@@ -17,6 +17,13 @@
     "en": "EN",
     "es": "ES"
   },
+  "home": {
+    "hero": {
+      "title": ["Energy expertise.", "Connected."],
+      "subtitle": "Bringing production, commercial insight and operational capabilities together across the oil and gas value chain.",
+      "cta": "Explore our business"
+    }
+  },
   "footer": {
     "eyebrow": "Your next project.",
     "headline": "Our next conversation.",

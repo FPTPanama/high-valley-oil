@@ -11,6 +11,13 @@ export type Dictionary = {
   };
   nav: Record<PageKey | "main" | "language", string>;
   language: Record<Locale, string>;
+  home: {
+    hero: {
+      title: string[];
+      subtitle: string;
+      cta: string;
+    };
+  };
   footer: {
     eyebrow: string;
     headline: string;
