@@ -39,6 +39,17 @@ Los CTA de producto usan `SiteButton` (`src/components/site-button`):
 - El gap label ↔ icono se abre con fuerza en hover (`duration-100`).
 - Icono por defecto: `ArrowRight`. No reinventar este hover en botones sueltos.
 
+## Scroll
+
+`ScrollSmoother` solo en desktop (`min-width: 1024px`, `pointer: fine`, sin reduced-motion). Nunca `smoothTouch` en móvil. El header fijo vive fuera de `#smooth-wrapper`.
+
+## Secciones (home)
+
+- El ancho/márgenes compartidos van en `SiteSection` (`contentFrame` + `contentInset`), el mismo que el cuadro del hero. No repetir `max-w` ni paddings sueltos por sección.
+- `tone="ink" | "canvas"` pinta el panel dentro de ese ancho (no full-bleed).
+- El hero puede usar `sectionShell` (`min-h-dvh`). El resto crece con su contenido.
+- El apilado de la home usa `sectionStackGap` (`gap-0`).
+
 ## Carpetas
 
 - `src/app/` — rutas, layouts y páginas

@@ -39,7 +39,7 @@ export function SiteButton({
   return (
     <Link
       href={href}
-      className={`group relative inline-flex items-center gap-3 bg-accent px-5 py-3 text-[13px] font-medium tracking-wide text-ink transition-[gap,background-color] duration-100 hover:gap-24 hover:bg-canvas sm:hover:gap-32 ${linkFocus} ${className}`}
+      className={`group relative inline-flex items-center gap-3 bg-accent px-5 py-3 text-[13px] font-medium tracking-wide text-ink uppercase transition-[gap,background-color] duration-100 hover:gap-24 hover:bg-canvas sm:hover:gap-32 ${linkFocus} ${className}`}
     >
       <DrawBorder />
       {children}

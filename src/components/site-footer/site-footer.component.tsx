@@ -1,6 +1,6 @@
 import { Box } from "lucide-react";
 import { lang } from "next/root-params";
-import { contentFrame } from "@/components/general-layout";
+import { contentFramePadded } from "@/components/general-layout";
 import { SiteButton } from "@/components/site-button";
 import { isLocale } from "@/i18n/config";
 import { loadDictionary } from "@/i18n/dictionaries";
@@ -17,7 +17,7 @@ export async function SiteFooter() {
   return (
     <footer className="mt-auto bg-transparent text-ink">
       <div
-        className={`${contentFrame} grid gap-12 py-16 sm:py-20 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,0.9fr)] lg:gap-0 lg:py-24`}
+        className={`${contentFramePadded} grid gap-12 py-16 sm:py-20 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,0.9fr)] lg:gap-0 lg:py-24`}
       >
         <div className="flex flex-col gap-5 lg:pr-16">
           <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-ink">
