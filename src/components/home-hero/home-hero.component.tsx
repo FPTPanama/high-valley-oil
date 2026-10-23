@@ -20,8 +20,7 @@ export type HomeHeroProps = {
   ctaHref: string;
 };
 
-const HERO_VIDEO_WEBM = "/media/oil_and_gas.webm";
-const HERO_VIDEO_MP4 = "/media/oil_and_gas.mp4";
+const HERO_VIDEO_SRC = "/media/oil_and_gas.webm";
 
 export function HomeHero({
   title,
@@ -134,15 +133,13 @@ export function HomeHero({
         <div className="absolute inset-0">
           <video
             className="absolute inset-0 size-full object-cover grayscale contrast-[1.05]"
+            src={HERO_VIDEO_SRC}
             autoPlay
             muted
             loop
             playsInline
             preload="auto"
-          >
-            <source src={HERO_VIDEO_WEBM} type="video/webm" />
-            <source src={HERO_VIDEO_MP4} type="video/mp4" />
-          </video>
+          />
           <div className="absolute inset-0 bg-ink mix-blend-color" />
         </div>
         <div className="absolute inset-0 bg-linear-to-b from-canvas/70 via-canvas/55 to-canvas" />
