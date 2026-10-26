@@ -7,6 +7,7 @@ export {
   sectionShell,
   sectionStackGap,
 } from "./general-layout";
+export { HomeBusinessSection } from "./home-business-section";
 export { HomeCompanySection } from "./home-company-section";
 export { HomeHero } from "./home-hero";
 export { HomeLink } from "./home-link";

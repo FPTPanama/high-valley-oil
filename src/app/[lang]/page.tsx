@@ -1,5 +1,6 @@
 import { lang } from "next/root-params";
 import { sectionStackGap } from "@/components/general-layout";
+import { HomeBusinessSection } from "@/components/home-business-section";
 import { HomeCompanySection } from "@/components/home-company-section";
 import { HomeHero } from "@/components/home-hero";
 import { isLocale } from "@/i18n/config";
@@ -9,7 +10,7 @@ export default async function HomePage() {
   const dict = await getDictionary();
   const locale = await lang();
   const hrefLocale = isLocale(locale) ? locale : "en";
-  const { hero, company } = dict.home;
+  const { hero, company, business } = dict.home;
 
   return (
     <main className={`flex flex-col ${sectionStackGap}`}>
@@ -27,6 +28,13 @@ export default async function HomePage() {
         body={company.body}
         ctaLabel={company.cta}
         ctaHref={`/${hrefLocale}/our-company`}
+      />
+      <HomeBusinessSection
+        index={business.index}
+        eyebrow={business.eyebrow}
+        title={business.title}
+        subtitle={business.subtitle}
+        focuses={business.focuses}
       />
     </main>
   );

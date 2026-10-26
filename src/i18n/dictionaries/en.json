@@ -19,17 +19,125 @@
   },
   "home": {
     "hero": {
-      "title": ["Energy expertise.", "Connected."],
+      "title": [
+        "Energy expertise.",
+        "Connected."
+      ],
       "subtitle": "Bringing production, commercial insight and operational capabilities together across the oil and gas value chain.",
       "cta": "Explore our business"
     },
     "company": {
       "index": "01",
       "eyebrow": "Our Company",
-      "title": ["A connected view.", "A practical approach."],
+      "title": [
+        "A connected view.",
+        "A practical approach."
+      ],
       "lead": "High Valley Oil Production LLC is an energy company focused on oil production, crude commercialization and integrated petroleum services.",
       "body": "We bring technical, commercial and logistical considerations together. In Venezuela, we coordinate specialist local partners to match field services, engineering and supply resources to each project.",
       "cta": "How we approach your project"
+    },
+    "business": {
+      "index": "02",
+      "eyebrow": "Our Business",
+      "title": [
+        "Across the energy",
+        "value chain."
+      ],
+      "subtitle": [
+        "Four connected areas of focus.",
+        "One coordinated perspective."
+      ],
+      "focuses": [
+        {
+          "index": "01",
+          "label": "Field production and development",
+          "lead": "A field-led approach to production, well intervention and continuity across oil and gas operations.",
+          "blocks": [
+            {
+              "title": "Production optimization",
+              "info": "",
+              "icon": "gauge"
+            },
+            {
+              "title": "Well intervention and testing",
+              "info": "",
+              "icon": "wrench"
+            },
+            {
+              "title": "Surface facilities and maintenance",
+              "info": "",
+              "icon": "factory"
+            }
+          ]
+        },
+        {
+          "index": "02",
+          "label": "Crude and products commercialization",
+          "lead": "We connect commercial needs with supply, cargo coordination and the requirements of the energy market.",
+          "blocks": [
+            {
+              "title": "Crude oil commercialization",
+              "info": "",
+              "icon": "droplets"
+            },
+            {
+              "title": "Products supply",
+              "info": "",
+              "icon": "package"
+            },
+            {
+              "title": "Commercial and logistics coordination",
+              "info": "",
+              "icon": "route"
+            }
+          ]
+        },
+        {
+          "index": "03",
+          "label": "Integrated petroleum services",
+          "lead": "Technical support for the well, facilities and systems that keep operations running.",
+          "blocks": [
+            {
+              "title": "Well intervention, testing and production measurement",
+              "info": "",
+              "icon": "wrench"
+            },
+            {
+              "title": "Engineering, procurement and commissioning",
+              "info": "",
+              "icon": "pencilRuler"
+            },
+            {
+              "title": "Maintenance, power generation and environmental services",
+              "info": "",
+              "icon": "zap"
+            }
+          ]
+        },
+        {
+          "index": "04",
+          "label": "Logistics and infrastructure",
+          "lead": "Infrastructure coordination and fluid handling to connect operations with supply and delivery.",
+          "blocks": [
+            {
+              "title": "Terminals and port infrastructure",
+              "info": "",
+              "icon": "anchor"
+            },
+            {
+              "title": "Custody transfer measurement",
+              "info": "",
+              "icon": "scale"
+            },
+            {
+              "title": "Fluid handling and marine logistics",
+              "info": "",
+              "icon": "ship"
+            }
+          ]
+        }
+      ]
     }
   },
   "footer": {
@@ -37,9 +145,15 @@
     "headline": "Our next conversation.",
     "cta": "Start a conversation",
     "addressLabel": "Address",
-    "addressLines": ["1925 Lovering Avenue", "Wilmington DE 19806"],
+    "addressLines": [
+      "1925 Lovering Avenue",
+      "Wilmington DE 19806"
+    ],
     "addressCountry": "United States",
-    "company": ["High Valley", "Oil Production LLC"],
+    "company": [
+      "High Valley",
+      "Oil Production LLC"
+    ],
     "copyrightOwner": "High Valley Oil Production LLC"
   },
   "notFound": {

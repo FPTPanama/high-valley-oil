@@ -19,17 +19,125 @@
   },
   "home": {
     "hero": {
-      "title": ["Experiencia energética.", "Conectada."],
+      "title": [
+        "Experiencia energética.",
+        "Conectada."
+      ],
       "subtitle": "Reunimos producción, visión comercial y capacidades operativas a lo largo de la cadena de valor del petróleo y el gas.",
       "cta": "Explorar nuestro negocio"
     },
     "company": {
       "index": "01",
       "eyebrow": "Nuestra empresa",
-      "title": ["Una visión conectada.", "Un enfoque práctico."],
+      "title": [
+        "Una visión conectada.",
+        "Un enfoque práctico."
+      ],
       "lead": "High Valley Oil Production LLC es una empresa energética enfocada en la producción de petróleo, la comercialización de crudo y servicios petroleros integrados.",
       "body": "Reunimos consideraciones técnicas, comerciales y logísticas. En Venezuela, coordinamos socios locales especializados para alinear servicios de campo, ingeniería y suministro a cada proyecto.",
       "cta": "Cómo abordamos tu proyecto"
+    },
+    "business": {
+      "index": "02",
+      "eyebrow": "Nuestro negocio",
+      "title": [
+        "A lo largo de la cadena",
+        "de valor energética."
+      ],
+      "subtitle": [
+        "Cuatro áreas de enfoque conectadas.",
+        "Una perspectiva coordinada."
+      ],
+      "focuses": [
+        {
+          "index": "01",
+          "label": "Producción y desarrollo de campos",
+          "lead": "Un enfoque de campo para la producción, intervención de pozos y continuidad de las operaciones de petróleo y gas.",
+          "blocks": [
+            {
+              "title": "Optimización de producción",
+              "info": "",
+              "icon": "gauge"
+            },
+            {
+              "title": "Intervención y pruebas de pozos",
+              "info": "",
+              "icon": "wrench"
+            },
+            {
+              "title": "Instalaciones de superficie y mantenimiento",
+              "info": "",
+              "icon": "factory"
+            }
+          ]
+        },
+        {
+          "index": "02",
+          "label": "Comercialización de crudo y derivados",
+          "lead": "Conectamos las necesidades comerciales con el suministro, la coordinación de cargamentos y los requerimientos del mercado energético.",
+          "blocks": [
+            {
+              "title": "Comercialización de petróleo crudo",
+              "info": "",
+              "icon": "droplets"
+            },
+            {
+              "title": "Suministro de derivados",
+              "info": "",
+              "icon": "package"
+            },
+            {
+              "title": "Coordinación comercial y logística",
+              "info": "",
+              "icon": "route"
+            }
+          ]
+        },
+        {
+          "index": "03",
+          "label": "Servicios petroleros integrados",
+          "lead": "Soporte técnico para el pozo, las instalaciones y los sistemas que mantienen la operación en marcha.",
+          "blocks": [
+            {
+              "title": "Intervención, pruebas de pozos y medición de producción",
+              "info": "",
+              "icon": "wrench"
+            },
+            {
+              "title": "Ingeniería, procura y puesta en marcha",
+              "info": "",
+              "icon": "pencilRuler"
+            },
+            {
+              "title": "Mantenimiento, generación eléctrica y servicios ambientales",
+              "info": "",
+              "icon": "zap"
+            }
+          ]
+        },
+        {
+          "index": "04",
+          "label": "Logística e infraestructura",
+          "lead": "Coordinación de infraestructura y manejo de fluidos para conectar las operaciones con el suministro y la entrega.",
+          "blocks": [
+            {
+              "title": "Terminales e infraestructura portuaria",
+              "info": "",
+              "icon": "anchor"
+            },
+            {
+              "title": "Medición para transferencia de custodia",
+              "info": "",
+              "icon": "scale"
+            },
+            {
+              "title": "Manejo de fluidos y logística marítima",
+              "info": "",
+              "icon": "ship"
+            }
+          ]
+        }
+      ]
     }
   },
   "footer": {
@@ -37,9 +145,15 @@
     "headline": "Nuestra próxima conversación.",
     "cta": "Iniciar una conversación",
     "addressLabel": "Dirección",
-    "addressLines": ["1925 Lovering Avenue", "Wilmington DE 19806"],
+    "addressLines": [
+      "1925 Lovering Avenue",
+      "Wilmington DE 19806"
+    ],
     "addressCountry": "Estados Unidos",
-    "company": ["High Valley", "Oil Production LLC"],
+    "company": [
+      "High Valley",
+      "Oil Production LLC"
+    ],
     "copyrightOwner": "High Valley Oil Production LLC"
   },
   "notFound": {

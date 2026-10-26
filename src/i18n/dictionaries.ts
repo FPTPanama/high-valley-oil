@@ -25,6 +25,18 @@ export type Dictionary = {
       body: string;
       cta: string;
     };
+    business: {
+      index: string;
+      eyebrow: string;
+      title: string[];
+      subtitle: string[];
+      focuses: {
+        index: string;
+        label: string;
+        lead: string;
+        blocks: { title: string; info: string; icon: string }[];
+      }[];
+    };
   };
   footer: {
     eyebrow: string;
