@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { PageHeading } from "@/components/page-heading";
+import { sectionStackGap } from "@/components/general-layout";
+import { VenezuelaHero } from "@/components/venezuela-hero";
+import { VenezuelaPageContent } from "@/components/venezuela-page";
 import { getDictionary } from "@/i18n/dictionaries";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -10,6 +12,19 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function VenezuelaPage() {
   const dict = await getDictionary();
+  const { venezuelaPage } = dict;
 
-  return <PageHeading title={dict.nav.venezuela} />;
+  return (
+    <main className={`flex flex-col ${sectionStackGap}`}>
+      <VenezuelaHero
+        eyebrow={venezuelaPage.eyebrow}
+        title={venezuelaPage.title}
+        subtitle={venezuelaPage.lead}
+      />
+      <VenezuelaPageContent
+        stepsLabel={venezuelaPage.eyebrow}
+        steps={venezuelaPage.steps}
+      />
+    </main>
+  );
 }

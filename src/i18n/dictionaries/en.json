@@ -229,6 +229,28 @@
     "title": "Technical services",
     "lead": "Specialist capabilities coordinated for each project scope."
   },
+  "venezuelaPage": {
+    "eyebrow": "Venezuela / Project delivery",
+    "title": ["International", "coordination.", "Local execution."],
+    "lead": "We connect commercial planning, procurement and logistics with local technical resources to support oil and gas projects in Venezuela.",
+    "steps": [
+      {
+        "index": "01",
+        "title": "Define the scope",
+        "body": "Establish objectives, technical requirements and the delivery plan."
+      },
+      {
+        "index": "02",
+        "title": "Coordinate resources",
+        "body": "Align specialist partners, equipment, personnel and site requirements."
+      },
+      {
+        "index": "03",
+        "title": "Track delivery",
+        "body": "Agree progress reporting, acceptance criteria and project closeout."
+      }
+    ]
+  },
   "footer": {
     "eyebrow": "Your next project.",
     "headline": "Our next conversation.",

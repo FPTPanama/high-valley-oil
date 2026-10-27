@@ -229,6 +229,28 @@
     "title": "Servicios técnicos",
     "lead": "Capacidades especializadas coordinadas para el alcance de cada proyecto."
   },
+  "venezuelaPage": {
+    "eyebrow": "Venezuela / Entrega de proyectos",
+    "title": ["Coordinación", "internacional.", "Ejecución local."],
+    "lead": "Conectamos planificación comercial, procura y logística con recursos técnicos locales para apoyar proyectos de oil and gas en Venezuela.",
+    "steps": [
+      {
+        "index": "01",
+        "title": "Definir el alcance",
+        "body": "Establecer objetivos, requerimientos técnicos y el plan de entrega."
+      },
+      {
+        "index": "02",
+        "title": "Coordinar recursos",
+        "body": "Alinear socios especializados, equipos, personal y requerimientos de sitio."
+      },
+      {
+        "index": "03",
+        "title": "Seguir la entrega",
+        "body": "Acordar reporte de avance, criterios de aceptación y cierre del proyecto."
+      }
+    ]
+  },
   "footer": {
     "eyebrow": "Tu próximo proyecto.",
     "headline": "Nuestra próxima conversación.",

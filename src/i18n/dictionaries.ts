@@ -70,6 +70,16 @@ export type Dictionary = {
     title: string;
     lead: string;
   };
+  venezuelaPage: {
+    eyebrow: string;
+    title: string[];
+    lead: string;
+    steps: {
+      index: string;
+      title: string;
+      body: string;
+    }[];
+  };
   footer: {
     eyebrow: string;
     headline: string;
