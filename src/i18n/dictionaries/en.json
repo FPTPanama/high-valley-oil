@@ -19,20 +19,14 @@
   },
   "home": {
     "hero": {
-      "title": [
-        "Energy expertise.",
-        "Connected."
-      ],
+      "title": ["Energy expertise.", "Connected."],
       "subtitle": "Bringing production, commercial insight and operational capabilities together across the oil and gas value chain.",
       "cta": "Explore our business"
     },
     "company": {
       "index": "01",
       "eyebrow": "Our Company",
-      "title": [
-        "A connected view.",
-        "A practical approach."
-      ],
+      "title": ["A connected view.", "A practical approach."],
       "lead": "High Valley Oil Production LLC is an energy company focused on oil production, crude commercialization and integrated petroleum services.",
       "body": "We bring technical, commercial and logistical considerations together. In Venezuela, we coordinate specialist local partners to match field services, engineering and supply resources to each project.",
       "cta": "How we approach your project"
@@ -40,10 +34,7 @@
     "business": {
       "index": "02",
       "eyebrow": "Our Business",
-      "title": [
-        "Across the energy",
-        "value chain."
-      ],
+      "title": ["Across the energy", "value chain."],
       "subtitle": [
         "Four connected areas of focus.",
         "One coordinated perspective."
@@ -138,22 +129,107 @@
           ]
         }
       ]
+    },
+    "services": {
+      "index": "03",
+      "eyebrow": "Technical Services",
+      "title": "The capabilities behind the operation.",
+      "body": "For projects in Venezuela, High Valley integrates specialist services through local technical partners. Equipment, personnel and delivery scope are defined for each engagement.",
+      "itemAction": "View service",
+      "feature": {
+        "title": "Well intervention & artificial lift",
+        "body": "Coordinate well intervention and restoration services with specialist field teams.",
+        "slug": "well-intervention"
+      },
+      "items": [
+        {
+          "index": "01",
+          "title": "Well intervention & artificial lift",
+          "slug": "well-intervention",
+          "icon": "wrench",
+          "body": "Coordinate well intervention and restoration services with specialist field teams.",
+          "points": [
+            "Slickline and electric wireline operations",
+            "Coiled tubing: well cleanouts, stimulation and nitrogen services",
+            "Gas lift system inspection, repair and downhole support"
+          ]
+        },
+        {
+          "index": "02",
+          "title": "Well testing & production performance",
+          "slug": "well-testing",
+          "icon": "gauge",
+          "body": "Bring together the measurements and technical analysis needed to evaluate well performance.",
+          "points": [
+            "Well testing and pressure, temperature and flow monitoring",
+            "Multiphase measurement of oil, gas and water",
+            "Production optimization, nodal analysis and wellhead maintenance"
+          ]
+        },
+        {
+          "index": "03",
+          "title": "Engineering & procurement",
+          "slug": "engineering-procurement",
+          "icon": "pencilRuler",
+          "body": "Connect project definition with equipment sourcing and commissioning support.",
+          "points": [
+            "Feasibility, conceptual, basic, FEED and detailed engineering",
+            "Equipment and materials procurement, inspection and import coordination",
+            "Facility upgrades, pre-commissioning and start-up support"
+          ]
+        },
+        {
+          "index": "04",
+          "title": "Maintenance & power systems",
+          "slug": "maintenance-power",
+          "icon": "zap",
+          "body": "Structure maintenance and electrical support around operational continuity.",
+          "points": [
+            "Predictive, preventive and corrective equipment maintenance",
+            "Electrical distribution, transformers, grounding and instrumentation",
+            "Power generation: supply, installation, operation and maintenance"
+          ]
+        },
+        {
+          "index": "05",
+          "title": "Environmental & site services",
+          "slug": "environmental-site",
+          "icon": "leaf",
+          "body": "Integrate environmental recovery and site preparation into the project scope.",
+          "points": [
+            "Spill containment, recovery and soil or water remediation",
+            "Waste handling and treatment coordination",
+            "Vegetation control and preparation of operational areas"
+          ]
+        },
+        {
+          "index": "06",
+          "title": "Field logistics & fluid handling",
+          "slug": "field-logistics",
+          "icon": "droplets",
+          "body": "Coordinate movement of fluids, equipment and materials between operational sites.",
+          "points": [
+            "Fluid pumping, transfer, dewatering and transport",
+            "Machinery rental, lifting and earthworks coordination",
+            "Field supply logistics and material traceability"
+          ]
+        }
+      ]
     }
+  },
+  "servicesPage": {
+    "eyebrow": "Services",
+    "title": "Technical services",
+    "lead": "Specialist capabilities coordinated for each project scope."
   },
   "footer": {
     "eyebrow": "Your next project.",
     "headline": "Our next conversation.",
     "cta": "Start a conversation",
     "addressLabel": "Address",
-    "addressLines": [
-      "1925 Lovering Avenue",
-      "Wilmington DE 19806"
-    ],
+    "addressLines": ["1925 Lovering Avenue", "Wilmington DE 19806"],
     "addressCountry": "United States",
-    "company": [
-      "High Valley",
-      "Oil Production LLC"
-    ],
+    "company": ["High Valley", "Oil Production LLC"],
     "copyrightOwner": "High Valley Oil Production LLC"
   },
   "notFound": {

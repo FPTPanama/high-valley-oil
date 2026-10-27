@@ -19,20 +19,14 @@
   },
   "home": {
     "hero": {
-      "title": [
-        "Experiencia energética.",
-        "Conectada."
-      ],
+      "title": ["Experiencia energética.", "Conectada."],
       "subtitle": "Reunimos producción, visión comercial y capacidades operativas a lo largo de la cadena de valor del petróleo y el gas.",
       "cta": "Explorar nuestro negocio"
     },
     "company": {
       "index": "01",
       "eyebrow": "Nuestra empresa",
-      "title": [
-        "Una visión conectada.",
-        "Un enfoque práctico."
-      ],
+      "title": ["Una visión conectada.", "Un enfoque práctico."],
       "lead": "High Valley Oil Production LLC es una empresa energética enfocada en la producción de petróleo, la comercialización de crudo y servicios petroleros integrados.",
       "body": "Reunimos consideraciones técnicas, comerciales y logísticas. En Venezuela, coordinamos socios locales especializados para alinear servicios de campo, ingeniería y suministro a cada proyecto.",
       "cta": "Cómo abordamos tu proyecto"
@@ -40,10 +34,7 @@
     "business": {
       "index": "02",
       "eyebrow": "Nuestro negocio",
-      "title": [
-        "A lo largo de la cadena",
-        "de valor energética."
-      ],
+      "title": ["A lo largo de la cadena", "de valor energética."],
       "subtitle": [
         "Cuatro áreas de enfoque conectadas.",
         "Una perspectiva coordinada."
@@ -138,22 +129,107 @@
           ]
         }
       ]
+    },
+    "services": {
+      "index": "03",
+      "eyebrow": "Servicios técnicos",
+      "title": "Las capacidades detrás de la operación.",
+      "body": "En proyectos en Venezuela, High Valley integra servicios especializados a través de socios técnicos locales. Equipos, personal y alcance de entrega se definen para cada compromiso.",
+      "itemAction": "Ver servicio",
+      "feature": {
+        "title": "Intervención de pozos y levantamiento artificial",
+        "body": "Coordinar servicios de intervención y restauración de pozos con equipos de campo especializados.",
+        "slug": "well-intervention"
+      },
+      "items": [
+        {
+          "index": "01",
+          "title": "Intervención de pozos y levantamiento artificial",
+          "slug": "well-intervention",
+          "icon": "wrench",
+          "body": "Coordinar servicios de intervención y restauración de pozos con equipos de campo especializados.",
+          "points": [
+            "Operaciones de slickline y wireline eléctrico",
+            "Coiled tubing: limpiezas de pozo, estimulación y servicios de nitrógeno",
+            "Inspección, reparación y soporte downhole de sistemas de gas lift"
+          ]
+        },
+        {
+          "index": "02",
+          "title": "Pruebas de pozos y desempeño de producción",
+          "slug": "well-testing",
+          "icon": "gauge",
+          "body": "Reunir las mediciones y el análisis técnico necesarios para evaluar el desempeño del pozo.",
+          "points": [
+            "Pruebas de pozos y monitoreo de presión, temperatura y flujo",
+            "Medición multifásica de petróleo, gas y agua",
+            "Optimización de producción, análisis nodal y mantenimiento de cabezal"
+          ]
+        },
+        {
+          "index": "03",
+          "title": "Ingeniería y procura",
+          "slug": "engineering-procurement",
+          "icon": "pencilRuler",
+          "body": "Conectar la definición del proyecto con el abastecimiento de equipos y el soporte de puesta en marcha.",
+          "points": [
+            "Ingeniería de factibilidad, conceptual, básica, FEED y de detalle",
+            "Procura de equipos y materiales, inspección y coordinación de importación",
+            "Mejoras de instalaciones, precomisionado y soporte de arranque"
+          ]
+        },
+        {
+          "index": "04",
+          "title": "Mantenimiento y sistemas de potencia",
+          "slug": "maintenance-power",
+          "icon": "zap",
+          "body": "Estructurar el mantenimiento y el soporte eléctrico en torno a la continuidad operativa.",
+          "points": [
+            "Mantenimiento predictivo, preventivo y correctivo de equipos",
+            "Distribución eléctrica, transformadores, puesta a tierra e instrumentación",
+            "Generación de potencia: suministro, instalación, operación y mantenimiento"
+          ]
+        },
+        {
+          "index": "05",
+          "title": "Servicios ambientales y de sitio",
+          "slug": "environmental-site",
+          "icon": "leaf",
+          "body": "Integrar la recuperación ambiental y la preparación del sitio en el alcance del proyecto.",
+          "points": [
+            "Contención de derrames, recuperación y remediación de suelo o agua",
+            "Coordinación de manejo y tratamiento de residuos",
+            "Control de vegetación y preparación de áreas operativas"
+          ]
+        },
+        {
+          "index": "06",
+          "title": "Logística de campo y manejo de fluidos",
+          "slug": "field-logistics",
+          "icon": "droplets",
+          "body": "Coordinar el movimiento de fluidos, equipos y materiales entre sitios operativos.",
+          "points": [
+            "Bombeo, transferencia, deshidratación y transporte de fluidos",
+            "Alquiler de maquinaria, izaje y coordinación de movimientos de tierra",
+            "Logística de suministro de campo y trazabilidad de materiales"
+          ]
+        }
+      ]
     }
+  },
+  "servicesPage": {
+    "eyebrow": "Servicios",
+    "title": "Servicios técnicos",
+    "lead": "Capacidades especializadas coordinadas para el alcance de cada proyecto."
   },
   "footer": {
     "eyebrow": "Tu próximo proyecto.",
     "headline": "Nuestra próxima conversación.",
     "cta": "Iniciar una conversación",
     "addressLabel": "Dirección",
-    "addressLines": [
-      "1925 Lovering Avenue",
-      "Wilmington DE 19806"
-    ],
+    "addressLines": ["1925 Lovering Avenue", "Wilmington DE 19806"],
     "addressCountry": "Estados Unidos",
-    "company": [
-      "High Valley",
-      "Oil Production LLC"
-    ],
+    "company": ["High Valley", "Oil Production LLC"],
     "copyrightOwner": "High Valley Oil Production LLC"
   },
   "notFound": {

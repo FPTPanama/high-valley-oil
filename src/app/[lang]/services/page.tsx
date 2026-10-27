@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { PageHeading } from "@/components/page-heading";
+import { GeneralLayout } from "@/components/general-layout";
+import { ServicesPageContent } from "@/components/services-page";
 import { getDictionary } from "@/i18n/dictionaries";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -10,6 +11,23 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function ServicesPage() {
   const dict = await getDictionary();
+  const { servicesPage } = dict;
+  const { items } = dict.home.services;
 
-  return <PageHeading title={dict.nav.services} />;
+  return (
+    <GeneralLayout>
+      <ServicesPageContent
+        eyebrow={servicesPage.eyebrow}
+        title={servicesPage.title}
+        lead={servicesPage.lead}
+        items={items.map(({ index, title, slug, body, points }) => ({
+          index,
+          title,
+          slug,
+          body,
+          points,
+        }))}
+      />
+    </GeneralLayout>
+  );
 }
