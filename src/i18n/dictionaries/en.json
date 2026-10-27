@@ -215,6 +215,13 @@
           ]
         }
       ]
+    },
+    "venezuela": {
+      "index": "04",
+      "eyebrow": "Venezuela",
+      "title": "Local partners. Coordinated delivery.",
+      "body": "For projects in Venezuela, High Valley coordinates specialist local partners to match field services, engineering and supply resources to each engagement.",
+      "cta": "Explore Venezuela"
     }
   },
   "servicesPage": {

@@ -57,6 +57,13 @@ export type Dictionary = {
         points: string[];
       }[];
     };
+    venezuela: {
+      index: string;
+      eyebrow: string;
+      title: string;
+      body: string;
+      cta: string;
+    };
   };
   servicesPage: {
     eyebrow: string;

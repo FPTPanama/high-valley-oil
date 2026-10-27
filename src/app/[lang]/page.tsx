@@ -4,6 +4,7 @@ import { HomeBusinessSection } from "@/components/home-business-section";
 import { HomeCompanySection } from "@/components/home-company-section";
 import { HomeHero } from "@/components/home-hero";
 import { HomeServicesSection } from "@/components/home-services-section";
+import { HomeVenezuelaSection } from "@/components/home-venezuela-section";
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 
@@ -11,7 +12,7 @@ export default async function HomePage() {
   const dict = await getDictionary();
   const locale = await lang();
   const hrefLocale = isLocale(locale) ? locale : "en";
-  const { hero, company, business, services } = dict.home;
+  const { hero, company, business, services, venezuela } = dict.home;
 
   return (
     <main className={`flex flex-col ${sectionStackGap}`}>
@@ -46,6 +47,14 @@ export default async function HomePage() {
         feature={services.feature}
         items={services.items}
         servicesBasePath={`/${hrefLocale}/services`}
+      />
+      <HomeVenezuelaSection
+        index={venezuela.index}
+        eyebrow={venezuela.eyebrow}
+        title={venezuela.title}
+        body={venezuela.body}
+        ctaLabel={venezuela.cta}
+        ctaHref={`/${hrefLocale}/venezuela`}
       />
     </main>
   );
