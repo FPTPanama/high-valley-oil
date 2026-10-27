@@ -7,10 +7,16 @@ export {
   sectionShell,
   sectionStackGap,
 } from "./general-layout";
+export { HomeBusinessSection } from "./home-business-section";
 export { HomeCompanySection } from "./home-company-section";
 export { HomeHero } from "./home-hero";
 export { HomeLink } from "./home-link";
+export { HomeServicesSection } from "./home-services-section";
+export { HomeVenezuelaSection } from "./home-venezuela-section";
 export { PageHeading } from "./page-heading";
+export { ServicesPageContent } from "./services-page";
+export { VenezuelaHero } from "./venezuela-hero";
+export { VenezuelaPageContent } from "./venezuela-page";
 export { SiteButton } from "./site-button";
 export { SiteFooter } from "./site-footer";
 export { SiteHeader } from "./site-header";

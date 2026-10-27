@@ -25,6 +25,60 @@ export type Dictionary = {
       body: string;
       cta: string;
     };
+    business: {
+      index: string;
+      eyebrow: string;
+      title: string[];
+      subtitle: string[];
+      focuses: {
+        index: string;
+        label: string;
+        lead: string;
+        blocks: { title: string; info: string; icon: string }[];
+      }[];
+    };
+    services: {
+      index: string;
+      eyebrow: string;
+      title: string;
+      body: string;
+      itemAction: string;
+      feature: {
+        title: string;
+        body: string;
+        slug: string;
+      };
+      items: {
+        index: string;
+        title: string;
+        slug: string;
+        icon: string;
+        body: string;
+        points: string[];
+      }[];
+    };
+    venezuela: {
+      index: string;
+      eyebrow: string;
+      title: string;
+      body: string;
+      cta: string;
+    };
+  };
+  servicesPage: {
+    eyebrow: string;
+    title: string;
+    lead: string;
+  };
+  venezuelaPage: {
+    eyebrow: string;
+    title: string[];
+    lead: string;
+    steps: {
+      index: string;
+      title: string;
+      body: string;
+    }[];
   };
   footer: {
     eyebrow: string;
