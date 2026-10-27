@@ -37,6 +37,31 @@ export type Dictionary = {
         blocks: { title: string; info: string; icon: string }[];
       }[];
     };
+    services: {
+      index: string;
+      eyebrow: string;
+      title: string;
+      body: string;
+      itemAction: string;
+      feature: {
+        title: string;
+        body: string;
+        slug: string;
+      };
+      items: {
+        index: string;
+        title: string;
+        slug: string;
+        icon: string;
+        body: string;
+        points: string[];
+      }[];
+    };
+  };
+  servicesPage: {
+    eyebrow: string;
+    title: string;
+    lead: string;
   };
   footer: {
     eyebrow: string;
