@@ -1,7 +1,7 @@
 import { forwardRef, type ReactNode } from "react";
 import { contentFrame, contentInset } from "@/components/general-layout";
 
-export type SiteSectionTone = "canvas" | "ink";
+export type SiteSectionTone = "canvas" | "ink" | "accent";
 
 export type SiteSectionProps = {
   children: ReactNode;
@@ -21,6 +21,7 @@ export type SiteSectionProps = {
 const toneClassName: Record<SiteSectionTone, string> = {
   canvas: "bg-transparent text-ink",
   ink: "bg-ink text-canvas",
+  accent: "bg-accent text-canvas",
 };
 
 /**
@@ -53,7 +54,9 @@ export const SiteSection = forwardRef<HTMLDivElement, SiteSectionProps>(
           ref={ref}
           className={`${contentFrame} overflow-hidden ${toneClassName[tone]} ${frameClassName}`}
         >
-          <div className={`${contentInset} ${contentClassName}`}>{children}</div>
+          <div className={`${contentInset} ${contentClassName}`}>
+            {children}
+          </div>
         </div>
       </section>
     );

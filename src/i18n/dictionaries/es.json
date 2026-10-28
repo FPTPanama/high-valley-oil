@@ -222,6 +222,28 @@
       "title": "Socios locales. Entrega coordinada.",
       "body": "En proyectos en Venezuela, High Valley coordina socios locales especializados para alinear servicios de campo, ingeniería y recursos de suministro a cada compromiso.",
       "cta": "Explorar Venezuela"
+    },
+    "approach": {
+      "index": "05",
+      "eyebrow": "Nuestro enfoque",
+      "title": "Construido alrededor del proyecto.",
+      "steps": [
+        {
+          "index": "01",
+          "title": "Entender la operación",
+          "cta": "Definir el alcance"
+        },
+        {
+          "index": "02",
+          "title": "Conectar las capacidades",
+          "cta": "Alinear ingeniería"
+        },
+        {
+          "index": "03",
+          "title": "Enfocarse en la continuidad",
+          "cta": "Mantener la confiabilidad"
+        }
+      ]
     }
   },
   "servicesPage": {

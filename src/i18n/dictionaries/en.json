@@ -222,6 +222,28 @@
       "title": "Local partners. Coordinated delivery.",
       "body": "For projects in Venezuela, High Valley coordinates specialist local partners to match field services, engineering and supply resources to each engagement.",
       "cta": "Explore Venezuela"
+    },
+    "approach": {
+      "index": "05",
+      "eyebrow": "Our Approach",
+      "title": "Built around the project.",
+      "steps": [
+        {
+          "index": "01",
+          "title": "Understand the operation",
+          "cta": "Define the scope"
+        },
+        {
+          "index": "02",
+          "title": "Connect the capabilities",
+          "cta": "Align engineering"
+        },
+        {
+          "index": "03",
+          "title": "Focus on continuity",
+          "cta": "Maintain reliability"
+        }
+      ]
     }
   },
   "servicesPage": {
