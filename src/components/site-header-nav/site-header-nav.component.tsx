@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import gsap from "gsap";
@@ -8,6 +9,10 @@ import { useGSAP } from "@gsap/react";
 import { Languages } from "lucide-react";
 import { HomeLink } from "@/components/home-link";
 import { locales, type Locale } from "@/i18n/config";
+
+const BRAND_LOGO_SRC = "/images/highvalley_logo.svg";
+const BRAND_LOGO_WIDTH = 160;
+const BRAND_LOGO_HEIGHT = 50;
 
 gsap.registerPlugin(useGSAP);
 
@@ -269,7 +274,6 @@ export function SiteHeaderNav({
           gsap.set(marker, { x: left, y: top, width, autoAlpha: 1 });
           indicatorReady = true;
         }
-
       };
 
       const activeLink = () =>
@@ -335,7 +339,16 @@ export function SiteHeaderNav({
       className="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between"
     >
       <div data-header-item className="shrink-0">
-        <HomeLink href={homeHref}>{brandName}</HomeLink>
+        <HomeLink href={homeHref}>
+          <Image
+            src={BRAND_LOGO_SRC}
+            alt={brandName}
+            width={BRAND_LOGO_WIDTH}
+            height={BRAND_LOGO_HEIGHT}
+            className="h-8 w-auto"
+            priority
+          />
+        </HomeLink>
       </div>
 
       <nav
