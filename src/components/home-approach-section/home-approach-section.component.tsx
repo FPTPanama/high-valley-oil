@@ -6,13 +6,14 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { contentFrame } from "@/components/general-layout";
+import { SiteButton } from "@/components/site-button";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export type HomeApproachStep = {
   index: string;
   title: string;
-  body: string;
+  cta: string;
 };
 
 export type HomeApproachSectionProps = {
@@ -20,15 +21,17 @@ export type HomeApproachSectionProps = {
   eyebrow: string;
   title: string;
   steps: HomeApproachStep[];
+  ctaHref: string;
 };
 
-const TOPO_SRC = "/images/topografic_lines_canvas.svg";
+const TOPO_SRC = "/images/topografic_lines_accent.svg";
 
 export function HomeApproachSection({
   index,
   eyebrow,
   title,
   steps,
+  ctaHref,
 }: HomeApproachSectionProps) {
   const section = useRef<HTMLElement>(null);
   const panel = useRef<HTMLDivElement>(null);
@@ -51,9 +54,9 @@ export function HomeApproachSection({
 
       const tween = gsap.fromTo(
         parallaxEl,
-        { yPercent: -32 },
+        { yPercent: -14 },
         {
-          yPercent: 32,
+          yPercent: 14,
           ease: "none",
           scrollTrigger: {
             trigger: panelEl,
@@ -80,12 +83,12 @@ export function HomeApproachSection({
     >
       <div
         ref={panel}
-        className={`${contentFrame} relative overflow-hidden bg-accent text-canvas`}
+        className={`${contentFrame} relative overflow-hidden bg-transparent text-accent`}
       >
         <div
           ref={parallax}
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-[-45%] z-0 h-[190%] w-full scale-110 will-change-transform"
+          className="pointer-events-none absolute inset-x-0 top-[-12%] z-0 h-[124%] w-full will-change-transform"
         >
           <Image
             src={TOPO_SRC}
@@ -97,10 +100,10 @@ export function HomeApproachSection({
         </div>
 
         <div className="relative z-10 flex flex-col gap-10 p-4 sm:gap-12 sm:p-6 lg:gap-14 lg:p-8">
-          <header className="flex max-w-xl flex-col gap-5 bg-accent p-4 sm:gap-6 sm:p-6 lg:p-8">
+          <header className="flex max-w-xl flex-col gap-5 bg-canvas p-4 sm:gap-6 sm:p-6 lg:p-8">
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em]">
-              <span className="text-canvas">{index}</span>
-              <span className="mx-2 text-canvas/40" aria-hidden="true">
+              <span>{index}</span>
+              <span className="mx-2 text-accent/40" aria-hidden="true">
                 /
               </span>
               {eyebrow}
@@ -117,18 +120,18 @@ export function HomeApproachSection({
             {steps.map((step) => (
               <li
                 key={step.index}
-                className="flex flex-col gap-4 bg-accent p-4 sm:p-6 lg:p-8"
+                className="flex flex-col gap-5 bg-canvas p-4 sm:gap-6 sm:p-6 lg:p-8"
               >
-                <span className="text-[11px] font-semibold tracking-[0.18em] text-canvas">
+                <span className="text-[11px] font-semibold tracking-[0.18em]">
                   {step.index}
                   <span aria-hidden="true"> —</span>
                 </span>
                 <h3 className="text-xl font-light leading-snug tracking-[0.04em] text-balance uppercase sm:text-2xl sm:leading-snug">
                   {step.title}
                 </h3>
-                <p className="text-base font-light leading-relaxed tracking-[0.02em] text-canvas/80 sm:text-lg">
-                  {step.body}
-                </p>
+                <SiteButton href={ctaHref} layout="spread">
+                  {step.cta}
+                </SiteButton>
               </li>
             ))}
           </ol>

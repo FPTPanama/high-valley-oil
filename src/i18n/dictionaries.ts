@@ -71,7 +71,7 @@ export type Dictionary = {
       steps: {
         index: string;
         title: string;
-        body: string;
+        cta: string;
       }[];
     };
   };

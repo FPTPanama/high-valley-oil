@@ -231,17 +231,17 @@
         {
           "index": "01",
           "title": "Understand the operation",
-          "body": "Define the technical scope, operational priorities and commercial objectives before shaping the solution."
+          "cta": "Define the scope"
         },
         {
           "index": "02",
           "title": "Connect the capabilities",
-          "body": "Align engineering, procurement, field services and logistics around the requirements of each project."
+          "cta": "Align engineering"
         },
         {
           "index": "03",
           "title": "Focus on continuity",
-          "body": "Keep operational reliability, safety and environmental considerations central to planning and delivery."
+          "cta": "Maintain reliability"
         }
       ]
     }

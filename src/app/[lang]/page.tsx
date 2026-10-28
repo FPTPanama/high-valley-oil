@@ -69,6 +69,7 @@ export default async function HomePage() {
         eyebrow={approach.eyebrow}
         title={approach.title}
         steps={approach.steps}
+        ctaHref={`/${hrefLocale}/our-business`}
       />
     </main>
   );

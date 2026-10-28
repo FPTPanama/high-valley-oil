@@ -231,17 +231,17 @@
         {
           "index": "01",
           "title": "Entender la operación",
-          "body": "Definir el alcance técnico, las prioridades operativas y los objetivos comerciales antes de dar forma a la solución."
+          "cta": "Definir el alcance"
         },
         {
           "index": "02",
           "title": "Conectar las capacidades",
-          "body": "Alinear ingeniería, procura, servicios de campo y logística alrededor de los requerimientos de cada proyecto."
+          "cta": "Alinear ingeniería"
         },
         {
           "index": "03",
           "title": "Enfocarse en la continuidad",
-          "body": "Mantener la confiabilidad operativa, la seguridad y las consideraciones ambientales en el centro de la planificación y la entrega."
+          "cta": "Mantener la confiabilidad"
         }
       ]
     }
