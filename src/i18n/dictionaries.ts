@@ -80,6 +80,11 @@ export type Dictionary = {
       body: string;
     }[];
   };
+  companyPage: {
+    eyebrow: string;
+    title: string[];
+    lead: string;
+  };
   footer: {
     eyebrow: string;
     headline: string;

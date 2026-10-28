@@ -20,7 +20,7 @@ export function HomeLink({
     <Link
       href={href}
       aria-current={active ? "page" : undefined}
-      className={`text-xs font-black uppercase tracking-[0.18em] text-ink ${linkFocus}`}
+      className={`inline-flex items-center text-ink ${linkFocus}`}
     >
       {children}
     </Link>

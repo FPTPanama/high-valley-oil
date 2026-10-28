@@ -7,6 +7,9 @@ export {
   sectionShell,
   sectionStackGap,
 } from "./general-layout";
+export { CompanyAnimatedPanel } from "./company-animated-panel";
+export { CompanyHero } from "./company-hero";
+export { CompanyPageContent } from "./company-page";
 export { HomeBusinessSection } from "./home-business-section";
 export { HomeCompanySection } from "./home-company-section";
 export { HomeHero } from "./home-hero";

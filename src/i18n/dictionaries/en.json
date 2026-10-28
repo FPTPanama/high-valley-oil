@@ -251,6 +251,11 @@
       }
     ]
   },
+  "companyPage": {
+    "eyebrow": "Our Company",
+    "title": ["A connected view.", "A practical approach."],
+    "lead": "High Valley Oil Production LLC is an energy company focused on oil production, crude commercialization and integrated petroleum services."
+  },
   "footer": {
     "eyebrow": "Your next project.",
     "headline": "Our next conversation.",
