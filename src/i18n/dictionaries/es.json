@@ -292,6 +292,44 @@
     "title": ["Una visión conectada.", "Un enfoque práctico."],
     "lead": "High Valley Oil Production LLC es una empresa energética enfocada en la producción de petróleo, la comercialización de crudo y servicios petroleros integrados."
   },
+  "contactPage": {
+    "eyebrow": "Conectemos",
+    "title": "Cuéntanos sobre tu proyecto.",
+    "submitLabel": "Enviar",
+    "fields": [
+      {
+        "id": "name",
+        "label": "Nombre",
+        "name": "name",
+        "type": "text",
+        "autoComplete": "name",
+        "required": true
+      },
+      {
+        "id": "email",
+        "label": "Email corporativo",
+        "name": "email",
+        "type": "email",
+        "autoComplete": "email",
+        "required": true
+      },
+      {
+        "id": "company",
+        "label": "Empresa",
+        "name": "company",
+        "type": "text",
+        "autoComplete": "organization",
+        "required": true
+      },
+      {
+        "id": "enquiry",
+        "label": "Proyecto o consulta",
+        "name": "enquiry",
+        "type": "textarea",
+        "required": true
+      }
+    ]
+  },
   "footer": {
     "eyebrow": "Tu próximo proyecto.",
     "headline": "Nuestra próxima conversación.",

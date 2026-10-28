@@ -100,6 +100,19 @@ export type Dictionary = {
     title: string[];
     lead: string;
   };
+  contactPage: {
+    eyebrow: string;
+    title: string;
+    submitLabel: string;
+    fields: {
+      id: string;
+      label: string;
+      name: string;
+      type: "text" | "email" | "textarea";
+      autoComplete?: string;
+      required?: boolean;
+    }[];
+  };
   footer: {
     eyebrow: string;
     headline: string;
