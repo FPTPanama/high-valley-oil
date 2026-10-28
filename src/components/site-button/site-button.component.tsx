@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
@@ -7,8 +7,7 @@ const linkFocus =
 
 export type SiteButtonLayout = "gap" | "spread";
 
-export type SiteButtonProps = {
-  href: string;
+type SiteButtonSharedProps = {
   children: ReactNode;
   /** Defaults to ArrowRight. Pass `null` to hide the icon. */
   icon?: ReactNode | null;
@@ -19,6 +18,18 @@ export type SiteButtonProps = {
   layout?: SiteButtonLayout;
   className?: string;
 };
+
+export type SiteButtonProps = SiteButtonSharedProps &
+  (
+    | { href: string; type?: never }
+    | {
+        href?: undefined;
+        type: Extract<
+          ButtonHTMLAttributes<HTMLButtonElement>["type"],
+          "button" | "submit" | "reset"
+        >;
+      }
+  );
 
 function DrawBorder({ edgeClassName }: { edgeClassName: string }) {
   return (
@@ -47,11 +58,11 @@ const layoutClassName: Record<SiteButtonLayout, string> = {
 };
 
 export function SiteButton({
-  href,
   children,
   icon,
   layout = "gap",
   className = "",
+  ...props
 }: SiteButtonProps) {
   const resolvedIcon =
     icon === null
@@ -59,15 +70,27 @@ export function SiteButton({
       : (icon ?? <ArrowRight aria-hidden="true" className="size-4 shrink-0" />);
 
   const borderEdgeClassName = layout === "spread" ? "bg-accent" : "bg-ink";
+  const classNames = `group relative inline-flex items-center bg-accent px-5 py-3 text-[13px] font-medium tracking-wide text-canvas uppercase ${layoutClassName[layout]} ${linkFocus} ${className}`;
 
-  return (
-    <Link
-      href={href}
-      className={`group relative inline-flex items-center bg-accent px-5 py-3 text-[13px] font-medium tracking-wide text-canvas uppercase ${layoutClassName[layout]} ${linkFocus} ${className}`}
-    >
+  const content = (
+    <>
       <DrawBorder edgeClassName={borderEdgeClassName} />
       <span className="min-w-0 text-left">{children}</span>
       {resolvedIcon}
-    </Link>
+    </>
+  );
+
+  if ("href" in props && props.href) {
+    return (
+      <Link href={props.href} className={classNames}>
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <button type={props.type} className={classNames}>
+      {content}
+    </button>
   );
 }

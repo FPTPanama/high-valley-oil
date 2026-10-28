@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageHeading } from "@/components/page-heading";
+import { ContactPageContent } from "@/components/contact-page";
 import { getDictionary } from "@/i18n/dictionaries";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -10,6 +10,14 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function ContactPage() {
   const dict = await getDictionary();
+  const { contactPage } = dict;
 
-  return <PageHeading title={dict.nav.contact} />;
+  return (
+    <ContactPageContent
+      eyebrow={contactPage.eyebrow}
+      title={contactPage.title}
+      fields={contactPage.fields}
+      submitLabel={contactPage.submitLabel}
+    />
+  );
 }

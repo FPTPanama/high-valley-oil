@@ -10,6 +10,7 @@ export {
 export { CompanyAnimatedPanel } from "./company-animated-panel";
 export { CompanyHero } from "./company-hero";
 export { CompanyPageContent } from "./company-page";
+export { ContactPageContent } from "./contact-page";
 export { HomeApproachSection } from "./home-approach-section";
 export { HomeBusinessSection } from "./home-business-section";
 export { HomeCompanySection } from "./home-company-section";
