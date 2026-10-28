@@ -251,6 +251,20 @@
       }
     ]
   },
+  "venezuelaFieldToMarket": {
+    "eyebrow": "From field to market",
+    "lines": [
+      "Technical understanding.",
+      "Commercial perspective.",
+      "Connected execution."
+    ],
+    "stages": [
+      "Field development",
+      "Production & services",
+      "Logistics",
+      "Market"
+    ]
+  },
   "companyPage": {
     "eyebrow": "Our Company",
     "title": ["A connected view.", "A practical approach."],

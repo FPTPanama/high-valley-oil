@@ -5,6 +5,7 @@ import { HomeCompanySection } from "@/components/home-company-section";
 import { HomeHero } from "@/components/home-hero";
 import { HomeServicesSection } from "@/components/home-services-section";
 import { HomeVenezuelaSection } from "@/components/home-venezuela-section";
+import { VenezuelaFieldToMarket } from "@/components/venezuela-field-to-market";
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 
@@ -13,6 +14,7 @@ export default async function HomePage() {
   const locale = await lang();
   const hrefLocale = isLocale(locale) ? locale : "en";
   const { hero, company, business, services, venezuela } = dict.home;
+  const { venezuelaFieldToMarket } = dict;
 
   return (
     <main className={`flex flex-col ${sectionStackGap}`}>
@@ -55,6 +57,11 @@ export default async function HomePage() {
         body={venezuela.body}
         ctaLabel={venezuela.cta}
         ctaHref={`/${hrefLocale}/venezuela`}
+      />
+      <VenezuelaFieldToMarket
+        eyebrow={venezuelaFieldToMarket.eyebrow}
+        lines={venezuelaFieldToMarket.lines}
+        stages={venezuelaFieldToMarket.stages}
       />
     </main>
   );

@@ -80,6 +80,11 @@ export type Dictionary = {
       body: string;
     }[];
   };
+  venezuelaFieldToMarket: {
+    eyebrow: string;
+    lines: string[];
+    stages: string[];
+  };
   companyPage: {
     eyebrow: string;
     title: string[];
