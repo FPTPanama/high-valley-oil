@@ -64,6 +64,16 @@ export type Dictionary = {
       body: string;
       cta: string;
     };
+    approach: {
+      index: string;
+      eyebrow: string;
+      title: string;
+      steps: {
+        index: string;
+        title: string;
+        body: string;
+      }[];
+    };
   };
   servicesPage: {
     eyebrow: string;

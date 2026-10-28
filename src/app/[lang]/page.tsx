@@ -3,6 +3,7 @@ import { sectionStackGap } from "@/components/general-layout";
 import { HomeBusinessSection } from "@/components/home-business-section";
 import { HomeCompanySection } from "@/components/home-company-section";
 import { HomeHero } from "@/components/home-hero";
+import { HomeApproachSection } from "@/components/home-approach-section";
 import { HomeServicesSection } from "@/components/home-services-section";
 import { HomeVenezuelaSection } from "@/components/home-venezuela-section";
 import { VenezuelaFieldToMarket } from "@/components/venezuela-field-to-market";
@@ -13,7 +14,7 @@ export default async function HomePage() {
   const dict = await getDictionary();
   const locale = await lang();
   const hrefLocale = isLocale(locale) ? locale : "en";
-  const { hero, company, business, services, venezuela } = dict.home;
+  const { hero, company, business, services, approach, venezuela } = dict.home;
   const { venezuelaFieldToMarket } = dict;
 
   return (
@@ -62,6 +63,12 @@ export default async function HomePage() {
         eyebrow={venezuelaFieldToMarket.eyebrow}
         lines={venezuelaFieldToMarket.lines}
         stages={venezuelaFieldToMarket.stages}
+      />
+      <HomeApproachSection
+        index={approach.index}
+        eyebrow={approach.eyebrow}
+        title={approach.title}
+        steps={approach.steps}
       />
     </main>
   );
