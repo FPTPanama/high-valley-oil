@@ -5,44 +5,68 @@ import { ArrowRight } from "lucide-react";
 const linkFocus =
   "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
 
+export type SiteButtonLayout = "gap" | "spread";
+
 export type SiteButtonProps = {
   href: string;
   children: ReactNode;
   /** Defaults to ArrowRight. Pass `null` to hide the icon. */
   icon?: ReactNode | null;
+  /**
+   * `gap` — icon separates with a growing hover gap (default).
+   * `spread` — full-width; `justify-start` at rest, `justify-between` on hover.
+   */
+  layout?: SiteButtonLayout;
   className?: string;
 };
 
-function DrawBorder() {
+function DrawBorder({ edgeClassName }: { edgeClassName: string }) {
   return (
     <span aria-hidden="true" className="pointer-events-none absolute inset-0">
       {/* Clockwise draw on enter; reverse on leave via delay swap */}
-      <span className="absolute top-0 left-0 h-px w-full origin-left scale-x-0 bg-ink transition-transform delay-300 duration-100 ease-linear group-hover:scale-x-100 group-hover:delay-0" />
-      <span className="absolute top-0 right-0 h-full w-px origin-top scale-y-0 bg-ink transition-transform delay-200 duration-100 ease-linear group-hover:scale-y-100 group-hover:delay-100" />
-      <span className="absolute bottom-0 left-0 h-px w-full origin-right scale-x-0 bg-ink transition-transform delay-100 duration-100 ease-linear group-hover:scale-x-100 group-hover:delay-200" />
-      <span className="absolute top-0 left-0 h-full w-px origin-bottom scale-y-0 bg-ink transition-transform delay-0 duration-100 ease-linear group-hover:scale-y-100 group-hover:delay-300" />
+      <span
+        className={`absolute top-0 left-0 h-px w-full origin-left scale-x-0 transition-transform delay-300 duration-100 ease-linear group-hover:scale-x-100 group-hover:delay-0 ${edgeClassName}`}
+      />
+      <span
+        className={`absolute top-0 right-0 h-full w-px origin-top scale-y-0 transition-transform delay-200 duration-100 ease-linear group-hover:scale-y-100 group-hover:delay-100 ${edgeClassName}`}
+      />
+      <span
+        className={`absolute bottom-0 left-0 h-px w-full origin-right scale-x-0 transition-transform delay-100 duration-100 ease-linear group-hover:scale-x-100 group-hover:delay-200 ${edgeClassName}`}
+      />
+      <span
+        className={`absolute top-0 left-0 h-full w-px origin-bottom scale-y-0 transition-transform delay-0 duration-100 ease-linear group-hover:scale-y-100 group-hover:delay-300 ${edgeClassName}`}
+      />
     </span>
   );
 }
+
+const layoutClassName: Record<SiteButtonLayout, string> = {
+  gap: "gap-3 transition-[gap,background-color,color] duration-100 hover:gap-24 hover:bg-canvas hover:text-ink sm:hover:gap-32",
+  spread:
+    "w-full justify-start gap-3 transition-[background-color,color,justify-content] duration-100 hover:justify-between hover:bg-canvas hover:text-accent",
+};
 
 export function SiteButton({
   href,
   children,
   icon,
+  layout = "gap",
   className = "",
 }: SiteButtonProps) {
   const resolvedIcon =
-    icon === null ? null : (icon ?? (
-      <ArrowRight aria-hidden="true" className="size-4 shrink-0" />
-    ));
+    icon === null
+      ? null
+      : (icon ?? <ArrowRight aria-hidden="true" className="size-4 shrink-0" />);
+
+  const borderEdgeClassName = layout === "spread" ? "bg-accent" : "bg-ink";
 
   return (
     <Link
       href={href}
-      className={`group relative inline-flex items-center gap-3 bg-accent px-5 py-3 text-[13px] font-medium tracking-wide text-ink uppercase transition-[gap,background-color] duration-100 hover:gap-24 hover:bg-canvas sm:hover:gap-32 ${linkFocus} ${className}`}
+      className={`group relative inline-flex items-center bg-accent px-5 py-3 text-[13px] font-medium tracking-wide text-canvas uppercase ${layoutClassName[layout]} ${linkFocus} ${className}`}
     >
-      <DrawBorder />
-      {children}
+      <DrawBorder edgeClassName={borderEdgeClassName} />
+      <span className="min-w-0 text-left">{children}</span>
       {resolvedIcon}
     </Link>
   );

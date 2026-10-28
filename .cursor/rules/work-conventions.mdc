@@ -27,7 +27,7 @@ Solo la paleta 60/30/10, con los tokens de `src/app/globals.css`:
 
 - `canvas` (60%) `#f3f3f3` — fondo, y texto colocado sobre `ink`
 - `ink` (30%) `#172B2D` — texto sobre `canvas`, y superficies como la barra
-- `accent` (10%) `#E5C376` — estado activo, foco y acentos. Nunca como texto corrido sobre `canvas`
+- `accent` (10%) `#aa5900` — estado activo, foco y acentos. Nunca como texto corrido sobre `canvas`
 
 No introducir otros hex ni colores de Tailwind (`bg-red-500`, `text-black`). Sí se puede variar la opacidad de un token (`text-canvas/80`).
 
@@ -36,7 +36,8 @@ No introducir otros hex ni colores de Tailwind (`bg-red-500`, `text-black`). Sí
 Los CTA de producto usan `SiteButton` (`src/components/site-button`):
 
 - Relleno `accent` en reposo; en hover pasa a `canvas` mientras una línea `ink` recorre el perímetro hasta cerrar el borde.
-- El gap label ↔ icono se abre con fuerza en hover (`duration-100`).
+- Layout `gap` (default): el gap label ↔ icono se abre con fuerza en hover (`duration-100`).
+- Layout `spread`: ancho completo; en reposo `justify-start`, en hover `justify-between` (útil en cards estrechas).
 - Icono por defecto: `ArrowRight`. No reinventar este hover en botones sueltos.
 
 ## Scroll

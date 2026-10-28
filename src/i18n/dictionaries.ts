@@ -64,6 +64,16 @@ export type Dictionary = {
       body: string;
       cta: string;
     };
+    approach: {
+      index: string;
+      eyebrow: string;
+      title: string;
+      steps: {
+        index: string;
+        title: string;
+        cta: string;
+      }[];
+    };
   };
   servicesPage: {
     eyebrow: string;
@@ -79,6 +89,16 @@ export type Dictionary = {
       title: string;
       body: string;
     }[];
+  };
+  venezuelaFieldToMarket: {
+    eyebrow: string;
+    lines: string[];
+    stages: string[];
+  };
+  companyPage: {
+    eyebrow: string;
+    title: string[];
+    lead: string;
   };
   footer: {
     eyebrow: string;
