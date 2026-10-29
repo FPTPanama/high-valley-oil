@@ -77,8 +77,34 @@ export type Dictionary = {
   };
   servicesPage: {
     eyebrow: string;
-    title: string;
+    title: string[];
     lead: string;
+  };
+  businessPage: {
+    eyebrow: string;
+    title: string[];
+    lead: string;
+    intro: {
+      eyebrow: string;
+      title: string;
+      body: string;
+    };
+    focusesEyebrow: string;
+    method: {
+      eyebrow: string;
+      title: string;
+      steps: {
+        index: string;
+        title: string;
+        body: string;
+      }[];
+    };
+    cta: {
+      eyebrow: string;
+      title: string;
+      body: string;
+      label: string;
+    };
   };
   venezuelaPage: {
     eyebrow: string;
@@ -99,6 +125,50 @@ export type Dictionary = {
     eyebrow: string;
     title: string[];
     lead: string;
+    intro: {
+      eyebrow: string;
+      title: string;
+      body: string;
+      ctaLabel: string;
+    };
+    principles: {
+      index: string;
+      eyebrow: string;
+      title: string;
+      items: {
+        index: string;
+        title: string;
+        cta: string;
+      }[];
+    };
+    presence: {
+      eyebrow: string;
+      title: string;
+      body: string;
+      points: {
+        title: string;
+        body: string;
+      }[];
+    };
+    cta: {
+      eyebrow: string;
+      title: string;
+      body: string;
+      label: string;
+    };
+  };
+  contactPage: {
+    eyebrow: string;
+    title: string;
+    submitLabel: string;
+    fields: {
+      id: string;
+      label: string;
+      name: string;
+      type: "text" | "email" | "textarea";
+      autoComplete?: string;
+      required?: boolean;
+    }[];
   };
   footer: {
     eyebrow: string;
@@ -116,8 +186,14 @@ export type Dictionary = {
 };
 
 const dictionaries: Record<Locale, () => Promise<Dictionary>> = {
-  en: () => import("./dictionaries/en.json").then((module) => module.default),
-  es: () => import("./dictionaries/es.json").then((module) => module.default),
+  en: () =>
+    import("./dictionaries/en.json").then(
+      (module) => module.default as Dictionary,
+    ),
+  es: () =>
+    import("./dictionaries/es.json").then(
+      (module) => module.default as Dictionary,
+    ),
 };
 
 export function loadDictionary(locale: Locale) {

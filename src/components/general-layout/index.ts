@@ -6,4 +6,3 @@ export {
   sectionShell,
   sectionStackGap,
 } from "./general-layout.component";
-

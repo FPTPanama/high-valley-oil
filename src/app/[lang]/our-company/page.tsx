@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
+import { lang } from "next/root-params";
 import { sectionStackGap } from "@/components/general-layout";
-import { CompanyHero } from "@/components/company-hero";
-import { CompanyPageContent } from "@/components/company-page";
+import { CompanyPageIntro } from "@/components/company-page-intro";
+import { CompanyPageLead } from "@/components/company-page-lead";
+import { CompanyPagePresence } from "@/components/company-page-presence";
+import { CompanyPagePrinciples } from "@/components/company-page-principles";
+import { PageHero } from "@/components/page-hero";
+import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -12,22 +17,35 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function OurCompanyPage() {
   const dict = await getDictionary();
+  const locale = await lang();
+  const hrefLocale = isLocale(locale) ? locale : "en";
   const { companyPage } = dict;
-  const { company } = dict.home;
 
   return (
     <main className={`flex flex-col ${sectionStackGap}`}>
-      <CompanyHero
+      <PageHero
         eyebrow={companyPage.eyebrow}
         title={companyPage.title}
         subtitle={companyPage.lead}
       />
-      <CompanyPageContent
-        index={company.index}
-        eyebrow={company.eyebrow}
-        title={company.title}
-        lead={company.lead}
-        body={company.body}
+      <CompanyPageIntro title={companyPage.intro.title} />
+      <CompanyPageLead
+        body={companyPage.intro.body}
+        ctaLabel={companyPage.intro.ctaLabel}
+        ctaHref={`/${hrefLocale}/contact`}
+      />
+      <CompanyPagePrinciples
+        index={companyPage.principles.index}
+        eyebrow={companyPage.principles.eyebrow}
+        title={companyPage.principles.title}
+        items={companyPage.principles.items}
+        ctaHref={`/${hrefLocale}/contact`}
+      />
+      <CompanyPagePresence
+        eyebrow={companyPage.presence.eyebrow}
+        title={companyPage.presence.title}
+        body={companyPage.presence.body}
+        points={companyPage.presence.points}
       />
     </main>
   );

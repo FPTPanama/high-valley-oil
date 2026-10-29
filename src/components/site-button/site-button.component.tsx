@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
@@ -6,9 +6,9 @@ const linkFocus =
   "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
 
 export type SiteButtonLayout = "gap" | "spread";
+export type SiteButtonTone = "accent" | "ink";
 
-export type SiteButtonProps = {
-  href: string;
+type SiteButtonSharedProps = {
   children: ReactNode;
   /** Defaults to ArrowRight. Pass `null` to hide the icon. */
   icon?: ReactNode | null;
@@ -17,8 +17,22 @@ export type SiteButtonProps = {
    * `spread` — full-width; `justify-start` at rest, `justify-between` on hover.
    */
   layout?: SiteButtonLayout;
+  /** Fill color at rest. Defaults to `accent`. */
+  tone?: SiteButtonTone;
   className?: string;
 };
+
+export type SiteButtonProps = SiteButtonSharedProps &
+  (
+    | { href: string; type?: never }
+    | {
+        href?: undefined;
+        type: Extract<
+          ButtonHTMLAttributes<HTMLButtonElement>["type"],
+          "button" | "submit" | "reset"
+        >;
+      }
+  );
 
 function DrawBorder({ edgeClassName }: { edgeClassName: string }) {
   return (
@@ -41,33 +55,75 @@ function DrawBorder({ edgeClassName }: { edgeClassName: string }) {
 }
 
 const layoutClassName: Record<SiteButtonLayout, string> = {
-  gap: "gap-3 transition-[gap,background-color,color] duration-100 hover:gap-24 hover:bg-canvas hover:text-ink sm:hover:gap-32",
+  gap: "gap-3 transition-[gap,background-color,color] duration-100 hover:gap-24 sm:hover:gap-32",
   spread:
-    "w-full justify-start gap-3 transition-[background-color,color,justify-content] duration-100 hover:justify-between hover:bg-canvas hover:text-accent",
+    "w-full justify-start gap-3 transition-[background-color,color,justify-content] duration-100 hover:justify-between",
+};
+
+const toneClassName: Record<
+  SiteButtonTone,
+  { rest: string; hover: string; border: string }
+> = {
+  accent: {
+    rest: "bg-accent text-canvas",
+    hover: "hover:bg-canvas hover:text-ink",
+    border: "bg-ink",
+  },
+  ink: {
+    rest: "bg-ink text-canvas",
+    hover: "hover:bg-canvas hover:text-ink",
+    border: "bg-ink",
+  },
+};
+
+/** Spread hover text matches the fill tone (accent stays accent; ink stays ink). */
+const spreadHoverTextClassName: Record<SiteButtonTone, string> = {
+  accent: "hover:text-accent",
+  ink: "hover:text-ink",
 };
 
 export function SiteButton({
-  href,
   children,
   icon,
   layout = "gap",
+  tone = "accent",
   className = "",
+  ...props
 }: SiteButtonProps) {
   const resolvedIcon =
     icon === null
       ? null
       : (icon ?? <ArrowRight aria-hidden="true" className="size-4 shrink-0" />);
 
-  const borderEdgeClassName = layout === "spread" ? "bg-accent" : "bg-ink";
+  const toneStyles = toneClassName[tone];
+  const borderEdgeClassName =
+    layout === "spread" && tone === "accent" ? "bg-accent" : toneStyles.border;
+  const hoverClassName =
+    layout === "spread"
+      ? `hover:bg-canvas ${spreadHoverTextClassName[tone]}`
+      : toneStyles.hover;
 
-  return (
-    <Link
-      href={href}
-      className={`group relative inline-flex items-center bg-accent px-5 py-3 text-[13px] font-medium tracking-wide text-canvas uppercase ${layoutClassName[layout]} ${linkFocus} ${className}`}
-    >
+  const classNames = `group relative inline-flex items-center px-5 py-3 text-[13px] font-medium tracking-wide uppercase ${toneStyles.rest} ${layoutClassName[layout]} ${hoverClassName} ${linkFocus} ${className}`;
+
+  const content = (
+    <>
       <DrawBorder edgeClassName={borderEdgeClassName} />
       <span className="min-w-0 text-left">{children}</span>
       {resolvedIcon}
-    </Link>
+    </>
+  );
+
+  if ("href" in props && props.href) {
+    return (
+      <Link href={props.href} className={classNames}>
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <button type={props.type} className={classNames}>
+      {content}
+    </button>
   );
 }

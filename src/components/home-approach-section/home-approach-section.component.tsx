@@ -120,18 +120,22 @@ export function HomeApproachSection({
             {steps.map((step) => (
               <li
                 key={step.index}
-                className="flex flex-col gap-5 bg-canvas p-4 sm:gap-6 sm:p-6 lg:p-8"
+                className="flex h-full flex-col gap-5 bg-canvas p-4 sm:gap-6 sm:p-6 lg:p-8"
               >
-                <span className="text-[11px] font-semibold tracking-[0.18em]">
-                  {step.index}
-                  <span aria-hidden="true"> —</span>
-                </span>
-                <h3 className="text-xl font-light leading-snug tracking-[0.04em] text-balance uppercase sm:text-2xl sm:leading-snug">
-                  {step.title}
-                </h3>
-                <SiteButton href={ctaHref} layout="spread">
-                  {step.cta}
-                </SiteButton>
+                <div className="flex flex-col gap-5 sm:gap-6">
+                  <span className="text-[11px] font-semibold tracking-[0.18em]">
+                    {step.index}
+                    <span aria-hidden="true"> —</span>
+                  </span>
+                  <h3 className="text-xl font-light leading-snug tracking-[0.04em] text-balance uppercase sm:text-2xl sm:leading-snug">
+                    {step.title}
+                  </h3>
+                </div>
+                <div className="mt-auto">
+                  <SiteButton href={ctaHref} layout="spread">
+                    {step.cta}
+                  </SiteButton>
+                </div>
               </li>
             ))}
           </ol>

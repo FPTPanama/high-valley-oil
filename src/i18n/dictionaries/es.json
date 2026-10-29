@@ -248,8 +248,46 @@
   },
   "servicesPage": {
     "eyebrow": "Servicios",
-    "title": "Servicios técnicos",
+    "title": ["Servicios técnicos."],
     "lead": "Capacidades especializadas coordinadas para el alcance de cada proyecto."
+  },
+  "businessPage": {
+    "eyebrow": "Nuestro negocio",
+    "title": ["A lo largo de la cadena", "de valor energética."],
+    "lead": "Cuatro áreas de enfoque conectadas. Una perspectiva coordinada.",
+    "intro": {
+      "eyebrow": "Perspectiva conectada",
+      "title": "De las decisiones de campo a la entrega al mercado.",
+      "body": "High Valley reúne producción, comercialización, servicios y logística en una visión coordinada—para que cada proyecto avance con prioridades más claras y una ejecución práctica."
+    },
+    "focusesEyebrow": "Áreas de enfoque",
+    "method": {
+      "eyebrow": "Cómo trabajamos",
+      "title": "Construido alrededor del proyecto.",
+      "steps": [
+        {
+          "index": "01",
+          "title": "Entender la operación",
+          "body": "Definir el alcance técnico, las prioridades operativas y los objetivos comerciales antes de dar forma a la solución."
+        },
+        {
+          "index": "02",
+          "title": "Conectar las capacidades",
+          "body": "Alinear ingeniería, procura, servicios de campo y logística alrededor de los requerimientos de cada proyecto."
+        },
+        {
+          "index": "03",
+          "title": "Enfocarse en la continuidad",
+          "body": "Mantener la confiabilidad operativa, la seguridad y las consideraciones ambientales en el centro de la planificación y la entrega."
+        }
+      ]
+    },
+    "cta": {
+      "eyebrow": "Siguiente paso",
+      "title": "Hablemos de tu proyecto.",
+      "body": "Comparte el alcance, las restricciones y las prioridades—y ayudamos a alinear las capacidades adecuadas.",
+      "label": "Iniciar una conversación"
+    }
   },
   "venezuelaPage": {
     "eyebrow": "Venezuela / Entrega de proyectos",
@@ -290,7 +328,94 @@
   "companyPage": {
     "eyebrow": "Nuestra empresa",
     "title": ["Una visión conectada.", "Un enfoque práctico."],
-    "lead": "High Valley Oil Production LLC es una empresa energética enfocada en la producción de petróleo, la comercialización de crudo y servicios petroleros integrados."
+    "lead": "High Valley Oil Production LLC es una empresa energética enfocada en la producción de petróleo, la comercialización de crudo y servicios petroleros integrados.",
+    "intro": {
+      "eyebrow": "Quiénes somos",
+      "title": "Pensamiento técnico, comercial y logístico en un solo lugar.",
+      "body": "Reunimos realidades de campo, requerimientos de mercado y restricciones de entrega en la misma conversación—para que los proyectos avancen con prioridades más claras y un camino práctico del plan a la ejecución.",
+      "ctaLabel": "Iniciar una conversación"
+    },
+    "principles": {
+      "index": "02",
+      "eyebrow": "Cómo operamos",
+      "title": "Una forma de trabajar conectada.",
+      "items": [
+        {
+          "index": "01",
+          "title": "Perspectiva conectada",
+          "cta": "Alinear la visión"
+        },
+        {
+          "index": "02",
+          "title": "Entrega práctica",
+          "cta": "Dar forma al alcance"
+        },
+        {
+          "index": "03",
+          "title": "Ejecución coordinada",
+          "cta": "Coordinar la entrega"
+        }
+      ]
+    },
+    "presence": {
+      "eyebrow": "Dónde trabajamos",
+      "title": "Base internacional. Entrega local.",
+      "body": "Con sede en Wilmington, Delaware, y un modelo de entrega enfocado en proyectos de oil and gas en Venezuela—coordinando socios locales especializados alrededor de cada alcance.",
+      "points": [
+        {
+          "title": "Estados Unidos",
+          "body": "Base corporativa en Wilmington, Delaware, para coordinación comercial y seguimiento de proyectos."
+        },
+        {
+          "title": "Venezuela",
+          "body": "Coordinación en campo de servicios, ingeniería y recursos de suministro ajustados a cada proyecto."
+        }
+      ]
+    },
+    "cta": {
+      "eyebrow": "Siguiente paso",
+      "title": "Empecemos por el proyecto.",
+      "body": "Comparte el alcance y las prioridades—y ayudamos a enmarcar el camino técnico y comercial adecuado.",
+      "label": "Iniciar una conversación"
+    }
+  },
+  "contactPage": {
+    "eyebrow": "Conectemos",
+    "title": "Cuéntanos sobre tu proyecto.",
+    "submitLabel": "Enviar",
+    "fields": [
+      {
+        "id": "name",
+        "label": "Nombre",
+        "name": "name",
+        "type": "text",
+        "autoComplete": "name",
+        "required": true
+      },
+      {
+        "id": "email",
+        "label": "Email corporativo",
+        "name": "email",
+        "type": "email",
+        "autoComplete": "email",
+        "required": true
+      },
+      {
+        "id": "company",
+        "label": "Empresa",
+        "name": "company",
+        "type": "text",
+        "autoComplete": "organization",
+        "required": true
+      },
+      {
+        "id": "enquiry",
+        "label": "Proyecto o consulta",
+        "name": "enquiry",
+        "type": "textarea",
+        "required": true
+      }
+    ]
   },
   "footer": {
     "eyebrow": "Tu próximo proyecto.",
