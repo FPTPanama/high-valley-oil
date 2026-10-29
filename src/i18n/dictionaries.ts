@@ -141,6 +141,13 @@ export type Dictionary = {
         cta: string;
       }[];
     };
+    feature: {
+      title: string;
+      body: string;
+      caption: string;
+      action: string;
+      slug: string;
+    };
     presence: {
       eyebrow: string;
       title: string;
