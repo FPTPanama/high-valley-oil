@@ -186,8 +186,14 @@ export type Dictionary = {
 };
 
 const dictionaries: Record<Locale, () => Promise<Dictionary>> = {
-  en: () => import("./dictionaries/en.json").then((module) => module.default),
-  es: () => import("./dictionaries/es.json").then((module) => module.default),
+  en: () =>
+    import("./dictionaries/en.json").then(
+      (module) => module.default as Dictionary,
+    ),
+  es: () =>
+    import("./dictionaries/es.json").then(
+      (module) => module.default as Dictionary,
+    ),
 };
 
 export function loadDictionary(locale: Locale) {

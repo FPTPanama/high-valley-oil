@@ -185,11 +185,7 @@ export function HomeBusinessSection({
           .to(right, { scaleY: 1, duration: edgeDuration, ease: "none" })
           .to(bottom, { scaleX: 1, duration: edgeDuration, ease: "none" })
           .to(left, { scaleY: 1, duration: edgeDuration, ease: "none" })
-          .to(
-            content,
-            { opacity: 1, y: 0, duration: 1.4, ease: "none" },
-            0.15,
-          );
+          .to(content, { opacity: 1, y: 0, duration: 1.4, ease: "none" }, 0.15);
 
         return tl;
       });
