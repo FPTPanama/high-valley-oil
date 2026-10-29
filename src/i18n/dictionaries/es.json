@@ -328,7 +328,55 @@
   "companyPage": {
     "eyebrow": "Nuestra empresa",
     "title": ["Una visión conectada.", "Un enfoque práctico."],
-    "lead": "High Valley Oil Production LLC es una empresa energética enfocada en la producción de petróleo, la comercialización de crudo y servicios petroleros integrados."
+    "lead": "High Valley Oil Production LLC es una empresa energética enfocada en la producción de petróleo, la comercialización de crudo y servicios petroleros integrados.",
+    "intro": {
+      "eyebrow": "Quiénes somos",
+      "title": "Pensamiento técnico, comercial y logístico en un solo lugar.",
+      "body": "Reunimos realidades de campo, requerimientos de mercado y restricciones de entrega en la misma conversación—para que los proyectos avancen con prioridades más claras y un camino práctico del plan a la ejecución."
+    },
+    "principles": {
+      "index": "02",
+      "eyebrow": "Cómo operamos",
+      "title": "Una forma de trabajar conectada.",
+      "items": [
+        {
+          "index": "01",
+          "title": "Perspectiva conectada",
+          "cta": "Alinear la visión"
+        },
+        {
+          "index": "02",
+          "title": "Entrega práctica",
+          "cta": "Dar forma al alcance"
+        },
+        {
+          "index": "03",
+          "title": "Ejecución coordinada",
+          "cta": "Coordinar la entrega"
+        }
+      ]
+    },
+    "presence": {
+      "eyebrow": "Dónde trabajamos",
+      "title": "Base internacional. Entrega local.",
+      "body": "Con sede en Wilmington, Delaware, y un modelo de entrega enfocado en proyectos de oil and gas en Venezuela—coordinando socios locales especializados alrededor de cada alcance.",
+      "points": [
+        {
+          "title": "Estados Unidos",
+          "body": "Base corporativa en Wilmington, Delaware, para coordinación comercial y seguimiento de proyectos."
+        },
+        {
+          "title": "Venezuela",
+          "body": "Coordinación en campo de servicios, ingeniería y recursos de suministro ajustados a cada proyecto."
+        }
+      ]
+    },
+    "cta": {
+      "eyebrow": "Siguiente paso",
+      "title": "Empecemos por el proyecto.",
+      "body": "Comparte el alcance y las prioridades—y ayudamos a enmarcar el camino técnico y comercial adecuado.",
+      "label": "Iniciar una conversación"
+    }
   },
   "contactPage": {
     "eyebrow": "Conectemos",

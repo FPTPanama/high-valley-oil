@@ -328,7 +328,55 @@
   "companyPage": {
     "eyebrow": "Our Company",
     "title": ["A connected view.", "A practical approach."],
-    "lead": "High Valley Oil Production LLC is an energy company focused on oil production, crude commercialization and integrated petroleum services."
+    "lead": "High Valley Oil Production LLC is an energy company focused on oil production, crude commercialization and integrated petroleum services.",
+    "intro": {
+      "eyebrow": "Who we are",
+      "title": "Technical, commercial and logistical thinking in one place.",
+      "body": "We bring field realities, market requirements and delivery constraints into the same conversation—so projects move with clearer priorities and a practical path from planning to execution."
+    },
+    "principles": {
+      "index": "02",
+      "eyebrow": "How we operate",
+      "title": "A connected way of working.",
+      "items": [
+        {
+          "index": "01",
+          "title": "Connected perspective",
+          "cta": "Align the view"
+        },
+        {
+          "index": "02",
+          "title": "Practical delivery",
+          "cta": "Shape the scope"
+        },
+        {
+          "index": "03",
+          "title": "Coordinated execution",
+          "cta": "Coordinate delivery"
+        }
+      ]
+    },
+    "presence": {
+      "eyebrow": "Where we work",
+      "title": "International base. Local delivery.",
+      "body": "Headquartered in Wilmington, Delaware, with a focused delivery model for oil and gas projects in Venezuela—coordinating specialist local partners around each scope.",
+      "points": [
+        {
+          "title": "United States",
+          "body": "Corporate base in Wilmington, Delaware, for commercial coordination and project oversight."
+        },
+        {
+          "title": "Venezuela",
+          "body": "On-the-ground coordination of field services, engineering and supply resources matched to each project."
+        }
+      ]
+    },
+    "cta": {
+      "eyebrow": "Next step",
+      "title": "Start with the project.",
+      "body": "Share the scope and priorities—and we will help frame the right technical and commercial path.",
+      "label": "Start a conversation"
+    }
   },
   "contactPage": {
     "eyebrow": "Let's connect",
