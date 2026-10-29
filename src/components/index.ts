@@ -15,6 +15,7 @@ export { CompanyAnimatedPanel } from "./company-animated-panel";
 export { CompanyHero } from "./company-hero";
 export { CompanyPageContent } from "./company-page";
 export { CompanyPageCta } from "./company-page-cta";
+export { CompanyPageFeature } from "./company-page-feature";
 export { CompanyPageIntro } from "./company-page-intro";
 export { CompanyPageLead } from "./company-page-lead";
 export { CompanyPagePresence } from "./company-page-presence";
