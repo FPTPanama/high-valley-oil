@@ -77,8 +77,34 @@ export type Dictionary = {
   };
   servicesPage: {
     eyebrow: string;
-    title: string;
+    title: string[];
     lead: string;
+  };
+  businessPage: {
+    eyebrow: string;
+    title: string[];
+    lead: string;
+    intro: {
+      eyebrow: string;
+      title: string;
+      body: string;
+    };
+    focusesEyebrow: string;
+    method: {
+      eyebrow: string;
+      title: string;
+      steps: {
+        index: string;
+        title: string;
+        body: string;
+      }[];
+    };
+    cta: {
+      eyebrow: string;
+      title: string;
+      body: string;
+      label: string;
+    };
   };
   venezuelaPage: {
     eyebrow: string;

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { sectionStackGap } from "@/components/general-layout";
-import { CompanyHero } from "@/components/company-hero";
 import { CompanyPageContent } from "@/components/company-page";
+import { PageHero } from "@/components/page-hero";
 import { getDictionary } from "@/i18n/dictionaries";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -17,7 +17,7 @@ export default async function OurCompanyPage() {
 
   return (
     <main className={`flex flex-col ${sectionStackGap}`}>
-      <CompanyHero
+      <PageHero
         eyebrow={companyPage.eyebrow}
         title={companyPage.title}
         subtitle={companyPage.lead}

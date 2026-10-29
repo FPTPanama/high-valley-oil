@@ -7,6 +7,10 @@ export {
   sectionShell,
   sectionStackGap,
 } from "./general-layout";
+export { BusinessPageCta } from "./business-page-cta";
+export { BusinessPageFocuses } from "./business-page-focuses";
+export { BusinessPageIntro } from "./business-page-intro";
+export { BusinessPageMethod } from "./business-page-method";
 export { CompanyAnimatedPanel } from "./company-animated-panel";
 export { CompanyHero } from "./company-hero";
 export { CompanyPageContent } from "./company-page";
@@ -19,6 +23,7 @@ export { HomeLink } from "./home-link";
 export { HomeServicesSection } from "./home-services-section";
 export { HomeVenezuelaSection } from "./home-venezuela-section";
 export { PageHeading } from "./page-heading";
+export { PageHero } from "./page-hero";
 export { ServicesPageContent } from "./services-page";
 export { VenezuelaFieldToMarket } from "./venezuela-field-to-market";
 export { VenezuelaHero } from "./venezuela-hero";
