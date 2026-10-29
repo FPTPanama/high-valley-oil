@@ -6,6 +6,7 @@ const linkFocus =
   "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
 
 export type SiteButtonLayout = "gap" | "spread";
+export type SiteButtonTone = "accent" | "ink";
 
 type SiteButtonSharedProps = {
   children: ReactNode;
@@ -16,6 +17,8 @@ type SiteButtonSharedProps = {
    * `spread` — full-width; `justify-start` at rest, `justify-between` on hover.
    */
   layout?: SiteButtonLayout;
+  /** Fill color at rest. Defaults to `accent`. */
+  tone?: SiteButtonTone;
   className?: string;
 };
 
@@ -52,15 +55,38 @@ function DrawBorder({ edgeClassName }: { edgeClassName: string }) {
 }
 
 const layoutClassName: Record<SiteButtonLayout, string> = {
-  gap: "gap-3 transition-[gap,background-color,color] duration-100 hover:gap-24 hover:bg-canvas hover:text-ink sm:hover:gap-32",
+  gap: "gap-3 transition-[gap,background-color,color] duration-100 hover:gap-24 sm:hover:gap-32",
   spread:
-    "w-full justify-start gap-3 transition-[background-color,color,justify-content] duration-100 hover:justify-between hover:bg-canvas hover:text-accent",
+    "w-full justify-start gap-3 transition-[background-color,color,justify-content] duration-100 hover:justify-between",
+};
+
+const toneClassName: Record<
+  SiteButtonTone,
+  { rest: string; hover: string; border: string }
+> = {
+  accent: {
+    rest: "bg-accent text-canvas",
+    hover: "hover:bg-canvas hover:text-ink",
+    border: "bg-ink",
+  },
+  ink: {
+    rest: "bg-ink text-canvas",
+    hover: "hover:bg-canvas hover:text-ink",
+    border: "bg-ink",
+  },
+};
+
+/** Spread hover text matches the fill tone (accent stays accent; ink stays ink). */
+const spreadHoverTextClassName: Record<SiteButtonTone, string> = {
+  accent: "hover:text-accent",
+  ink: "hover:text-ink",
 };
 
 export function SiteButton({
   children,
   icon,
   layout = "gap",
+  tone = "accent",
   className = "",
   ...props
 }: SiteButtonProps) {
@@ -69,8 +95,15 @@ export function SiteButton({
       ? null
       : (icon ?? <ArrowRight aria-hidden="true" className="size-4 shrink-0" />);
 
-  const borderEdgeClassName = layout === "spread" ? "bg-accent" : "bg-ink";
-  const classNames = `group relative inline-flex items-center bg-accent px-5 py-3 text-[13px] font-medium tracking-wide text-canvas uppercase ${layoutClassName[layout]} ${linkFocus} ${className}`;
+  const toneStyles = toneClassName[tone];
+  const borderEdgeClassName =
+    layout === "spread" && tone === "accent" ? "bg-accent" : toneStyles.border;
+  const hoverClassName =
+    layout === "spread"
+      ? `hover:bg-canvas ${spreadHoverTextClassName[tone]}`
+      : toneStyles.hover;
+
+  const classNames = `group relative inline-flex items-center px-5 py-3 text-[13px] font-medium tracking-wide uppercase ${toneStyles.rest} ${layoutClassName[layout]} ${hoverClassName} ${linkFocus} ${className}`;
 
   const content = (
     <>

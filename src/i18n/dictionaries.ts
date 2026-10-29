@@ -125,6 +125,37 @@ export type Dictionary = {
     eyebrow: string;
     title: string[];
     lead: string;
+    intro: {
+      eyebrow: string;
+      title: string;
+      body: string;
+      ctaLabel: string;
+    };
+    principles: {
+      index: string;
+      eyebrow: string;
+      title: string;
+      items: {
+        index: string;
+        title: string;
+        cta: string;
+      }[];
+    };
+    presence: {
+      eyebrow: string;
+      title: string;
+      body: string;
+      points: {
+        title: string;
+        body: string;
+      }[];
+    };
+    cta: {
+      eyebrow: string;
+      title: string;
+      body: string;
+      label: string;
+    };
   };
   contactPage: {
     eyebrow: string;
