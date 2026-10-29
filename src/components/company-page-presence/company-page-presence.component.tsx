@@ -1,4 +1,4 @@
-import { SiteSection } from "@/components/site-section";
+import { contentFrame } from "@/components/general-layout";
 
 export type CompanyPagePresencePoint = {
   title: string;
@@ -19,14 +19,14 @@ export function CompanyPagePresence({
   points,
 }: CompanyPagePresenceProps) {
   return (
-    <SiteSection
-      tone="canvas"
-      className="mt-8 sm:mt-10 lg:mt-12"
-      contentClassName="flex flex-col gap-12 py-12 sm:gap-16 sm:py-16 lg:py-20"
+    <section
+      className="relative mt-8 w-full sm:mt-10 lg:mt-12"
       aria-labelledby="company-presence-heading"
     >
-      <header className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end lg:gap-12">
-        <div className="flex flex-col gap-5 text-ink">
+      <div
+        className={`${contentFrame} grid gap-10 py-12 sm:gap-12 sm:py-16 lg:grid-cols-2 lg:gap-12 lg:py-20`}
+      >
+        <header className="flex flex-col gap-5 text-ink">
           <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">
             {eyebrow}
           </p>
@@ -36,17 +36,16 @@ export function CompanyPagePresence({
           >
             {title}
           </h2>
-        </div>
-        <p className="max-w-xl text-base font-light leading-relaxed tracking-[0.02em] text-ink/80 sm:text-lg lg:justify-self-end">
+        </header>
+
+        <p className="text-base font-light leading-relaxed tracking-[0.02em] text-ink/80 sm:text-lg lg:self-end">
           {body}
         </p>
-      </header>
 
-      <ul className="grid gap-8 sm:grid-cols-2 sm:gap-10 lg:gap-12">
         {points.map((point) => (
-          <li
+          <div
             key={point.title}
-            className="flex flex-col gap-4 border-t border-ink/20 pt-6 text-ink"
+            className="flex flex-col gap-4 border border-ink p-6 text-ink sm:p-8"
           >
             <h3 className="text-xl font-light tracking-[0.04em] text-balance uppercase sm:text-2xl">
               {point.title}
@@ -54,9 +53,9 @@ export function CompanyPagePresence({
             <p className="text-base font-light leading-relaxed tracking-[0.02em] text-ink/80 sm:text-lg">
               {point.body}
             </p>
-          </li>
+          </div>
         ))}
-      </ul>
-    </SiteSection>
+      </div>
+    </section>
   );
 }

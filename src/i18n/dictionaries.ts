@@ -129,6 +129,7 @@ export type Dictionary = {
       eyebrow: string;
       title: string;
       body: string;
+      ctaLabel: string;
     };
     principles: {
       index: string;

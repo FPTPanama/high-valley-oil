@@ -42,11 +42,28 @@ export function CompanyPageIntro({ title }: CompanyPageIntroProps) {
       ).matches;
 
       if (prefersReduced) {
-        gsap.set([operatorEl, topoEl].filter(Boolean), {
-          clearProps: "transform",
-        });
+        gsap.set(operatorEl, { autoAlpha: 1, clearProps: "transform" });
+        if (topoEl) gsap.set(topoEl, { clearProps: "transform" });
         return;
       }
+
+      // Hidden until the ink band enters — avoids peeking into the hero.
+      gsap.set(operatorEl, { autoAlpha: 0 });
+
+      const fadeTween = gsap.fromTo(
+        operatorEl,
+        { autoAlpha: 0 },
+        {
+          autoAlpha: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: stageEl,
+            start: "top 92%",
+            end: "top 55%",
+            scrub: true,
+          },
+        },
+      );
 
       const sharedTrigger = {
         trigger: stageEl,
@@ -79,6 +96,8 @@ export function CompanyPageIntro({ title }: CompanyPageIntroProps) {
       }
 
       return () => {
+        fadeTween.scrollTrigger?.kill();
+        fadeTween.kill();
         operatorTween.scrollTrigger?.kill();
         operatorTween.kill();
         topoTween?.scrollTrigger?.kill();
@@ -95,10 +114,13 @@ export function CompanyPageIntro({ title }: CompanyPageIntroProps) {
       className="relative mt-16 w-full sm:mt-20 lg:mt-24"
     >
       <div className={contentFrame}>
-        {/* No overflow-hidden here: operator may protrude past the ink band. */}
+        {/*
+          Clip only at the bottom of the ink band so the operator can still
+          protrude above, but never invade the lead section below.
+        */}
         <div
           ref={stage}
-          className="relative bg-ink"
+          className="relative bg-ink [clip-path:inset(-50vh_0_0_0)]"
           style={{ height: INK_HEIGHT }}
         >
           <div
@@ -147,7 +169,7 @@ export function CompanyPageIntro({ title }: CompanyPageIntroProps) {
           <div className="absolute top-1/2 left-1/2 z-[1] w-fit -translate-x-1/2 -translate-y-1/2">
             <div
               ref={operatorParallax}
-              className="relative will-change-transform"
+              className="relative opacity-0 will-change-transform"
             >
               <Image
                 src={IMAGE_SRC}
@@ -158,6 +180,19 @@ export function CompanyPageIntro({ title }: CompanyPageIntroProps) {
                 className="h-auto max-w-none [filter:url(#company-operator-ink)]"
                 style={{ width: IMAGE_WIDTH_EXPR }}
                 priority
+              />
+              {/* Short ink→transparent fade, masked to the cutout alpha. */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink from-0% via-ink/50 via-20% to-transparent to-40%"
+                style={{
+                  maskImage: `url(${IMAGE_SRC})`,
+                  maskSize: "100% 100%",
+                  maskRepeat: "no-repeat",
+                  WebkitMaskImage: `url(${IMAGE_SRC})`,
+                  WebkitMaskSize: "100% 100%",
+                  WebkitMaskRepeat: "no-repeat",
+                }}
               />
             </div>
           </div>
