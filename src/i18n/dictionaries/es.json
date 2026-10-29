@@ -248,8 +248,46 @@
   },
   "servicesPage": {
     "eyebrow": "Servicios",
-    "title": "Servicios técnicos",
+    "title": ["Servicios técnicos."],
     "lead": "Capacidades especializadas coordinadas para el alcance de cada proyecto."
+  },
+  "businessPage": {
+    "eyebrow": "Nuestro negocio",
+    "title": ["A lo largo de la cadena", "de valor energética."],
+    "lead": "Cuatro áreas de enfoque conectadas. Una perspectiva coordinada.",
+    "intro": {
+      "eyebrow": "Perspectiva conectada",
+      "title": "De las decisiones de campo a la entrega al mercado.",
+      "body": "High Valley reúne producción, comercialización, servicios y logística en una visión coordinada—para que cada proyecto avance con prioridades más claras y una ejecución práctica."
+    },
+    "focusesEyebrow": "Áreas de enfoque",
+    "method": {
+      "eyebrow": "Cómo trabajamos",
+      "title": "Construido alrededor del proyecto.",
+      "steps": [
+        {
+          "index": "01",
+          "title": "Entender la operación",
+          "body": "Definir el alcance técnico, las prioridades operativas y los objetivos comerciales antes de dar forma a la solución."
+        },
+        {
+          "index": "02",
+          "title": "Conectar las capacidades",
+          "body": "Alinear ingeniería, procura, servicios de campo y logística alrededor de los requerimientos de cada proyecto."
+        },
+        {
+          "index": "03",
+          "title": "Enfocarse en la continuidad",
+          "body": "Mantener la confiabilidad operativa, la seguridad y las consideraciones ambientales en el centro de la planificación y la entrega."
+        }
+      ]
+    },
+    "cta": {
+      "eyebrow": "Siguiente paso",
+      "title": "Hablemos de tu proyecto.",
+      "body": "Comparte el alcance, las restricciones y las prioridades—y ayudamos a alinear las capacidades adecuadas.",
+      "label": "Iniciar una conversación"
+    }
   },
   "venezuelaPage": {
     "eyebrow": "Venezuela / Entrega de proyectos",

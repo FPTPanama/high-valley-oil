@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { GeneralLayout } from "@/components/general-layout";
+import { sectionStackGap } from "@/components/general-layout";
+import { PageHero } from "@/components/page-hero";
 import { ServicesPageContent } from "@/components/services-page";
 import { getDictionary } from "@/i18n/dictionaries";
 
@@ -15,11 +16,13 @@ export default async function ServicesPage() {
   const { items } = dict.home.services;
 
   return (
-    <GeneralLayout>
-      <ServicesPageContent
+    <main className={`flex flex-col ${sectionStackGap}`}>
+      <PageHero
         eyebrow={servicesPage.eyebrow}
         title={servicesPage.title}
-        lead={servicesPage.lead}
+        subtitle={servicesPage.lead}
+      />
+      <ServicesPageContent
         items={items.map(({ index, title, slug, body, points }) => ({
           index,
           title,
@@ -28,6 +31,6 @@ export default async function ServicesPage() {
           points,
         }))}
       />
-    </GeneralLayout>
+    </main>
   );
 }

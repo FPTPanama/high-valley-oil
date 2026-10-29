@@ -248,8 +248,46 @@
   },
   "servicesPage": {
     "eyebrow": "Services",
-    "title": "Technical services",
+    "title": ["Technical services."],
     "lead": "Specialist capabilities coordinated for each project scope."
+  },
+  "businessPage": {
+    "eyebrow": "Our Business",
+    "title": ["Across the energy", "value chain."],
+    "lead": "Four connected areas of focus. One coordinated perspective.",
+    "intro": {
+      "eyebrow": "Connected perspective",
+      "title": "From field decisions to market delivery.",
+      "body": "High Valley brings production, commercialization, services and logistics into one coordinated view—so each project moves with clearer priorities and practical execution."
+    },
+    "focusesEyebrow": "Areas of focus",
+    "method": {
+      "eyebrow": "How we work",
+      "title": "Built around the project.",
+      "steps": [
+        {
+          "index": "01",
+          "title": "Understand the operation",
+          "body": "Define the technical scope, operational priorities and commercial objectives before shaping the solution."
+        },
+        {
+          "index": "02",
+          "title": "Connect the capabilities",
+          "body": "Align engineering, procurement, field services and logistics around the requirements of each project."
+        },
+        {
+          "index": "03",
+          "title": "Focus on continuity",
+          "body": "Keep operational reliability, safety and environmental considerations central to planning and delivery."
+        }
+      ]
+    },
+    "cta": {
+      "eyebrow": "Next step",
+      "title": "Talk through your project.",
+      "body": "Share the scope, constraints and priorities—and we will help align the right capabilities.",
+      "label": "Start a conversation"
+    }
   },
   "venezuelaPage": {
     "eyebrow": "Venezuela / Project delivery",

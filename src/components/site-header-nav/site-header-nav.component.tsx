@@ -10,8 +10,8 @@ import { Languages } from "lucide-react";
 import { HomeLink } from "@/components/home-link";
 import { locales, type Locale } from "@/i18n/config";
 
-const BRAND_LOGO_SRC = "/images/highvalley_logo.svg";
-const BRAND_LOGO_WIDTH = 160;
+const BRAND_LOGO_SRC = "/images/high_valley_2.svg";
+const BRAND_LOGO_WIDTH = 167;
 const BRAND_LOGO_HEIGHT = 50;
 
 gsap.registerPlugin(useGSAP);
