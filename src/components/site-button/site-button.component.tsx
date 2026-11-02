@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type { ButtonHTMLAttributes, MouseEventHandler, ReactNode } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
@@ -24,13 +24,18 @@ type SiteButtonSharedProps = {
 
 export type SiteButtonProps = SiteButtonSharedProps &
   (
-    | { href: string; type?: never }
+    | {
+        href: string;
+        type?: never;
+        onClick?: MouseEventHandler<HTMLAnchorElement>;
+      }
     | {
         href?: undefined;
         type: Extract<
           ButtonHTMLAttributes<HTMLButtonElement>["type"],
           "button" | "submit" | "reset"
         >;
+        onClick?: MouseEventHandler<HTMLButtonElement>;
       }
   );
 
@@ -115,14 +120,19 @@ export function SiteButton({
 
   if ("href" in props && props.href) {
     return (
-      <Link href={props.href} className={classNames}>
+      <Link
+        href={props.href}
+        scroll={!props.href.startsWith("#")}
+        onClick={props.onClick}
+        className={classNames}
+      >
         {content}
       </Link>
     );
   }
 
   return (
-    <button type={props.type} className={classNames}>
+    <button type={props.type} onClick={props.onClick} className={classNames}>
       {content}
     </button>
   );

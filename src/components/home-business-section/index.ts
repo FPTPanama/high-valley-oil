@@ -1,6 +1,5 @@
 export {
   HomeBusinessSection,
-  type HomeBusinessBlock,
-  type HomeBusinessFocus,
+  type HomeBusinessCard,
   type HomeBusinessSectionProps,
 } from "./home-business-section.component";

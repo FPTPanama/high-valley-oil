@@ -30,11 +30,16 @@ export type Dictionary = {
       eyebrow: string;
       title: string[];
       subtitle: string[];
+      cards: {
+        index: string;
+        label: string;
+        cta: string;
+      }[];
       focuses: {
         index: string;
         label: string;
         lead: string;
-        blocks: { title: string; info: string; icon: string }[];
+        blocks: { title: string; info: string }[];
       }[];
     };
     services: {
@@ -83,7 +88,8 @@ export type Dictionary = {
   businessPage: {
     eyebrow: string;
     title: string[];
-    lead: string;
+    lead: string[];
+    ctaLabel: string;
     intro: {
       eyebrow: string;
       title: string;
@@ -91,12 +97,14 @@ export type Dictionary = {
     };
     focusesEyebrow: string;
     method: {
+      index: string;
       eyebrow: string;
       title: string;
       steps: {
         index: string;
         title: string;
         body: string;
+        cta: string;
       }[];
     };
     cta: {

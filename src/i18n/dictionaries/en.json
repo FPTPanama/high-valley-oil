@@ -39,6 +39,28 @@
         "Four connected areas of focus.",
         "One coordinated perspective."
       ],
+      "cards": [
+        {
+          "index": "01",
+          "label": "Field production and development",
+          "cta": "View production"
+        },
+        {
+          "index": "02",
+          "label": "Crude and products commercialization",
+          "cta": "View commercialization"
+        },
+        {
+          "index": "03",
+          "label": "Integrated petroleum services",
+          "cta": "View services"
+        },
+        {
+          "index": "04",
+          "label": "Logistics and infrastructure",
+          "cta": "View logistics"
+        }
+      ],
       "focuses": [
         {
           "index": "01",
@@ -47,18 +69,15 @@
           "blocks": [
             {
               "title": "Production optimization",
-              "info": "",
-              "icon": "gauge"
+              "info": ""
             },
             {
               "title": "Well intervention and testing",
-              "info": "",
-              "icon": "wrench"
+              "info": ""
             },
             {
               "title": "Surface facilities and maintenance",
-              "info": "",
-              "icon": "factory"
+              "info": ""
             }
           ]
         },
@@ -69,18 +88,15 @@
           "blocks": [
             {
               "title": "Crude oil commercialization",
-              "info": "",
-              "icon": "droplets"
+              "info": ""
             },
             {
               "title": "Products supply",
-              "info": "",
-              "icon": "package"
+              "info": ""
             },
             {
               "title": "Commercial and logistics coordination",
-              "info": "",
-              "icon": "route"
+              "info": ""
             }
           ]
         },
@@ -91,18 +107,15 @@
           "blocks": [
             {
               "title": "Well intervention, testing and production measurement",
-              "info": "",
-              "icon": "wrench"
+              "info": ""
             },
             {
               "title": "Engineering, procurement and commissioning",
-              "info": "",
-              "icon": "pencilRuler"
+              "info": ""
             },
             {
               "title": "Maintenance, power generation and environmental services",
-              "info": "",
-              "icon": "zap"
+              "info": ""
             }
           ]
         },
@@ -113,18 +126,15 @@
           "blocks": [
             {
               "title": "Terminals and port infrastructure",
-              "info": "",
-              "icon": "anchor"
+              "info": ""
             },
             {
               "title": "Custody transfer measurement",
-              "info": "",
-              "icon": "scale"
+              "info": ""
             },
             {
               "title": "Fluid handling and marine logistics",
-              "info": "",
-              "icon": "ship"
+              "info": ""
             }
           ]
         }
@@ -254,7 +264,8 @@
   "businessPage": {
     "eyebrow": "Our Business",
     "title": ["Across the energy", "value chain."],
-    "lead": "Four connected areas of focus. One coordinated perspective.",
+    "lead": ["Four connected areas of focus.", "One coordinated perspective."],
+    "ctaLabel": "Our perspective",
     "intro": {
       "eyebrow": "Connected perspective",
       "title": "From field decisions to market delivery.",
@@ -262,23 +273,27 @@
     },
     "focusesEyebrow": "Areas of focus",
     "method": {
+      "index": "03",
       "eyebrow": "How we work",
       "title": "Built around the project.",
       "steps": [
         {
           "index": "01",
           "title": "Understand the operation",
-          "body": "Define the technical scope, operational priorities and commercial objectives before shaping the solution."
+          "body": "Define the technical scope, operational priorities and commercial objectives before shaping the solution.",
+          "cta": "Define the scope"
         },
         {
           "index": "02",
           "title": "Connect the capabilities",
-          "body": "Align engineering, procurement, field services and logistics around the requirements of each project."
+          "body": "Align engineering, procurement, field services and logistics around the requirements of each project.",
+          "cta": "Align capabilities"
         },
         {
           "index": "03",
           "title": "Focus on continuity",
-          "body": "Keep operational reliability, safety and environmental considerations central to planning and delivery."
+          "body": "Keep operational reliability, safety and environmental considerations central to planning and delivery.",
+          "cta": "Plan delivery"
         }
       ]
     },
