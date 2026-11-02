@@ -87,6 +87,16 @@ const spreadHoverTextClassName: Record<SiteButtonTone, string> = {
   ink: "hover:text-ink",
 };
 
+function isLinkButtonProps(
+  props: Pick<SiteButtonProps, "href" | "type" | "onClick">,
+): props is {
+  href: string;
+  type?: never;
+  onClick?: MouseEventHandler<HTMLAnchorElement>;
+} {
+  return typeof props.href === "string";
+}
+
 export function SiteButton({
   children,
   icon,
@@ -118,7 +128,7 @@ export function SiteButton({
     </>
   );
 
-  if ("href" in props && props.href) {
+  if (isLinkButtonProps(props)) {
     return (
       <Link
         href={props.href}
