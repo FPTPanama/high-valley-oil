@@ -15,7 +15,7 @@ export function BusinessPageIntro({
     <SiteSection
       tone="canvas"
       className="mt-16 sm:mt-20 lg:mt-24"
-      contentClassName="grid gap-8 py-12 sm:py-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-end lg:gap-12 lg:py-20"
+      contentClassName="grid grid-cols-1 gap-8 py-12 sm:gap-10 sm:py-16 lg:grid-cols-2 lg:items-end lg:gap-12 lg:py-20"
       aria-labelledby="business-intro-heading"
     >
       <div className="flex flex-col gap-5 text-ink">

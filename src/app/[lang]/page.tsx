@@ -39,7 +39,8 @@ export default async function HomePage() {
         eyebrow={business.eyebrow}
         title={business.title}
         subtitle={business.subtitle}
-        focuses={business.focuses}
+        cards={business.cards}
+        businessHref={`/${hrefLocale}/our-business`}
       />
       <HomeServicesSection
         index={services.index}

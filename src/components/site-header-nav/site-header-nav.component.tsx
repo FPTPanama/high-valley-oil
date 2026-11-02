@@ -11,6 +11,7 @@ import { HomeLink } from "@/components/home-link";
 import { locales, type Locale } from "@/i18n/config";
 
 const BRAND_LOGO_SRC = "/images/high_valley_2.svg";
+const BRAND_LOGO_CANVAS_SRC = "/images/high_valley_2_canvas.svg";
 const BRAND_LOGO_WIDTH = 167;
 const BRAND_LOGO_HEIGHT = 50;
 
@@ -30,6 +31,8 @@ export type SiteHeaderNavProps = {
   mainLabel: string;
   languageLabel: string;
   languages: Record<Locale, string>;
+  /** True when the canvas header surface is filled after scroll. */
+  scrolled?: boolean;
 };
 
 const linkFocus =
@@ -41,19 +44,21 @@ let headerIntroPlayed = false;
 
 let indicatorReady = false;
 
-const navLinkClass = (active: boolean) =>
-  `relative inline-block text-[13px] font-semibold uppercase tracking-[0.16em] text-ink transition-opacity duration-200 hover:opacity-100 ${linkFocus} ${
-    active ? "opacity-100" : "opacity-55"
-  }`;
+const navLinkClass = (active: boolean, onCanvas: boolean) =>
+  `relative inline-block text-[13px] font-semibold uppercase tracking-[0.16em] transition-[color,opacity] duration-200 hover:opacity-100 ${linkFocus} ${
+    onCanvas ? "text-canvas" : "text-ink"
+  } ${active ? "opacity-100" : "opacity-55"}`;
 
 function NavLink({
   href,
   label,
   active,
+  onCanvas,
 }: {
   href: string;
   label: string;
   active: boolean;
+  onCanvas: boolean;
 }) {
   return (
     <Link
@@ -61,7 +66,7 @@ function NavLink({
       data-header-item
       data-nav-link
       aria-current={active ? "page" : undefined}
-      className={navLinkClass(active)}
+      className={navLinkClass(active, onCanvas)}
     >
       {label}
     </Link>
@@ -74,12 +79,14 @@ function LanguageSwitch({
   languageLabel,
   currentLabel,
   nextLabel,
+  onCanvas,
 }: {
   href: string;
   nextLocale: Locale;
   languageLabel: string;
   currentLabel: string;
   nextLabel: string;
+  onCanvas: boolean;
 }) {
   const root = useRef<HTMLAnchorElement>(null);
   const track = useRef<HTMLSpanElement>(null);
@@ -134,7 +141,9 @@ function LanguageSwitch({
       prefetch
       data-header-item
       aria-label={`${languageLabel}: ${nextLabel}`}
-      className={`inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.16em] text-ink transition-opacity duration-200 hover:opacity-100 ${linkFocus}`}
+      className={`inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.16em] transition-[color,opacity] duration-200 hover:opacity-100 ${linkFocus} ${
+        onCanvas ? "text-canvas" : "text-ink"
+      }`}
     >
       <Languages aria-hidden="true" className="size-3.5" />
       <span
@@ -172,12 +181,18 @@ export function SiteHeaderNav({
   mainLabel,
   languageLabel,
   languages,
+  scrolled = false,
 }: SiteHeaderNavProps) {
   const pathname = usePathname();
   const root = useRef<HTMLDivElement>(null);
   const indicator = useRef<HTMLSpanElement>(null);
   const nextLocale = locales.find((code) => code !== locale) ?? locale;
   const nextHref = pathname.replace(/^\/(en|es)(?=\/|$)/, `/${nextLocale}`);
+  // Light nav over dark media heroes (home + business) while still at the top.
+  const invertAtTop =
+    /^\/(en|es)\/?$/.test(pathname) || /\/our-business\/?$/.test(pathname);
+  const onCanvas = invertAtTop && !scrolled;
+  const logoSrc = onCanvas ? BRAND_LOGO_CANVAS_SRC : BRAND_LOGO_SRC;
 
   useGSAP(
     () => {
@@ -341,7 +356,7 @@ export function SiteHeaderNav({
       <div data-header-item className="shrink-0">
         <HomeLink href={homeHref}>
           <Image
-            src={BRAND_LOGO_SRC}
+            src={logoSrc}
             alt={brandName}
             width={BRAND_LOGO_WIDTH}
             height={BRAND_LOGO_HEIGHT}
@@ -361,6 +376,7 @@ export function SiteHeaderNav({
             href={item.href}
             label={item.label}
             active={pathname === item.href}
+            onCanvas={onCanvas}
           />
         ))}
       </nav>
@@ -371,6 +387,7 @@ export function SiteHeaderNav({
             href={contact.href}
             label={contact.label}
             active={pathname === contact.href}
+            onCanvas={onCanvas}
           />
         ) : null}
         <LanguageSwitch
@@ -379,13 +396,16 @@ export function SiteHeaderNav({
           languageLabel={languageLabel}
           currentLabel={languages[locale]}
           nextLabel={languages[nextLocale]}
+          onCanvas={onCanvas}
         />
       </div>
 
       <span
         ref={indicator}
         aria-hidden="true"
-        className="pointer-events-none absolute top-0 left-0 z-0 h-px w-0 bg-ink opacity-0 will-change-transform"
+        className={`pointer-events-none absolute top-0 left-0 z-0 h-px w-0 opacity-0 will-change-transform transition-colors duration-200 ${
+          onCanvas ? "bg-canvas" : "bg-ink"
+        }`}
       />
     </div>
   );
