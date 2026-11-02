@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { lang } from "next/root-params";
 import { sectionStackGap } from "@/components/general-layout";
+import { CompanyPageFeature } from "@/components/company-page-feature";
 import { CompanyPageIntro } from "@/components/company-page-intro";
 import { CompanyPageLead } from "@/components/company-page-lead";
 import { CompanyPagePresence } from "@/components/company-page-presence";
@@ -40,6 +41,13 @@ export default async function OurCompanyPage() {
         title={companyPage.principles.title}
         items={companyPage.principles.items}
         ctaHref={`/${hrefLocale}/contact`}
+      />
+      <CompanyPageFeature
+        title={companyPage.feature.title}
+        body={companyPage.feature.body}
+        caption={companyPage.feature.caption}
+        action={companyPage.feature.action}
+        href={`/${hrefLocale}/services#${companyPage.feature.slug}`}
       />
       <CompanyPagePresence
         eyebrow={companyPage.presence.eyebrow}

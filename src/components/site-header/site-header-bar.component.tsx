@@ -60,7 +60,7 @@ export function SiteHeaderBar(props: SiteHeaderNavProps) {
             className="pointer-events-none absolute inset-0 origin-left scale-x-0 bg-canvas"
           />
           <div className="relative py-4">
-            <SiteHeaderNav {...props} />
+            <SiteHeaderNav {...props} scrolled={scrolled} />
           </div>
         </div>
       </div>
