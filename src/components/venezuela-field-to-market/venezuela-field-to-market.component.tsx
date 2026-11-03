@@ -181,8 +181,9 @@ export function VenezuelaFieldToMarket({
   return (
     <SiteSection
       ref={panel}
+      id="field-to-market"
       tone="canvas"
-      className="pb-8 sm:pb-12 lg:pb-16"
+      className="scroll-mt-28 pb-8 sm:pb-12 lg:pb-16"
       contentClassName="flex min-h-[min(70vh,40rem)] flex-col items-center justify-center gap-16 py-16 text-center sm:gap-20 sm:py-20 lg:min-h-[min(75vh,44rem)] lg:gap-24 lg:py-24"
       aria-labelledby="venezuela-field-to-market-heading"
     >
@@ -225,16 +226,11 @@ export function VenezuelaFieldToMarket({
               data-ftm-step
               className="relative flex flex-col items-center gap-4 py-5 text-ink will-change-[opacity] sm:py-0 sm:px-3"
             >
-              <div className="relative flex w-full items-center justify-center">
-                <span
-                  data-ftm-mark
-                  className="relative z-10 flex size-3 shrink-0 rounded-full bg-accent will-change-transform"
-                  aria-hidden="true"
-                />
+              <div className="relative h-3 w-full">
                 {!isLast ? (
                   <span
                     aria-hidden="true"
-                    className="absolute top-1/2 left-[calc(50%+0.55rem)] hidden h-px w-[calc(100%-0.55rem)] -translate-y-1/2 bg-ink/15 sm:block"
+                    className="absolute top-1/2 left-[calc(50%+0.375rem)] hidden h-px w-[calc(100%-0.75rem)] -translate-y-1/2 bg-ink/15 sm:block"
                   >
                     <span
                       data-ftm-fill="x"
@@ -242,6 +238,16 @@ export function VenezuelaFieldToMarket({
                     />
                   </span>
                 ) : null}
+                {/* Outer shell keeps centering; GSAP scale lives on the inner mark. */}
+                <span
+                  className="absolute top-1/2 left-1/2 z-10 flex size-3 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
+                  aria-hidden="true"
+                >
+                  <span
+                    data-ftm-mark
+                    className="size-full rounded-full bg-accent will-change-transform"
+                  />
+                </span>
               </div>
 
               <div className="flex flex-col items-center gap-2">

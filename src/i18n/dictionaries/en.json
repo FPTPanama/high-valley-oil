@@ -159,9 +159,9 @@
           "icon": "wrench",
           "body": "Coordinate well intervention and restoration services with specialist field teams.",
           "points": [
-            "Slickline and electric wireline operations",
-            "Coiled tubing: well cleanouts, stimulation and nitrogen services",
-            "Gas lift system inspection, repair and downhole support"
+            "Slickline and electric wireline for well diagnosis, fishing and restoration.",
+            "Coiled tubing: cleanouts, stimulation and nitrogen services in intervention.",
+            "Gas lift system inspection, repair and downhole support."
           ]
         },
         {
@@ -171,9 +171,9 @@
           "icon": "gauge",
           "body": "Bring together the measurements and technical analysis needed to evaluate well performance.",
           "points": [
-            "Well testing and pressure, temperature and flow monitoring",
-            "Multiphase measurement of oil, gas and water",
-            "Production optimization, nodal analysis and wellhead maintenance"
+            "Well testing with continuous pressure, temperature and flow monitoring.",
+            "Multiphase measurement of oil, gas and water to validate performance.",
+            "Production optimization, nodal analysis and wellhead maintenance."
           ]
         },
         {
@@ -183,9 +183,9 @@
           "icon": "pencilRuler",
           "body": "Connect project definition with equipment sourcing and commissioning support.",
           "points": [
-            "Feasibility, conceptual, basic, FEED and detailed engineering",
-            "Equipment and materials procurement, inspection and import coordination",
-            "Facility upgrades, pre-commissioning and start-up support"
+            "Feasibility, conceptual, basic, FEED and detailed engineering.",
+            "Equipment and materials procurement, with inspection and import coordination.",
+            "Facility upgrades, pre-commissioning and start-up support."
           ]
         },
         {
@@ -195,9 +195,9 @@
           "icon": "zap",
           "body": "Structure maintenance and electrical support around operational continuity.",
           "points": [
-            "Predictive, preventive and corrective equipment maintenance",
-            "Electrical distribution, transformers, grounding and instrumentation",
-            "Power generation: supply, installation, operation and maintenance"
+            "Predictive, preventive and corrective maintenance focused on continuity.",
+            "Electrical distribution, transformers, grounding and instrumentation.",
+            "Power generation: supply, installation, operation and maintenance."
           ]
         },
         {
@@ -207,9 +207,9 @@
           "icon": "leaf",
           "body": "Integrate environmental recovery and site preparation into the project scope.",
           "points": [
-            "Spill containment, recovery and soil or water remediation",
-            "Waste handling and treatment coordination",
-            "Vegetation control and preparation of operational areas"
+            "Spill containment, recovery and soil or water remediation.",
+            "On-site waste handling and treatment coordination.",
+            "Vegetation control and preparation of operational areas."
           ]
         },
         {
@@ -219,9 +219,9 @@
           "icon": "droplets",
           "body": "Coordinate movement of fluids, equipment and materials between operational sites.",
           "points": [
-            "Fluid pumping, transfer, dewatering and transport",
-            "Machinery rental, lifting and earthworks coordination",
-            "Field supply logistics and material traceability"
+            "Fluid pumping, transfer, dewatering and transport between sites.",
+            "Machinery rental, lifting and earthworks coordination.",
+            "Field supply logistics with material traceability."
           ]
         }
       ]
@@ -259,7 +259,8 @@
   "servicesPage": {
     "eyebrow": "Services",
     "title": ["Technical services."],
-    "lead": "Specialist capabilities coordinated for each project scope."
+    "lead": "Specialist capabilities coordinated for each project scope.",
+    "ctaLabel": "View capabilities"
   },
   "businessPage": {
     "eyebrow": "Our Business",
@@ -308,6 +309,7 @@
     "eyebrow": "Venezuela / Project delivery",
     "title": ["International", "coordination.", "Local execution."],
     "lead": "We connect commercial planning, procurement and logistics with local technical resources to support oil and gas projects in Venezuela.",
+    "ctaLabel": "From field to market",
     "steps": [
       {
         "index": "01",
@@ -344,6 +346,7 @@
     "eyebrow": "Our Company",
     "title": ["A connected view.", "A practical approach."],
     "lead": "High Valley Oil Production LLC is an energy company focused on oil production, crude commercialization and integrated petroleum services.",
+    "ctaLabel": "How we operate",
     "intro": {
       "eyebrow": "Who we are",
       "title": "Technical, commercial and logistical thinking in one place.",

@@ -220,14 +220,28 @@ function BrandLogo({
         });
       };
 
+      // Header intro clearProps on the parent can leave the stacked marks wrong
+      // on desktop (logo is the only intro target). Re-snap when intro ends.
+      const onIntroDone = () => {
+        snapTo(modeRef.current ?? nextMode);
+      };
+      window.addEventListener("header-intro-done", onIntroDone);
+
       // First paint: set the correct mark before the browser paints.
       if (modeRef.current === null) {
         snapTo(nextMode);
         modeRef.current = nextMode;
-        return;
+        return () => {
+          window.removeEventListener("header-intro-done", onIntroDone);
+        };
       }
 
-      if (modeRef.current === nextMode) return;
+      if (modeRef.current === nextMode) {
+        snapTo(nextMode);
+        return () => {
+          window.removeEventListener("header-intro-done", onIntroDone);
+        };
+      }
 
       const prevMode = modeRef.current;
       modeRef.current = nextMode;
@@ -240,7 +254,9 @@ function BrandLogo({
 
       if (prefersReduced) {
         snapTo(nextMode);
-        return;
+        return () => {
+          window.removeEventListener("header-intro-done", onIntroDone);
+        };
       }
 
       const outgoing = prevMode === "canvas" ? canvasEl : inkEl;
@@ -272,6 +288,7 @@ function BrandLogo({
       return () => {
         tl.kill();
         snapTo(nextMode);
+        window.removeEventListener("header-intro-done", onIntroDone);
       };
     },
     { dependencies: [onCanvas] },
@@ -283,12 +300,12 @@ function BrandLogo({
       style={{ width: (BRAND_LOGO_WIDTH / BRAND_LOGO_HEIGHT) * 32 }}
     >
       <span
-        ref={canvasLayer}
-        className="absolute inset-0 will-change-[opacity,transform]"
+        ref={inkLayer}
+        className="absolute inset-0 opacity-0 will-change-[opacity,transform]"
       >
         <Image
-          src={BRAND_LOGO_CANVAS_SRC}
-          alt=""
+          src={BRAND_LOGO_SRC}
+          alt={brandName}
           width={BRAND_LOGO_WIDTH}
           height={BRAND_LOGO_HEIGHT}
           className="h-8 w-auto"
@@ -296,12 +313,12 @@ function BrandLogo({
         />
       </span>
       <span
-        ref={inkLayer}
+        ref={canvasLayer}
         className="absolute inset-0 will-change-[opacity,transform]"
       >
         <Image
-          src={BRAND_LOGO_SRC}
-          alt={brandName}
+          src={BRAND_LOGO_CANVAS_SRC}
+          alt=""
           width={BRAND_LOGO_WIDTH}
           height={BRAND_LOGO_HEIGHT}
           className="h-8 w-auto"
@@ -372,6 +389,7 @@ export function SiteHeaderNav({
 
       if (headerIntroPlayed) {
         releaseIntroGate();
+        window.dispatchEvent(new Event("header-intro-done"));
         return;
       }
 
@@ -399,8 +417,11 @@ export function SiteHeaderNav({
         ease: "power2.out",
         onComplete: () => {
           headerIntroPlayed = true;
+          // Only clear transform — clearing opacity/visibility on the logo
+          // wrapper (often the sole desktop target) raced the brand mark swap.
           gsap.set(targets, {
-            clearProps: "opacity,visibility,transform",
+            clearProps: "transform",
+            autoAlpha: 1,
           });
           window.dispatchEvent(new Event("header-intro-done"));
         },
@@ -450,7 +471,6 @@ export function SiteHeaderNav({
             overwrite: "auto",
           });
         } else {
-          // First paint / remeasure: set in place — never sweep from x:0.
           gsap.set(marker, { x: left, y: top, width, autoAlpha: 1 });
           indicatorReady = true;
         }
@@ -461,7 +481,41 @@ export function SiteHeaderNav({
           "[data-nav-link][aria-current='page']",
         );
 
-      const snapToActive = () => moveTo(activeLink(), false);
+      /** First reveal: sweep from the left edge to the active item. */
+      const enterFromLeft = (link: HTMLElement | null) => {
+        if (!link) {
+          hide(false);
+          return;
+        }
+
+        const { left, top, width } = measureLink(rootEl, link);
+
+        if (prefersReduced()) {
+          gsap.set(marker, { x: left, y: top, width, autoAlpha: 1 });
+          indicatorReady = true;
+          return;
+        }
+
+        gsap.fromTo(
+          marker,
+          { x: 0, y: top, width, autoAlpha: 1 },
+          {
+            x: left,
+            duration: 0.35,
+            ease: "power2.out",
+            overwrite: "auto",
+            onComplete: () => {
+              indicatorReady = true;
+            },
+          },
+        );
+      };
+
+      const snapToActive = () => {
+        // Don't kill the entrance sweep with a mid-flight remeasure.
+        if (!indicatorReady) return;
+        moveTo(activeLink(), false);
+      };
       const returnToActive = () => moveTo(activeLink(), true);
 
       const onPointerOver = (event: PointerEvent) => {
@@ -473,14 +527,16 @@ export function SiteHeaderNav({
       };
 
       // Stay hidden until intro finishes so the bar does not sit over moving items.
-      gsap.set(marker, { autoAlpha: 0 });
+      gsap.set(marker, { autoAlpha: 0, x: 0 });
       indicatorReady = false;
 
       let cancelled = false;
+      let armed = false;
       const arm = () => {
-        if (cancelled) return;
+        if (cancelled || armed) return;
+        armed = true;
         void document.fonts?.ready.then(() => {
-          if (!cancelled) snapToActive();
+          if (!cancelled) enterFromLeft(activeLink());
         });
       };
 

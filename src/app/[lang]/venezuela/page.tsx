@@ -21,6 +21,8 @@ export default async function VenezuelaPage() {
         eyebrow={venezuelaPage.eyebrow}
         title={venezuelaPage.title}
         subtitle={venezuelaPage.lead}
+        ctaLabel={venezuelaPage.ctaLabel}
+        ctaHref="#field-to-market"
       />
       <VenezuelaPageContent
         stepsLabel={venezuelaPage.eyebrow}
