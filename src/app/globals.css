@@ -47,8 +47,8 @@ body::-webkit-scrollbar {
   height: 0;
 }
 
-/* Header entrance: hide items until GSAP plays (skipped if intro already done). */
+/* Header entrance: hide items until GSAP plays (skipped if intro already done).
+   Opacity only — leave transform to GSAP so clearProps does not snap. */
 [data-header-intro="pending"] [data-header-item] {
   opacity: 0;
-  transform: translateY(-1.25rem);
 }

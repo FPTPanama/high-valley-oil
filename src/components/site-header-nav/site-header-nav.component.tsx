@@ -343,6 +343,7 @@ export function SiteHeaderNav({
   const root = useRef<HTMLDivElement>(null);
   const indicator = useRef<HTMLSpanElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [introPending, setIntroPending] = useState(() => !headerIntroPlayed);
   const menuId = useId();
   const nextLocale = locales.find((code) => code !== locale) ?? locale;
   const nextHref = pathname.replace(/^\/(en|es)(?=\/|$)/, `/${nextLocale}`);
@@ -372,14 +373,22 @@ export function SiteHeaderNav({
   useGSAP(
     () => {
       const rootEl = root.current;
-      const targets = gsap.utils.toArray<HTMLElement>(
-        rootEl?.querySelectorAll("[data-header-item]") ?? [],
-      );
+      // Skip desktop-only / display:none nodes so mobile intro does not
+      // stagger through hidden nav links and delay clearProps on the logo.
+      const targets = gsap.utils
+        .toArray<HTMLElement>(
+          rootEl?.querySelectorAll("[data-header-item]") ?? [],
+        )
+        .filter((el) => el.getClientRects().length > 0);
 
       if (!rootEl || targets.length === 0) return;
 
+      const releaseIntroGate = () => {
+        queueMicrotask(() => setIntroPending(false));
+      };
+
       if (headerIntroPlayed) {
-        rootEl.removeAttribute("data-header-intro");
+        releaseIntroGate();
         return;
       }
 
@@ -388,33 +397,31 @@ export function SiteHeaderNav({
       ).matches;
 
       if (prefersReduced) {
-        rootEl.removeAttribute("data-header-intro");
         headerIntroPlayed = true;
+        releaseIntroGate();
         window.dispatchEvent(new Event("header-intro-done"));
         return;
       }
 
-      // CSS keeps items hidden via data-header-intro; GSAP takes over from there.
-      const tween = gsap.fromTo(
-        targets,
-        { y: -28, autoAlpha: 0 },
-        {
-          y: 0,
-          autoAlpha: 1,
-          duration: 0.85,
-          stagger: 0.14,
-          delay: 0.2,
-          ease: "power2.out",
-          onComplete: () => {
-            headerIntroPlayed = true;
-            rootEl.removeAttribute("data-header-intro");
-            gsap.set(targets, {
-              clearProps: "opacity,visibility,transform",
-            });
-            window.dispatchEvent(new Event("header-intro-done"));
-          },
+      // CSS only zeros opacity; GSAP owns the rise so the end state is stable.
+      gsap.set(targets, { y: -20, autoAlpha: 0 });
+      releaseIntroGate();
+
+      const tween = gsap.to(targets, {
+        y: 0,
+        autoAlpha: 1,
+        duration: 0.7,
+        stagger: 0.1,
+        delay: 0.12,
+        ease: "power2.out",
+        onComplete: () => {
+          headerIntroPlayed = true;
+          gsap.set(targets, {
+            clearProps: "opacity,visibility,transform",
+          });
+          window.dispatchEvent(new Event("header-intro-done"));
         },
-      );
+      });
 
       return () => {
         tween.kill();
@@ -525,11 +532,8 @@ export function SiteHeaderNav({
   return (
     <div
       ref={root}
-      // Skip the pending gate once the intro has played so locale swaps
-      // do not blank the chrome for a frame (feels like a hard reload).
-      {...(headerIntroPlayed
-        ? {}
-        : { "data-header-intro": "pending" as const })}
+      // Skip the pending gate once GSAP (or a prior visit) owns visibility.
+      {...(introPending ? { "data-header-intro": "pending" as const } : {})}
       className="relative flex flex-row items-center justify-between gap-4 md:gap-6"
     >
       <div data-header-item className="shrink-0">
