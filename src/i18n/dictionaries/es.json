@@ -2,7 +2,33 @@
   "meta": {
     "siteName": "HIGH VALLEY OIL PRODUCTION LLC",
     "brandName": "HIGH VALLEY",
-    "description": "HIGH VALLEY OIL PRODUCTION LLC"
+    "description": "Experiencia energética conectada: producción de petróleo, comercialización de crudo y servicios petroleros integrados a lo largo de la cadena de valor.",
+    "pages": {
+      "home": {
+        "title": "HIGH VALLEY OIL PRODUCTION LLC",
+        "description": "Experiencia energética conectada: producción de petróleo, comercialización de crudo y servicios petroleros integrados a lo largo de la cadena de valor."
+      },
+      "ourCompany": {
+        "title": "Nuestra empresa",
+        "description": "Una visión técnica, comercial y logística conectada para proyectos de petróleo y gas: entrega práctica del plan a la ejecución."
+      },
+      "ourBusiness": {
+        "title": "Nuestro negocio",
+        "description": "Cuatro áreas de enfoque conectadas a lo largo de la cadena de valor energética: producción, comercialización de crudo, servicios petroleros y logística."
+      },
+      "services": {
+        "title": "Servicios",
+        "description": "Capacidades técnicas especializadas en intervención de pozos, pruebas, ingeniería, mantenimiento, soporte ambiental y logística de campo."
+      },
+      "venezuela": {
+        "title": "Venezuela",
+        "description": "Coordinación internacional con ejecución local para proyectos de oil and gas en Venezuela: del desarrollo de campo a la entrega al mercado."
+      },
+      "contact": {
+        "title": "Contacto",
+        "description": "Cuéntanos sobre tu proyecto. Inicia una conversación con High Valley Oil Production sobre producción, servicios o entrega en Venezuela."
+      }
+    }
   },
   "nav": {
     "main": "Navegación principal",

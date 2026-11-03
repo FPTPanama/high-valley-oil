@@ -9,11 +9,21 @@ import { CompanyPagePrinciples } from "@/components/company-page-principles";
 import { PageHero } from "@/components/page-hero";
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+import { createPageMetadata } from "@/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await lang();
+  const resolvedLocale = isLocale(locale) ? locale : "en";
   const dict = await getDictionary();
+  const { ourCompany } = dict.meta.pages;
 
-  return { title: dict.nav.ourCompany };
+  return createPageMetadata({
+    locale: resolvedLocale,
+    path: "/our-company",
+    title: ourCompany.title,
+    description: ourCompany.description,
+    siteName: dict.meta.siteName,
+  });
 }
 
 export default async function OurCompanyPage() {
