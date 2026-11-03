@@ -21,8 +21,12 @@ export default async function ServicesPage() {
         eyebrow={servicesPage.eyebrow}
         title={servicesPage.title}
         subtitle={servicesPage.lead}
+        backgroundSrc="/images/obreros_en_fabrica.webp"
+        ctaLabel={servicesPage.ctaLabel}
+        ctaHref="#services"
       />
       <ServicesPageContent
+        eyebrow={dict.home.services.eyebrow}
         items={items.map(({ index, title, slug, body, points }) => ({
           index,
           title,

@@ -28,6 +28,9 @@ export default async function OurCompanyPage() {
         eyebrow={companyPage.eyebrow}
         title={companyPage.title}
         subtitle={companyPage.lead}
+        backgroundSrc="/images/toma_variable_high.webp"
+        ctaLabel={companyPage.ctaLabel}
+        ctaHref="#how-we-operate"
       />
       <CompanyPageIntro title={companyPage.intro.title} />
       <CompanyPageLead

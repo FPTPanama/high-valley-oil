@@ -259,7 +259,7 @@ export function BusinessPageFocuses({
           >
             <DrawFrame />
             <div
-              className={`grid w-full grid-cols-1 gap-8 text-ink sm:gap-10 lg:grid-cols-[1fr_1.25fr_1fr] lg:gap-12 ${contentInset} py-10 sm:py-12`}
+              className={`grid w-full grid-cols-1 items-center gap-8 text-ink sm:gap-10 lg:grid-cols-[1fr_1.25fr_1fr] lg:gap-12 ${contentInset} py-10 sm:py-12`}
             >
               <span
                 data-focus-number
