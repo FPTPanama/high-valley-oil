@@ -8,6 +8,14 @@ export type Dictionary = {
     siteName: string;
     brandName: string;
     description: string;
+    pages: {
+      home: { title: string; description: string };
+      ourCompany: { title: string; description: string };
+      ourBusiness: { title: string; description: string };
+      services: { title: string; description: string };
+      venezuela: { title: string; description: string };
+      contact: { title: string; description: string };
+    };
   };
   nav: Record<PageKey | "main" | "language", string>;
   language: Record<Locale, string>;

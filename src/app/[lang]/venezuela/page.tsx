@@ -1,14 +1,26 @@
 import type { Metadata } from "next";
+import { lang } from "next/root-params";
 import { sectionStackGap } from "@/components/general-layout";
 import { VenezuelaFieldToMarket } from "@/components/venezuela-field-to-market";
 import { VenezuelaHero } from "@/components/venezuela-hero";
 import { VenezuelaPageContent } from "@/components/venezuela-page";
+import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+import { createPageMetadata } from "@/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await lang();
+  const resolvedLocale = isLocale(locale) ? locale : "en";
   const dict = await getDictionary();
+  const { venezuela } = dict.meta.pages;
 
-  return { title: dict.nav.venezuela };
+  return createPageMetadata({
+    locale: resolvedLocale,
+    path: "/venezuela",
+    title: venezuela.title,
+    description: venezuela.description,
+    siteName: dict.meta.siteName,
+  });
 }
 
 export default async function VenezuelaPage() {
