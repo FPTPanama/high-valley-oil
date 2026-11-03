@@ -7,11 +7,21 @@ import { BusinessPageMethod } from "@/components/business-page-method";
 import { PageHero } from "@/components/page-hero";
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+import { createPageMetadata } from "@/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await lang();
+  const resolvedLocale = isLocale(locale) ? locale : "en";
   const dict = await getDictionary();
+  const { ourBusiness } = dict.meta.pages;
 
-  return { title: dict.nav.ourBusiness };
+  return createPageMetadata({
+    locale: resolvedLocale,
+    path: "/our-business",
+    title: ourBusiness.title,
+    description: ourBusiness.description,
+    siteName: dict.meta.siteName,
+  });
 }
 
 export default async function OurBusinessPage() {

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { lang } from "next/root-params";
 import { sectionStackGap } from "@/components/general-layout";
 import { HomeBusinessSection } from "@/components/home-business-section";
@@ -7,8 +8,25 @@ import { HomeApproachSection } from "@/components/home-approach-section";
 import { HomeServicesSection } from "@/components/home-services-section";
 import { HomeVenezuelaSection } from "@/components/home-venezuela-section";
 import { VenezuelaFieldToMarket } from "@/components/venezuela-field-to-market";
-import { isLocale } from "@/i18n/config";
+import { defaultLocale, isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+import { createPageMetadata } from "@/seo";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await lang();
+  const resolvedLocale = isLocale(locale) ? locale : defaultLocale;
+  const dict = await getDictionary();
+  const { home } = dict.meta.pages;
+
+  return createPageMetadata({
+    locale: resolvedLocale,
+    path: "",
+    title: home.title,
+    description: home.description,
+    siteName: dict.meta.siteName,
+    absoluteTitle: true,
+  });
+}
 
 export default async function HomePage() {
   const dict = await getDictionary();
