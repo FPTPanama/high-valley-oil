@@ -84,6 +84,7 @@ export type Dictionary = {
     eyebrow: string;
     title: string[];
     lead: string;
+    ctaLabel: string;
   };
   businessPage: {
     eyebrow: string;
@@ -118,6 +119,7 @@ export type Dictionary = {
     eyebrow: string;
     title: string[];
     lead: string;
+    ctaLabel: string;
     steps: {
       index: string;
       title: string;
@@ -133,6 +135,7 @@ export type Dictionary = {
     eyebrow: string;
     title: string[];
     lead: string;
+    ctaLabel: string;
     intro: {
       eyebrow: string;
       title: string;

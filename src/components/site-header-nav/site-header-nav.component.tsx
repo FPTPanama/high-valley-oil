@@ -1,12 +1,12 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { Languages } from "lucide-react";
+import { Languages, Menu, X } from "lucide-react";
 import { HomeLink } from "@/components/home-link";
 import { locales, type Locale } from "@/i18n/config";
 
@@ -90,6 +90,7 @@ function LanguageSwitch({
 }) {
   const root = useRef<HTMLAnchorElement>(null);
   const track = useRef<HTMLSpanElement>(null);
+  const router = useRouter();
 
   useGSAP(
     () => {
@@ -141,6 +142,21 @@ function LanguageSwitch({
       prefetch
       data-header-item
       aria-label={`${languageLabel}: ${nextLabel}`}
+      onClick={(event) => {
+        // Keep the chrome mounted: client transition, no scroll jump.
+        if (
+          event.defaultPrevented ||
+          event.button !== 0 ||
+          event.metaKey ||
+          event.ctrlKey ||
+          event.shiftKey ||
+          event.altKey
+        ) {
+          return;
+        }
+        event.preventDefault();
+        router.push(href, { scroll: false });
+      }}
       className={`inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.16em] transition-[color,opacity] duration-200 hover:opacity-100 ${linkFocus} ${
         onCanvas ? "text-canvas" : "text-ink"
       }`}
@@ -172,6 +188,147 @@ function measureLink(
   };
 }
 
+const LOGO_SWAP_X = 18;
+
+function BrandLogo({
+  brandName,
+  onCanvas,
+}: {
+  brandName: string;
+  onCanvas: boolean;
+}) {
+  const canvasLayer = useRef<HTMLSpanElement>(null);
+  const inkLayer = useRef<HTMLSpanElement>(null);
+  // GSAP owns opacity after mount — React style must not clearProps mid-swap.
+  const modeRef = useRef<"canvas" | "ink" | null>(null);
+
+  useGSAP(
+    () => {
+      const canvasEl = canvasLayer.current;
+      const inkEl = inkLayer.current;
+      if (!canvasEl || !inkEl) return;
+
+      const nextMode = onCanvas ? "canvas" : "ink";
+      const snapTo = (mode: "canvas" | "ink") => {
+        gsap.set(canvasEl, {
+          autoAlpha: mode === "canvas" ? 1 : 0,
+          x: 0,
+        });
+        gsap.set(inkEl, {
+          autoAlpha: mode === "ink" ? 1 : 0,
+          x: 0,
+        });
+      };
+
+      // Header intro clearProps on the parent can leave the stacked marks wrong
+      // on desktop (logo is the only intro target). Re-snap when intro ends.
+      const onIntroDone = () => {
+        snapTo(modeRef.current ?? nextMode);
+      };
+      window.addEventListener("header-intro-done", onIntroDone);
+
+      // First paint: set the correct mark before the browser paints.
+      if (modeRef.current === null) {
+        snapTo(nextMode);
+        modeRef.current = nextMode;
+        return () => {
+          window.removeEventListener("header-intro-done", onIntroDone);
+        };
+      }
+
+      if (modeRef.current === nextMode) {
+        snapTo(nextMode);
+        return () => {
+          window.removeEventListener("header-intro-done", onIntroDone);
+        };
+      }
+
+      const prevMode = modeRef.current;
+      modeRef.current = nextMode;
+
+      const prefersReduced = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      gsap.killTweensOf([canvasEl, inkEl]);
+
+      if (prefersReduced) {
+        snapTo(nextMode);
+        return () => {
+          window.removeEventListener("header-intro-done", onIntroDone);
+        };
+      }
+
+      const outgoing = prevMode === "canvas" ? canvasEl : inkEl;
+      const incoming = nextMode === "canvas" ? canvasEl : inkEl;
+
+      // Outgoing drifts right and fades; incoming arrives from the left.
+      gsap.set(outgoing, { autoAlpha: 1, x: 0 });
+      gsap.set(incoming, { autoAlpha: 0, x: -LOGO_SWAP_X });
+
+      const tl = gsap.timeline({
+        defaults: { ease: "power2.inOut" },
+      });
+
+      tl.to(outgoing, {
+        autoAlpha: 0,
+        x: LOGO_SWAP_X,
+        duration: 0.35,
+      }).to(
+        incoming,
+        {
+          autoAlpha: 1,
+          x: 0,
+          duration: 0.4,
+          ease: "power2.out",
+        },
+        0.05,
+      );
+
+      return () => {
+        tl.kill();
+        snapTo(nextMode);
+        window.removeEventListener("header-intro-done", onIntroDone);
+      };
+    },
+    { dependencies: [onCanvas] },
+  );
+
+  return (
+    <span
+      className="relative inline-block h-8 overflow-hidden"
+      style={{ width: (BRAND_LOGO_WIDTH / BRAND_LOGO_HEIGHT) * 32 }}
+    >
+      <span
+        ref={inkLayer}
+        className="absolute inset-0 opacity-0 will-change-[opacity,transform]"
+      >
+        <Image
+          src={BRAND_LOGO_SRC}
+          alt={brandName}
+          width={BRAND_LOGO_WIDTH}
+          height={BRAND_LOGO_HEIGHT}
+          className="h-8 w-auto"
+          priority
+        />
+      </span>
+      <span
+        ref={canvasLayer}
+        className="absolute inset-0 will-change-[opacity,transform]"
+      >
+        <Image
+          src={BRAND_LOGO_CANVAS_SRC}
+          alt=""
+          width={BRAND_LOGO_WIDTH}
+          height={BRAND_LOGO_HEIGHT}
+          className="h-8 w-auto"
+          priority
+        />
+      </span>
+    </span>
+  );
+}
+
 export function SiteHeaderNav({
   locale,
   homeHref,
@@ -186,25 +343,53 @@ export function SiteHeaderNav({
   const pathname = usePathname();
   const root = useRef<HTMLDivElement>(null);
   const indicator = useRef<HTMLSpanElement>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [introPending, setIntroPending] = useState(() => !headerIntroPlayed);
+  const menuId = useId();
   const nextLocale = locales.find((code) => code !== locale) ?? locale;
   const nextHref = pathname.replace(/^\/(en|es)(?=\/|$)/, `/${nextLocale}`);
-  // Light nav over dark media heroes (home + business) while still at the top.
-  const invertAtTop =
-    /^\/(en|es)\/?$/.test(pathname) || /\/our-business\/?$/.test(pathname);
-  const onCanvas = invertAtTop && !scrolled;
-  const logoSrc = onCanvas ? BRAND_LOGO_CANVAS_SRC : BRAND_LOGO_SRC;
+  // Same chrome on every route: light mark at the top, ink mark after scroll.
+  // Pages that still need a dark hero (company, services, …) will catch up later.
+  const onCanvas = !scrolled;
+  const mobileLinks = contact ? [...items, contact] : items;
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [menuOpen]);
 
   useGSAP(
     () => {
       const rootEl = root.current;
-      const targets = gsap.utils.toArray<HTMLElement>(
-        rootEl?.querySelectorAll("[data-header-item]") ?? [],
-      );
+      // Skip desktop-only / display:none nodes so mobile intro does not
+      // stagger through hidden nav links and delay clearProps on the logo.
+      const targets = gsap.utils
+        .toArray<HTMLElement>(
+          rootEl?.querySelectorAll("[data-header-item]") ?? [],
+        )
+        .filter((el) => el.getClientRects().length > 0);
 
       if (!rootEl || targets.length === 0) return;
 
+      const releaseIntroGate = () => {
+        queueMicrotask(() => setIntroPending(false));
+      };
+
       if (headerIntroPlayed) {
-        rootEl.removeAttribute("data-header-intro");
+        releaseIntroGate();
+        window.dispatchEvent(new Event("header-intro-done"));
         return;
       }
 
@@ -213,33 +398,34 @@ export function SiteHeaderNav({
       ).matches;
 
       if (prefersReduced) {
-        rootEl.removeAttribute("data-header-intro");
         headerIntroPlayed = true;
+        releaseIntroGate();
         window.dispatchEvent(new Event("header-intro-done"));
         return;
       }
 
-      // CSS keeps items hidden via data-header-intro; GSAP takes over from there.
-      const tween = gsap.fromTo(
-        targets,
-        { y: -28, autoAlpha: 0 },
-        {
-          y: 0,
-          autoAlpha: 1,
-          duration: 0.85,
-          stagger: 0.14,
-          delay: 0.2,
-          ease: "power2.out",
-          onComplete: () => {
-            headerIntroPlayed = true;
-            rootEl.removeAttribute("data-header-intro");
-            gsap.set(targets, {
-              clearProps: "opacity,visibility,transform",
-            });
-            window.dispatchEvent(new Event("header-intro-done"));
-          },
+      // CSS only zeros opacity; GSAP owns the rise so the end state is stable.
+      gsap.set(targets, { y: -20, autoAlpha: 0 });
+      releaseIntroGate();
+
+      const tween = gsap.to(targets, {
+        y: 0,
+        autoAlpha: 1,
+        duration: 0.7,
+        stagger: 0.1,
+        delay: 0.12,
+        ease: "power2.out",
+        onComplete: () => {
+          headerIntroPlayed = true;
+          // Only clear transform — clearing opacity/visibility on the logo
+          // wrapper (often the sole desktop target) raced the brand mark swap.
+          gsap.set(targets, {
+            clearProps: "transform",
+            autoAlpha: 1,
+          });
+          window.dispatchEvent(new Event("header-intro-done"));
         },
-      );
+      });
 
       return () => {
         tween.kill();
@@ -285,7 +471,6 @@ export function SiteHeaderNav({
             overwrite: "auto",
           });
         } else {
-          // First paint / remeasure: set in place — never sweep from x:0.
           gsap.set(marker, { x: left, y: top, width, autoAlpha: 1 });
           indicatorReady = true;
         }
@@ -296,7 +481,41 @@ export function SiteHeaderNav({
           "[data-nav-link][aria-current='page']",
         );
 
-      const snapToActive = () => moveTo(activeLink(), false);
+      /** First reveal: sweep from the left edge to the active item. */
+      const enterFromLeft = (link: HTMLElement | null) => {
+        if (!link) {
+          hide(false);
+          return;
+        }
+
+        const { left, top, width } = measureLink(rootEl, link);
+
+        if (prefersReduced()) {
+          gsap.set(marker, { x: left, y: top, width, autoAlpha: 1 });
+          indicatorReady = true;
+          return;
+        }
+
+        gsap.fromTo(
+          marker,
+          { x: 0, y: top, width, autoAlpha: 1 },
+          {
+            x: left,
+            duration: 0.35,
+            ease: "power2.out",
+            overwrite: "auto",
+            onComplete: () => {
+              indicatorReady = true;
+            },
+          },
+        );
+      };
+
+      const snapToActive = () => {
+        // Don't kill the entrance sweep with a mid-flight remeasure.
+        if (!indicatorReady) return;
+        moveTo(activeLink(), false);
+      };
       const returnToActive = () => moveTo(activeLink(), true);
 
       const onPointerOver = (event: PointerEvent) => {
@@ -308,14 +527,16 @@ export function SiteHeaderNav({
       };
 
       // Stay hidden until intro finishes so the bar does not sit over moving items.
-      gsap.set(marker, { autoAlpha: 0 });
+      gsap.set(marker, { autoAlpha: 0, x: 0 });
       indicatorReady = false;
 
       let cancelled = false;
+      let armed = false;
       const arm = () => {
-        if (cancelled) return;
+        if (cancelled || armed) return;
+        armed = true;
         void document.fonts?.ready.then(() => {
-          if (!cancelled) snapToActive();
+          if (!cancelled) enterFromLeft(activeLink());
         });
       };
 
@@ -350,25 +571,19 @@ export function SiteHeaderNav({
   return (
     <div
       ref={root}
-      data-header-intro="pending"
-      className="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between"
+      // Skip the pending gate once GSAP (or a prior visit) owns visibility.
+      {...(introPending ? { "data-header-intro": "pending" as const } : {})}
+      className="relative flex flex-row items-center justify-between gap-4 md:gap-6"
     >
       <div data-header-item className="shrink-0">
         <HomeLink href={homeHref}>
-          <Image
-            src={logoSrc}
-            alt={brandName}
-            width={BRAND_LOGO_WIDTH}
-            height={BRAND_LOGO_HEIGHT}
-            className="h-8 w-auto"
-            priority
-          />
+          <BrandLogo brandName={brandName} onCanvas={onCanvas} />
         </HomeLink>
       </div>
 
       <nav
         aria-label={mainLabel}
-        className="flex flex-wrap items-center gap-x-5 gap-y-3 md:justify-center lg:gap-x-7"
+        className="hidden flex-wrap items-center gap-x-5 gap-y-3 md:flex md:justify-center lg:gap-x-7"
       >
         {items.map((item) => (
           <NavLink
@@ -381,14 +596,16 @@ export function SiteHeaderNav({
         ))}
       </nav>
 
-      <div className="flex flex-wrap items-center gap-x-5 gap-y-3 md:justify-end lg:gap-x-7">
+      <div className="flex shrink-0 flex-wrap items-center gap-x-4 gap-y-3 md:gap-x-5 md:justify-end lg:gap-x-7">
         {contact ? (
-          <NavLink
-            href={contact.href}
-            label={contact.label}
-            active={pathname === contact.href}
-            onCanvas={onCanvas}
-          />
+          <span className="hidden md:inline-flex">
+            <NavLink
+              href={contact.href}
+              label={contact.label}
+              active={pathname === contact.href}
+              onCanvas={onCanvas}
+            />
+          </span>
         ) : null}
         <LanguageSwitch
           href={nextHref}
@@ -398,15 +615,83 @@ export function SiteHeaderNav({
           nextLabel={languages[nextLocale]}
           onCanvas={onCanvas}
         />
+        <button
+          type="button"
+          data-header-item
+          aria-label={menuOpen ? "Close menu" : "Menu"}
+          aria-expanded={menuOpen}
+          aria-controls={menuId}
+          onClick={() => setMenuOpen((open) => !open)}
+          className={`inline-flex items-center justify-center md:hidden ${linkFocus} ${
+            onCanvas ? "text-canvas" : "text-ink"
+          }`}
+        >
+          {menuOpen ? (
+            <X aria-hidden="true" className="size-5" strokeWidth={1.75} />
+          ) : (
+            <Menu aria-hidden="true" className="size-5" strokeWidth={1.75} />
+          )}
+        </button>
       </div>
 
       <span
         ref={indicator}
         aria-hidden="true"
-        className={`pointer-events-none absolute top-0 left-0 z-0 h-px w-0 opacity-0 will-change-transform transition-colors duration-200 ${
+        className={`pointer-events-none absolute top-0 left-0 z-0 hidden h-px w-0 opacity-0 will-change-transform transition-colors duration-200 md:block ${
           onCanvas ? "bg-canvas" : "bg-ink"
         }`}
       />
+
+      {/* overflow-hidden clips the off-screen slide so it cannot widen the page. */}
+      <div
+        className={`fixed inset-0 z-40 overflow-hidden md:hidden ${
+          menuOpen ? "pointer-events-auto" : "pointer-events-none"
+        }`}
+      >
+        <button
+          type="button"
+          aria-label="Close menu"
+          tabIndex={menuOpen ? 0 : -1}
+          onClick={() => setMenuOpen(false)}
+          className={`absolute inset-0 bg-ink/40 transition-opacity duration-200 ${
+            menuOpen ? "opacity-100" : "opacity-0"
+          }`}
+        />
+        <div
+          id={menuId}
+          role="dialog"
+          aria-modal="true"
+          aria-label={mainLabel}
+          aria-hidden={!menuOpen}
+          className={`absolute inset-0 flex w-full flex-col bg-ink/80 px-6 pt-24 pb-10 backdrop-blur-md transition-transform duration-200 ease-out ${
+            menuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <nav
+            aria-label={mainLabel}
+            className="flex flex-col items-end gap-5 text-right"
+          >
+            {mobileLinks.map((item) => {
+              const active = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={active ? "page" : undefined}
+                  onClick={() => setMenuOpen(false)}
+                  className={`text-[15px] font-semibold tracking-[0.16em] uppercase transition-opacity duration-200 ${linkFocus} ${
+                    active
+                      ? "text-accent opacity-100"
+                      : "text-canvas opacity-70 hover:opacity-100"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
+      </div>
     </div>
   );
 }

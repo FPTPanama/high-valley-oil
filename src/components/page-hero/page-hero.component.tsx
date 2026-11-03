@@ -139,7 +139,7 @@ export function PageHero({
         // Start at 0 so the first scrub tick does not jump from CSS layout.
         gsap.set(backgroundEl, { yPercent: 0 });
         parallaxTween = gsap.to(backgroundEl, {
-          yPercent: 35,
+          yPercent: 28,
           ease: "none",
           scrollTrigger: {
             trigger: sectionEl,
@@ -173,16 +173,17 @@ export function PageHero({
           className="absolute inset-0 overflow-hidden isolate"
           aria-hidden="true"
         >
-          <div className="absolute inset-x-0 top-0 bottom-2 z-0 overflow-hidden">
+          <div className="absolute inset-0 z-0 overflow-hidden">
             <div
               ref={backgroundParallax}
-              className="absolute inset-x-0 top-0 h-[120%] w-full will-change-transform"
+              className="absolute inset-x-0 top-0 h-[max(56.25vw,72%)] w-full will-change-transform"
             >
               <Image
                 src={backgroundSrc}
                 alt=""
                 fill
                 priority
+                quality={90}
                 sizes="100vw"
                 className="object-cover object-center grayscale brightness-[0.62] contrast-[1.05]"
               />
@@ -241,7 +242,9 @@ export function PageHero({
           </h1>
 
           {subtitle ? (
-            <div className="mt-6 flex max-w-xl flex-col gap-1 text-lg font-normal leading-relaxed tracking-[0.02em] text-ink sm:text-xl">
+            <div
+              className={`mt-6 flex max-w-xl flex-col gap-1 text-lg leading-relaxed tracking-[0.02em] sm:text-xl ${backgroundSrc ? "font-black text-canvas" : "font-normal text-ink"}`}
+            >
               {(Array.isArray(subtitle) ? subtitle : [subtitle]).map((line) => (
                 <p key={line}>{line}</p>
               ))}

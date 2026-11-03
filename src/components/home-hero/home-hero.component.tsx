@@ -208,7 +208,7 @@ export function HomeHero({
             ))}
           </h1>
 
-          <p className="mt-6 max-w-xl text-lg font-normal leading-relaxed tracking-[0.02em] text-canvas/85 sm:text-xl">
+          <p className="mt-6 max-w-xl text-lg font-black leading-relaxed tracking-[0.02em] text-canvas sm:text-xl">
             {subtitle}
           </p>
 

@@ -78,8 +78,9 @@ export function CompanyPagePrinciples({
   return (
     <section
       ref={section}
+      id="how-we-operate"
       aria-labelledby="company-principles-heading"
-      className="relative z-30 mt-10 w-full sm:mt-12 lg:mt-14"
+      className="relative z-30 mt-10 w-full scroll-mt-28 sm:mt-12 lg:mt-14"
     >
       <div
         className={`${contentFrame} bg-canvas shadow-[0_-28px_56px_-18px_rgb(23_43_45_/_0.08),0_-8px_20px_-10px_rgb(23_43_45_/_0.04)]`}
