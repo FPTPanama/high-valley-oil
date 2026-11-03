@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -200,11 +199,8 @@ function BrandLogo({
 }) {
   const canvasLayer = useRef<HTMLSpanElement>(null);
   const inkLayer = useRef<HTMLSpanElement>(null);
-  // React owns the resting mark so remounts (locale swap) never flash the ink logo.
-  const [mode, setMode] = useState<"canvas" | "ink">(
-    onCanvas ? "canvas" : "ink",
-  );
-  const [animating, setAnimating] = useState(false);
+  // GSAP owns opacity after mount — React style must not clearProps mid-swap.
+  const modeRef = useRef<"canvas" | "ink" | null>(null);
 
   useGSAP(
     () => {
@@ -213,83 +209,73 @@ function BrandLogo({
       if (!canvasEl || !inkEl) return;
 
       const nextMode = onCanvas ? "canvas" : "ink";
-      if (nextMode === mode) return;
+      const snapTo = (mode: "canvas" | "ink") => {
+        gsap.set(canvasEl, {
+          autoAlpha: mode === "canvas" ? 1 : 0,
+          x: 0,
+        });
+        gsap.set(inkEl, {
+          autoAlpha: mode === "ink" ? 1 : 0,
+          x: 0,
+        });
+      };
+
+      // First paint: set the correct mark before the browser paints.
+      if (modeRef.current === null) {
+        snapTo(nextMode);
+        modeRef.current = nextMode;
+        return;
+      }
+
+      if (modeRef.current === nextMode) return;
+
+      const prevMode = modeRef.current;
+      modeRef.current = nextMode;
 
       const prefersReduced = window.matchMedia(
         "(prefers-reduced-motion: reduce)",
       ).matches;
 
+      gsap.killTweensOf([canvasEl, inkEl]);
+
       if (prefersReduced) {
-        gsap.set([canvasEl, inkEl], {
-          clearProps: "opacity,visibility,transform",
-        });
-        setMode(nextMode);
-        setAnimating(false);
+        snapTo(nextMode);
         return;
       }
 
-      const outgoing = mode === "canvas" ? canvasEl : inkEl;
+      const outgoing = prevMode === "canvas" ? canvasEl : inkEl;
       const incoming = nextMode === "canvas" ? canvasEl : inkEl;
 
-      gsap.killTweensOf([outgoing, incoming]);
-      setAnimating(true);
-
       // Outgoing drifts right and fades; incoming arrives from the left.
-      gsap.set(outgoing, { opacity: 1, visibility: "visible", x: 0 });
-      gsap.set(incoming, {
-        opacity: 0,
-        visibility: "visible",
-        x: -LOGO_SWAP_X,
-      });
-
-      let settled = false;
-      const settle = () => {
-        if (settled) return;
-        settled = true;
-        gsap.set([outgoing, incoming], {
-          clearProps: "opacity,visibility,transform",
-        });
-        setMode(nextMode);
-        setAnimating(false);
-      };
+      gsap.set(outgoing, { autoAlpha: 1, x: 0 });
+      gsap.set(incoming, { autoAlpha: 0, x: -LOGO_SWAP_X });
 
       const tl = gsap.timeline({
         defaults: { ease: "power2.inOut" },
-        onComplete: settle,
       });
 
       tl.to(outgoing, {
-        opacity: 0,
+        autoAlpha: 0,
         x: LOGO_SWAP_X,
-        duration: 0.38,
+        duration: 0.35,
       }).to(
         incoming,
         {
-          opacity: 1,
+          autoAlpha: 1,
           x: 0,
-          duration: 0.42,
+          duration: 0.4,
           ease: "power2.out",
         },
-        0.06,
+        0.05,
       );
 
       return () => {
         tl.kill();
-        settle();
+        snapTo(nextMode);
       };
     },
-    { dependencies: [onCanvas, mode] },
+    { dependencies: [onCanvas] },
   );
-
-  const layerStyle = (
-    layer: "canvas" | "ink",
-  ): { opacity: number; visibility: "visible" | "hidden" } | undefined =>
-    animating
-      ? undefined
-      : {
-          opacity: mode === layer ? 1 : 0,
-          visibility: mode === layer ? "visible" : "hidden",
-        };
 
   return (
     <span
@@ -299,7 +285,6 @@ function BrandLogo({
       <span
         ref={canvasLayer}
         className="absolute inset-0 will-change-[opacity,transform]"
-        style={layerStyle("canvas")}
       >
         <Image
           src={BRAND_LOGO_CANVAS_SRC}
@@ -313,7 +298,6 @@ function BrandLogo({
       <span
         ref={inkLayer}
         className="absolute inset-0 will-change-[opacity,transform]"
-        style={layerStyle("ink")}
       >
         <Image
           src={BRAND_LOGO_SRC}
@@ -351,7 +335,6 @@ export function SiteHeaderNav({
   // Pages that still need a dark hero (company, services, …) will catch up later.
   const onCanvas = !scrolled;
   const mobileLinks = contact ? [...items, contact] : items;
-  const portalTarget = typeof document !== "undefined" ? document.body : null;
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -603,60 +586,56 @@ export function SiteHeaderNav({
         }`}
       />
 
-      {portalTarget
-        ? createPortal(
-            <div className="md:hidden">
-              <button
-                type="button"
-                aria-label="Close menu"
-                tabIndex={menuOpen ? 0 : -1}
-                onClick={() => setMenuOpen(false)}
-                className={`fixed inset-0 z-40 bg-ink/40 transition-opacity duration-200 ${
-                  menuOpen
-                    ? "pointer-events-auto opacity-100"
-                    : "pointer-events-none opacity-0"
-                }`}
-              />
-              <div
-                id={menuId}
-                role="dialog"
-                aria-modal="true"
-                aria-label={mainLabel}
-                aria-hidden={!menuOpen}
-                className={`fixed inset-0 z-40 flex w-full flex-col bg-ink/80 px-6 pt-24 pb-10 backdrop-blur-md transition-transform duration-200 ease-out ${
-                  menuOpen
-                    ? "pointer-events-auto translate-x-0"
-                    : "pointer-events-none translate-x-full"
-                }`}
-              >
-                <nav
-                  aria-label={mainLabel}
-                  className="flex flex-col items-end gap-5 text-right"
+      {/* overflow-hidden clips the off-screen slide so it cannot widen the page. */}
+      <div
+        className={`fixed inset-0 z-40 overflow-hidden md:hidden ${
+          menuOpen ? "pointer-events-auto" : "pointer-events-none"
+        }`}
+      >
+        <button
+          type="button"
+          aria-label="Close menu"
+          tabIndex={menuOpen ? 0 : -1}
+          onClick={() => setMenuOpen(false)}
+          className={`absolute inset-0 bg-ink/40 transition-opacity duration-200 ${
+            menuOpen ? "opacity-100" : "opacity-0"
+          }`}
+        />
+        <div
+          id={menuId}
+          role="dialog"
+          aria-modal="true"
+          aria-label={mainLabel}
+          aria-hidden={!menuOpen}
+          className={`absolute inset-0 flex w-full flex-col bg-ink/80 px-6 pt-24 pb-10 backdrop-blur-md transition-transform duration-200 ease-out ${
+            menuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <nav
+            aria-label={mainLabel}
+            className="flex flex-col items-end gap-5 text-right"
+          >
+            {mobileLinks.map((item) => {
+              const active = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={active ? "page" : undefined}
+                  onClick={() => setMenuOpen(false)}
+                  className={`text-[15px] font-semibold tracking-[0.16em] uppercase transition-opacity duration-200 ${linkFocus} ${
+                    active
+                      ? "text-accent opacity-100"
+                      : "text-canvas opacity-70 hover:opacity-100"
+                  }`}
                 >
-                  {mobileLinks.map((item) => {
-                    const active = pathname === item.href;
-                    return (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        aria-current={active ? "page" : undefined}
-                        onClick={() => setMenuOpen(false)}
-                        className={`text-[15px] font-semibold tracking-[0.16em] uppercase transition-opacity duration-200 ${linkFocus} ${
-                          active
-                            ? "text-accent opacity-100"
-                            : "text-canvas opacity-70 hover:opacity-100"
-                        }`}
-                      >
-                        {item.label}
-                      </Link>
-                    );
-                  })}
-                </nav>
-              </div>
-            </div>,
-            portalTarget,
-          )
-        : null}
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
+      </div>
     </div>
   );
 }
