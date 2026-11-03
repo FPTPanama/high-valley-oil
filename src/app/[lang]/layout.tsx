@@ -27,6 +27,11 @@ export async function generateMetadata(): Promise<Metadata> {
       template: `%s · ${dict.meta.siteName}`,
     },
     description: dict.meta.description,
+    icons: {
+      icon: [{ url: "/images/icon.svg", type: "image/svg+xml" }],
+      shortcut: "/images/icon.svg",
+      apple: "/images/icon.svg",
+    },
   };
 }
 
