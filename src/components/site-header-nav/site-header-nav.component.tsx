@@ -1,12 +1,13 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useId, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { Languages } from "lucide-react";
+import { Languages, Menu, X } from "lucide-react";
 import { HomeLink } from "@/components/home-link";
 import { locales, type Locale } from "@/i18n/config";
 
@@ -90,6 +91,7 @@ function LanguageSwitch({
 }) {
   const root = useRef<HTMLAnchorElement>(null);
   const track = useRef<HTMLSpanElement>(null);
+  const router = useRouter();
 
   useGSAP(
     () => {
@@ -141,6 +143,21 @@ function LanguageSwitch({
       prefetch
       data-header-item
       aria-label={`${languageLabel}: ${nextLabel}`}
+      onClick={(event) => {
+        // Keep the chrome mounted: client transition, no scroll jump.
+        if (
+          event.defaultPrevented ||
+          event.button !== 0 ||
+          event.metaKey ||
+          event.ctrlKey ||
+          event.shiftKey ||
+          event.altKey
+        ) {
+          return;
+        }
+        event.preventDefault();
+        router.push(href, { scroll: false });
+      }}
       className={`inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.16em] transition-[color,opacity] duration-200 hover:opacity-100 ${linkFocus} ${
         onCanvas ? "text-canvas" : "text-ink"
       }`}
@@ -172,6 +189,145 @@ function measureLink(
   };
 }
 
+const LOGO_SWAP_X = 18;
+
+function BrandLogo({
+  brandName,
+  onCanvas,
+}: {
+  brandName: string;
+  onCanvas: boolean;
+}) {
+  const canvasLayer = useRef<HTMLSpanElement>(null);
+  const inkLayer = useRef<HTMLSpanElement>(null);
+  // React owns the resting mark so remounts (locale swap) never flash the ink logo.
+  const [mode, setMode] = useState<"canvas" | "ink">(
+    onCanvas ? "canvas" : "ink",
+  );
+  const [animating, setAnimating] = useState(false);
+
+  useGSAP(
+    () => {
+      const canvasEl = canvasLayer.current;
+      const inkEl = inkLayer.current;
+      if (!canvasEl || !inkEl) return;
+
+      const nextMode = onCanvas ? "canvas" : "ink";
+      if (nextMode === mode) return;
+
+      const prefersReduced = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      if (prefersReduced) {
+        gsap.set([canvasEl, inkEl], {
+          clearProps: "opacity,visibility,transform",
+        });
+        setMode(nextMode);
+        setAnimating(false);
+        return;
+      }
+
+      const outgoing = mode === "canvas" ? canvasEl : inkEl;
+      const incoming = nextMode === "canvas" ? canvasEl : inkEl;
+
+      gsap.killTweensOf([outgoing, incoming]);
+      setAnimating(true);
+
+      // Outgoing drifts right and fades; incoming arrives from the left.
+      gsap.set(outgoing, { opacity: 1, visibility: "visible", x: 0 });
+      gsap.set(incoming, {
+        opacity: 0,
+        visibility: "visible",
+        x: -LOGO_SWAP_X,
+      });
+
+      let settled = false;
+      const settle = () => {
+        if (settled) return;
+        settled = true;
+        gsap.set([outgoing, incoming], {
+          clearProps: "opacity,visibility,transform",
+        });
+        setMode(nextMode);
+        setAnimating(false);
+      };
+
+      const tl = gsap.timeline({
+        defaults: { ease: "power2.inOut" },
+        onComplete: settle,
+      });
+
+      tl.to(outgoing, {
+        opacity: 0,
+        x: LOGO_SWAP_X,
+        duration: 0.38,
+      }).to(
+        incoming,
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.42,
+          ease: "power2.out",
+        },
+        0.06,
+      );
+
+      return () => {
+        tl.kill();
+        settle();
+      };
+    },
+    { dependencies: [onCanvas, mode] },
+  );
+
+  const layerStyle = (
+    layer: "canvas" | "ink",
+  ): { opacity: number; visibility: "visible" | "hidden" } | undefined =>
+    animating
+      ? undefined
+      : {
+          opacity: mode === layer ? 1 : 0,
+          visibility: mode === layer ? "visible" : "hidden",
+        };
+
+  return (
+    <span
+      className="relative inline-block h-8 overflow-hidden"
+      style={{ width: (BRAND_LOGO_WIDTH / BRAND_LOGO_HEIGHT) * 32 }}
+    >
+      <span
+        ref={canvasLayer}
+        className="absolute inset-0 will-change-[opacity,transform]"
+        style={layerStyle("canvas")}
+      >
+        <Image
+          src={BRAND_LOGO_CANVAS_SRC}
+          alt=""
+          width={BRAND_LOGO_WIDTH}
+          height={BRAND_LOGO_HEIGHT}
+          className="h-8 w-auto"
+          priority
+        />
+      </span>
+      <span
+        ref={inkLayer}
+        className="absolute inset-0 will-change-[opacity,transform]"
+        style={layerStyle("ink")}
+      >
+        <Image
+          src={BRAND_LOGO_SRC}
+          alt={brandName}
+          width={BRAND_LOGO_WIDTH}
+          height={BRAND_LOGO_HEIGHT}
+          className="h-8 w-auto"
+          priority
+        />
+      </span>
+    </span>
+  );
+}
+
 export function SiteHeaderNav({
   locale,
   homeHref,
@@ -186,13 +342,32 @@ export function SiteHeaderNav({
   const pathname = usePathname();
   const root = useRef<HTMLDivElement>(null);
   const indicator = useRef<HTMLSpanElement>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuId = useId();
   const nextLocale = locales.find((code) => code !== locale) ?? locale;
   const nextHref = pathname.replace(/^\/(en|es)(?=\/|$)/, `/${nextLocale}`);
-  // Light nav over dark media heroes (home + business) while still at the top.
-  const invertAtTop =
-    /^\/(en|es)\/?$/.test(pathname) || /\/our-business\/?$/.test(pathname);
-  const onCanvas = invertAtTop && !scrolled;
-  const logoSrc = onCanvas ? BRAND_LOGO_CANVAS_SRC : BRAND_LOGO_SRC;
+  // Same chrome on every route: light mark at the top, ink mark after scroll.
+  // Pages that still need a dark hero (company, services, …) will catch up later.
+  const onCanvas = !scrolled;
+  const mobileLinks = contact ? [...items, contact] : items;
+  const portalTarget = typeof document !== "undefined" ? document.body : null;
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [menuOpen]);
 
   useGSAP(
     () => {
@@ -350,25 +525,22 @@ export function SiteHeaderNav({
   return (
     <div
       ref={root}
-      data-header-intro="pending"
-      className="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between"
+      // Skip the pending gate once the intro has played so locale swaps
+      // do not blank the chrome for a frame (feels like a hard reload).
+      {...(headerIntroPlayed
+        ? {}
+        : { "data-header-intro": "pending" as const })}
+      className="relative flex flex-row items-center justify-between gap-4 md:gap-6"
     >
       <div data-header-item className="shrink-0">
         <HomeLink href={homeHref}>
-          <Image
-            src={logoSrc}
-            alt={brandName}
-            width={BRAND_LOGO_WIDTH}
-            height={BRAND_LOGO_HEIGHT}
-            className="h-8 w-auto"
-            priority
-          />
+          <BrandLogo brandName={brandName} onCanvas={onCanvas} />
         </HomeLink>
       </div>
 
       <nav
         aria-label={mainLabel}
-        className="flex flex-wrap items-center gap-x-5 gap-y-3 md:justify-center lg:gap-x-7"
+        className="hidden flex-wrap items-center gap-x-5 gap-y-3 md:flex md:justify-center lg:gap-x-7"
       >
         {items.map((item) => (
           <NavLink
@@ -381,14 +553,16 @@ export function SiteHeaderNav({
         ))}
       </nav>
 
-      <div className="flex flex-wrap items-center gap-x-5 gap-y-3 md:justify-end lg:gap-x-7">
+      <div className="flex shrink-0 flex-wrap items-center gap-x-4 gap-y-3 md:gap-x-5 md:justify-end lg:gap-x-7">
         {contact ? (
-          <NavLink
-            href={contact.href}
-            label={contact.label}
-            active={pathname === contact.href}
-            onCanvas={onCanvas}
-          />
+          <span className="hidden md:inline-flex">
+            <NavLink
+              href={contact.href}
+              label={contact.label}
+              active={pathname === contact.href}
+              onCanvas={onCanvas}
+            />
+          </span>
         ) : null}
         <LanguageSwitch
           href={nextHref}
@@ -398,15 +572,87 @@ export function SiteHeaderNav({
           nextLabel={languages[nextLocale]}
           onCanvas={onCanvas}
         />
+        <button
+          type="button"
+          data-header-item
+          aria-label={menuOpen ? "Close menu" : "Menu"}
+          aria-expanded={menuOpen}
+          aria-controls={menuId}
+          onClick={() => setMenuOpen((open) => !open)}
+          className={`inline-flex items-center justify-center md:hidden ${linkFocus} ${
+            onCanvas ? "text-canvas" : "text-ink"
+          }`}
+        >
+          {menuOpen ? (
+            <X aria-hidden="true" className="size-5" strokeWidth={1.75} />
+          ) : (
+            <Menu aria-hidden="true" className="size-5" strokeWidth={1.75} />
+          )}
+        </button>
       </div>
 
       <span
         ref={indicator}
         aria-hidden="true"
-        className={`pointer-events-none absolute top-0 left-0 z-0 h-px w-0 opacity-0 will-change-transform transition-colors duration-200 ${
+        className={`pointer-events-none absolute top-0 left-0 z-0 hidden h-px w-0 opacity-0 will-change-transform transition-colors duration-200 md:block ${
           onCanvas ? "bg-canvas" : "bg-ink"
         }`}
       />
+
+      {portalTarget
+        ? createPortal(
+            <div className="md:hidden">
+              <button
+                type="button"
+                aria-label="Close menu"
+                tabIndex={menuOpen ? 0 : -1}
+                onClick={() => setMenuOpen(false)}
+                className={`fixed inset-0 z-40 bg-ink/40 transition-opacity duration-200 ${
+                  menuOpen
+                    ? "pointer-events-auto opacity-100"
+                    : "pointer-events-none opacity-0"
+                }`}
+              />
+              <div
+                id={menuId}
+                role="dialog"
+                aria-modal="true"
+                aria-label={mainLabel}
+                aria-hidden={!menuOpen}
+                className={`fixed inset-0 z-40 flex w-full flex-col bg-ink/80 px-6 pt-24 pb-10 backdrop-blur-md transition-transform duration-200 ease-out ${
+                  menuOpen
+                    ? "pointer-events-auto translate-x-0"
+                    : "pointer-events-none translate-x-full"
+                }`}
+              >
+                <nav
+                  aria-label={mainLabel}
+                  className="flex flex-col items-end gap-5 text-right"
+                >
+                  {mobileLinks.map((item) => {
+                    const active = pathname === item.href;
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        aria-current={active ? "page" : undefined}
+                        onClick={() => setMenuOpen(false)}
+                        className={`text-[15px] font-semibold tracking-[0.16em] uppercase transition-opacity duration-200 ${linkFocus} ${
+                          active
+                            ? "text-accent opacity-100"
+                            : "text-canvas opacity-70 hover:opacity-100"
+                        }`}
+                      >
+                        {item.label}
+                      </Link>
+                    );
+                  })}
+                </nav>
+              </div>
+            </div>,
+            portalTarget,
+          )
+        : null}
     </div>
   );
 }
