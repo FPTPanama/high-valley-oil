@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, type MouseEvent } from "react";
-import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
@@ -11,6 +10,10 @@ import {
   contentInset,
   sectionShell,
 } from "@/components/general-layout";
+import {
+  HeroMediaReveal,
+  HeroRevealImage,
+} from "@/components/hero-media-reveal";
 import { SiteButton } from "@/components/site-button";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
@@ -178,16 +181,18 @@ export function PageHero({
               ref={backgroundParallax}
               className="absolute inset-x-0 top-0 h-[max(56.25vw,72%)] w-full will-change-transform"
             >
-              <Image
-                src={backgroundSrc}
-                alt=""
-                fill
-                priority
-                quality={90}
-                sizes="100vw"
-                className="object-cover object-center grayscale brightness-[0.62] contrast-[1.05]"
-              />
-              <div className="absolute inset-0 bg-ink mix-blend-color" />
+              <HeroMediaReveal>
+                <HeroRevealImage
+                  src={backgroundSrc}
+                  alt=""
+                  fill
+                  priority
+                  quality={90}
+                  sizes="100vw"
+                  className="object-cover object-center grayscale brightness-[0.62] contrast-[1.05]"
+                />
+                <div className="absolute inset-0 bg-ink mix-blend-color" />
+              </HeroMediaReveal>
             </div>
           </div>
           <div className="absolute inset-x-0 top-0 z-10 h-[32%] bg-linear-to-b from-ink from-10% via-ink/55 via-55% to-transparent to-100%" />

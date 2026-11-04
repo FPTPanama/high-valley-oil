@@ -10,6 +10,10 @@ import {
   contentInset,
   sectionShell,
 } from "@/components/general-layout";
+import {
+  HeroMediaReveal,
+  HeroRevealVideo,
+} from "@/components/hero-media-reveal";
 import { SiteButton } from "@/components/site-button";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
@@ -38,6 +42,7 @@ export type VenezuelaHeroProps = {
 };
 
 const HERO_VIDEO_SRC = "/media/venezuela_rio_embarcacion.webm";
+const HERO_POSTER_SRC = "/images/venezuela_rio_poster.webp";
 
 export function VenezuelaHero({
   eyebrow,
@@ -173,16 +178,19 @@ export function VenezuelaHero({
             ref={mediaParallax}
             className="absolute inset-x-0 top-0 h-[120%] w-full will-change-transform"
           >
-            <video
-              className="absolute inset-0 size-full object-cover grayscale brightness-[0.62] contrast-[1.05]"
-              src={HERO_VIDEO_SRC}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-            />
-            <div className="absolute inset-0 bg-ink mix-blend-color" />
+            <HeroMediaReveal>
+              <HeroRevealVideo
+                className="absolute inset-0 size-full object-cover grayscale brightness-[0.62] contrast-[1.05]"
+                src={HERO_VIDEO_SRC}
+                poster={HERO_POSTER_SRC}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+              />
+              <div className="absolute inset-0 bg-ink mix-blend-color" />
+            </HeroMediaReveal>
           </div>
         </div>
         <div className="absolute inset-x-0 top-0 z-10 h-[32%] bg-linear-to-b from-ink from-10% via-ink/55 via-55% to-transparent to-100%" />
