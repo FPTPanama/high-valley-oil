@@ -1,4 +1,7 @@
-import { contentFrame } from "@/components/general-layout";
+import {
+  contentColumn,
+  contentInsetAfterGutter,
+} from "@/components/general-layout";
 import { CompanyAnimatedPanel } from "@/components/company-animated-panel";
 import { SiteButton } from "@/components/site-button";
 
@@ -31,13 +34,17 @@ export function HomeCompanySection({
         headingId="home-company-heading"
       />
 
-      <div className={`${contentFrame} mt-10 sm:mt-12 lg:mt-14`}>
+      <div
+        className={`${contentColumn} ${contentInsetAfterGutter} mt-10 sm:mt-12 lg:mt-14`}
+      >
         <div className="grid items-center gap-8 lg:grid-cols-[2fr_1fr] lg:gap-10">
           <p className="text-base font-light leading-relaxed tracking-[0.02em] text-ink/80 sm:text-lg">
             {body}
           </p>
-          <div className="flex lg:justify-end">
-            <SiteButton href={ctaHref}>{ctaLabel}</SiteButton>
+          <div className="flex w-full sm:w-auto lg:justify-end">
+            <SiteButton href={ctaHref} layout="spread" className="sm:w-auto">
+              {ctaLabel}
+            </SiteButton>
           </div>
         </div>
       </div>

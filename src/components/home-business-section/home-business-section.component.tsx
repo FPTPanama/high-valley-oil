@@ -6,7 +6,10 @@ import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { contentFrame } from "@/components/general-layout";
+import {
+  contentColumn,
+  contentInsetAfterGutter,
+} from "@/components/general-layout";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -107,7 +110,9 @@ export function HomeBusinessSection({
       aria-labelledby="home-business-heading"
       className="relative mt-28 w-full sm:mt-36 lg:mt-44"
     >
-      <div className={`${contentFrame} flex flex-col gap-6 text-left text-ink`}>
+      <div
+        className={`${contentColumn} ${contentInsetAfterGutter} flex flex-col gap-6 text-left text-ink`}
+      >
         <p
           data-business-intro
           className="text-[11px] font-semibold uppercase tracking-[0.2em] will-change-[opacity,transform]"

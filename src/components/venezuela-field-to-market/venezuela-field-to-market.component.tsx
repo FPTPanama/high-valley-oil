@@ -401,10 +401,14 @@ export function VenezuelaFieldToMarket({
             <h2
               id="venezuela-field-to-market-heading"
               aria-label={headingLabel}
-              className="text-4xl font-light tracking-[0.04em] text-balance uppercase sm:text-5xl lg:text-6xl xl:text-7xl"
+              className="text-[clamp(1.65rem,7.2vw,2.25rem)] font-light tracking-[0.04em] uppercase sm:text-5xl lg:text-6xl xl:text-7xl"
             >
               {lines.map((line) => (
-                <span key={line} aria-hidden="true" className="block">
+                <span
+                  key={line}
+                  aria-hidden="true"
+                  className="block whitespace-nowrap"
+                >
                   {Array.from(line).map((char, charIndex) => (
                     <span
                       key={`${line}-${charIndex}`}
@@ -430,23 +434,38 @@ export function VenezuelaFieldToMarket({
                 <li
                   key={stage}
                   data-ftm-step
-                  className="relative flex flex-col items-center gap-4 py-5 text-ink will-change-[opacity] sm:py-0 sm:px-3"
+                  className="relative grid grid-cols-[auto_0.75rem_minmax(0,1fr)] items-start gap-x-3 py-4 text-ink will-change-[opacity] sm:flex sm:flex-col sm:items-center sm:gap-4 sm:px-3 sm:py-0"
                 >
-                  <div className="relative h-3 w-full">
+                  <span className="col-start-1 row-start-1 self-center text-[11px] font-semibold tracking-[0.2em] text-accent sm:order-2 sm:self-auto">
+                    {stepIndex}
+                  </span>
+
+                  <div className="relative col-start-2 row-start-1 row-span-1 min-h-3 w-3 self-stretch sm:order-1 sm:h-3 sm:w-full sm:self-auto">
                     {!isLast ? (
-                      <span
-                        aria-hidden="true"
-                        className="absolute top-1/2 left-[calc(50%+0.375rem)] hidden h-px w-[calc(100%-0.75rem)] -translate-y-1/2 bg-ink/15 sm:block"
-                      >
+                      <>
                         <span
-                          data-ftm-fill="x"
-                          className="absolute inset-0 origin-left scale-x-0 bg-accent will-change-transform"
-                        />
-                      </span>
+                          aria-hidden="true"
+                          className="absolute top-1/2 left-[calc(50%+0.375rem)] hidden h-px w-[calc(100%-0.75rem)] -translate-y-1/2 bg-ink/15 sm:block"
+                        >
+                          <span
+                            data-ftm-fill="x"
+                            className="absolute inset-0 origin-left scale-x-0 bg-accent will-change-transform"
+                          />
+                        </span>
+                        <span
+                          aria-hidden="true"
+                          className="absolute top-3 bottom-[-1rem] left-1/2 w-px -translate-x-1/2 bg-ink/15 sm:hidden"
+                        >
+                          <span
+                            data-ftm-fill="y"
+                            className="absolute inset-0 origin-top scale-y-0 bg-accent will-change-transform"
+                          />
+                        </span>
+                      </>
                     ) : null}
                     {/* Outer shell keeps centering; GSAP scale lives on the inner mark. */}
                     <span
-                      className="absolute top-1/2 left-1/2 z-10 flex size-3 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
+                      className="absolute top-0 left-1/2 z-10 flex size-3 -translate-x-1/2 items-center justify-center sm:top-1/2 sm:-translate-y-1/2"
                       aria-hidden="true"
                     >
                       <span
@@ -456,26 +475,11 @@ export function VenezuelaFieldToMarket({
                     </span>
                   </div>
 
-                  <div className="flex flex-col items-center gap-2">
-                    <span className="text-[11px] font-semibold tracking-[0.2em] text-accent">
-                      {stepIndex}
-                    </span>
-                    <span className="max-w-[11rem] text-sm font-semibold uppercase tracking-[0.14em] text-balance sm:text-[13px]">
+                  <span className="col-start-3 row-start-1 self-center text-left text-sm font-semibold tracking-[0.14em] text-balance uppercase sm:order-3 sm:self-auto sm:text-center sm:text-[13px]">
+                    <span className="box-decoration-clone bg-canvas px-[0.35em] py-[0.12em] shadow-[0.35em_0_0_var(--canvas),-0.35em_0_0_var(--canvas)]">
                       {stage}
                     </span>
-                  </div>
-
-                  {!isLast ? (
-                    <span
-                      aria-hidden="true"
-                      className="absolute bottom-0 left-1/2 h-8 w-px -translate-x-1/2 bg-ink/15 sm:hidden"
-                    >
-                      <span
-                        data-ftm-fill="y"
-                        className="absolute inset-0 origin-top scale-y-0 bg-accent will-change-transform"
-                      />
-                    </span>
-                  ) : null}
+                  </span>
                 </li>
               );
             })}
