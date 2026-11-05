@@ -340,17 +340,44 @@
       {
         "index": "01",
         "title": "Define the scope",
-        "body": "Establish objectives, technical requirements and the delivery plan."
+        "details": [
+          {
+            "title": "Objectives",
+            "body": "Clarify operational and commercial goals before shaping the solution and work plan."
+          }
+        ],
+        "caption": {
+          "title": "Requirements and plan",
+          "body": "Define technical needs, delivery priorities and the plan used to measure progress."
+        }
       },
       {
         "index": "02",
         "title": "Coordinate resources",
-        "body": "Align specialist partners, equipment, personnel and site requirements."
+        "details": [
+          {
+            "title": "Partners and equipment",
+            "body": "Align specialist partners and field equipment with scope and site conditions."
+          }
+        ],
+        "caption": {
+          "title": "Personnel and site",
+          "body": "Coordinate personnel, logistics and site requirements to keep execution moving cleanly."
+        }
       },
       {
         "index": "03",
         "title": "Track delivery",
-        "body": "Agree progress reporting, acceptance criteria and project closeout."
+        "details": [
+          {
+            "title": "Progress reporting",
+            "body": "Agree how progress is reported, how often, and which signals mark deviation."
+          }
+        ],
+        "caption": {
+          "title": "Acceptance and closeout",
+          "body": "Define acceptance criteria and project closeout with clear traceability for all parties."
+        }
       }
     ]
   },
