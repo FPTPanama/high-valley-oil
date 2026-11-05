@@ -3,10 +3,26 @@ import type { ReactNode } from "react";
 /** Max content width shared by header, hero frame, footer, and pages. */
 export const contentFrame = "mx-auto w-full max-w-6xl";
 
-/** Horizontal inset inside the content frame. */
-export const contentInset = "px-4 sm:px-6 lg:px-8";
+/**
+ * Mobile-only outer gutter — same px as the header bar.
+ * Use on the section shell so panels/borders sit inside the margin (not only the text).
+ * No-op from `sm` up so desktop keeps the full `contentFrame` width.
+ */
+export const contentMobileGutter = "px-6 sm:px-0";
 
-/** Frame + inset in one class (typical page columns). */
+/** Shared page column: `contentFrame` + mobile gutter. Prefer this for section shells. */
+export const contentColumn = `${contentFrame} ${contentMobileGutter}`;
+
+/** Horizontal inset inside the content frame — same as the header bar. */
+export const contentInset = "px-6 sm:px-6 lg:px-8";
+
+/**
+ * Inset when the parent already applies `contentMobileGutter`.
+ * Avoids double padding on mobile; matches header inset from `sm` up.
+ */
+export const contentInsetAfterGutter = "px-0 sm:px-6 lg:px-8";
+
+/** Frame + inset in one class (typical page columns / header / footer). */
 export const contentFramePadded = `${contentFrame} ${contentInset}`;
 
 /** Optional full-viewport shell (e.g. home hero). Not required for every section. */

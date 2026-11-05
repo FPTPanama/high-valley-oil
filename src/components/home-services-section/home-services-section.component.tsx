@@ -16,7 +16,10 @@ import {
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { contentFrame } from "@/components/general-layout";
+import {
+  contentColumn,
+  contentInsetAfterGutter,
+} from "@/components/general-layout";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -125,6 +128,8 @@ export function HomeServicesSection({
         },
       });
 
+      // Per-card scrub with a short window: late ends (e.g. top 65%) kept
+      // lower cards invisible until they climbed near the header on mobile.
       const itemTweens = itemEls.map((item) =>
         gsap.to(item, {
           opacity: 1,
@@ -132,16 +137,22 @@ export function HomeServicesSection({
           ease: "none",
           scrollTrigger: {
             trigger: item,
-            start: "top 90%",
-            end: "top 65%",
-            scrub: 0.4,
+            start: "top 98%",
+            end: "top 82%",
+            scrub: 0.3,
             invalidateOnRefresh: true,
           },
         }),
       );
 
       let parallaxTween: gsap.core.Tween | undefined;
-      if (parallaxEl && featurePanelEl) {
+      const canParallax =
+        parallaxEl &&
+        featurePanelEl &&
+        window.matchMedia("(min-width: 640px)").matches &&
+        !prefersReduced;
+
+      if (canParallax) {
         parallaxTween = gsap.fromTo(
           parallaxEl,
           { yPercent: -12 },
@@ -156,6 +167,8 @@ export function HomeServicesSection({
             },
           },
         );
+      } else if (parallaxEl) {
+        gsap.set(parallaxEl, { clearProps: "transform" });
       }
 
       return () => {
@@ -178,7 +191,7 @@ export function HomeServicesSection({
       aria-labelledby="home-services-heading"
       className="relative mt-28 w-full sm:mt-36 lg:mt-44"
     >
-      <div className={contentFrame}>
+      <div className={`${contentColumn} ${contentInsetAfterGutter}`}>
         <div className="flex flex-col gap-10 text-ink sm:gap-12 lg:gap-14">
           <div className="flex flex-col gap-6">
             <p
@@ -217,15 +230,15 @@ export function HomeServicesSection({
               >
                 <Link
                   href={`${servicesBasePath}#${item.slug}`}
-                  className="group relative flex aspect-square flex-col justify-between overflow-hidden border border-ink/20 bg-canvas p-5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent sm:p-6"
+                  className="group relative flex aspect-auto min-h-0 flex-col justify-between gap-8 overflow-hidden border border-ink/20 bg-canvas p-5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent sm:aspect-square sm:gap-0 sm:p-6"
                 >
                   <span
                     aria-hidden="true"
                     className="pointer-events-none absolute inset-0 origin-bottom scale-y-0 bg-ink transition-transform duration-300 ease-out group-hover:scale-y-100"
                   />
-                  <span className="relative z-10 flex flex-col gap-4 sm:gap-5">
+                  <span className="relative z-10 flex flex-col gap-3 sm:gap-5">
                     <ServiceIcon name={item.icon} />
-                    <span className="text-2xl font-medium leading-tight tracking-[0.02em] text-ink transition-colors duration-300 group-hover:text-canvas">
+                    <span className="text-xl font-medium leading-tight tracking-[0.02em] text-ink transition-colors duration-300 group-hover:text-canvas sm:text-2xl">
                       {item.title}
                     </span>
                   </span>
@@ -246,31 +259,45 @@ export function HomeServicesSection({
 
       <div
         ref={featurePanel}
-        className={`${contentFrame} mt-16 sm:mt-20 lg:mt-24`}
+        className={`${contentColumn} ${contentInsetAfterGutter} mt-16 sm:mt-20 lg:mt-24`}
       >
         <Link
           href={`${servicesBasePath}#${feature.slug}`}
-          className="group relative flex min-h-[min(70vh,36rem)] items-end justify-start overflow-hidden focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent sm:min-h-[min(75vh,42rem)]"
+          className="group relative flex flex-col overflow-hidden focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent sm:block sm:min-h-[min(75vh,42rem)]"
         >
-          <div
-            ref={parallax}
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 top-[-28%] z-0 h-[156%] w-full will-change-transform"
-          >
-            <Image
-              src={FEATURE_IMAGE_SRC}
-              alt=""
-              fill
-              sizes="100vw"
-              className="object-cover object-[center_65%]"
-            />
+          {/* Mobile: full image at content width, no crop/parallax. Desktop: fill + scrub. */}
+          <div className="relative w-full overflow-hidden sm:absolute sm:inset-0">
+            <div className="relative w-full sm:hidden">
+              <Image
+                src={FEATURE_IMAGE_SRC}
+                alt=""
+                width={1408}
+                height={768}
+                sizes="100vw"
+                className="h-auto w-full"
+              />
+            </div>
+            <div
+              ref={parallax}
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 top-[-28%] z-0 hidden h-[156%] w-full will-change-transform sm:block"
+            >
+              <Image
+                src={FEATURE_IMAGE_SRC}
+                alt=""
+                fill
+                sizes="(min-width: 640px) 72rem, 100vw"
+                className="object-cover object-[center_65%]"
+              />
+            </div>
           </div>
-          <div className="relative z-10 m-6 flex aspect-square w-1/4 min-w-[10.5rem] flex-col justify-between gap-3 bg-ink p-4 text-canvas sm:m-8 sm:p-5 lg:m-10 lg:p-6">
+          {/* Mobile: copy under the image. Desktop: ink card overlaid on the media. */}
+          <div className="relative z-10 flex w-full flex-col justify-between gap-6 bg-ink p-5 text-canvas sm:absolute sm:bottom-0 sm:left-0 sm:m-8 sm:aspect-square sm:w-1/4 sm:min-w-[10.5rem] sm:gap-3 sm:p-5 lg:m-10 lg:p-6">
             <div className="flex w-full flex-col gap-3">
-              <h3 className="w-full text-sm font-light tracking-[0.04em] uppercase sm:text-base lg:text-lg">
+              <h3 className="w-full text-base font-light tracking-[0.04em] uppercase sm:text-base lg:text-lg">
                 {feature.title}
               </h3>
-              <p className="w-full text-xs font-light leading-snug tracking-[0.02em] text-canvas/80 sm:text-sm">
+              <p className="w-full text-sm font-light leading-snug tracking-[0.02em] text-canvas/80 sm:text-sm">
                 {feature.body}
               </p>
             </div>

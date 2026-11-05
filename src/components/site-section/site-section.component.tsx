@@ -1,5 +1,8 @@
 import { forwardRef, type ReactNode } from "react";
-import { contentFrame, contentInset } from "@/components/general-layout";
+import {
+  contentColumn,
+  contentInsetAfterGutter,
+} from "@/components/general-layout";
 
 export type SiteSectionTone = "canvas" | "ink" | "accent";
 
@@ -9,7 +12,7 @@ export type SiteSectionProps = {
   tone?: SiteSectionTone;
   /** Extra classes on the outer `<section>` (spacing around the panel). */
   className?: string;
-  /** Extra classes on the framed panel (`contentFrame`). */
+  /** Extra classes on the framed panel (`contentColumn`). */
   frameClassName?: string;
   /** Extra classes on the padded content box (grid, gaps, py, etc.). */
   contentClassName?: string;
@@ -25,7 +28,7 @@ const toneClassName: Record<SiteSectionTone, string> = {
 };
 
 /**
- * Shared home/content column: same `max-w-6xl` + inset as the hero frame.
+ * Shared home/content column: `contentColumn` (frame + mobile gutter) like the hero.
  * Put section backgrounds on the framed panel via `tone`, not full-bleed.
  * `ref` points at the framed panel (useful for GSAP).
  */
@@ -52,9 +55,9 @@ export const SiteSection = forwardRef<HTMLDivElement, SiteSectionProps>(
       >
         <div
           ref={ref}
-          className={`${contentFrame} overflow-hidden ${toneClassName[tone]} ${frameClassName}`}
+          className={`${contentColumn} overflow-hidden ${toneClassName[tone]} ${frameClassName}`}
         >
-          <div className={`${contentInset} ${contentClassName}`}>
+          <div className={`${contentInsetAfterGutter} ${contentClassName}`}>
             {children}
           </div>
         </div>

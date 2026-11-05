@@ -5,7 +5,10 @@ import { FlagTriangleRight } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { contentFrame } from "@/components/general-layout";
+import {
+  contentColumn,
+  contentInsetAfterGutter,
+} from "@/components/general-layout";
 import { SiteButton } from "@/components/site-button";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -64,6 +67,7 @@ export function HomeVenezuelaSection({
       const prefersReduced = window.matchMedia(
         "(prefers-reduced-motion: reduce)",
       ).matches;
+      const isMobile = window.matchMedia("(max-width: 639px)").matches;
 
       let cancelled = false;
       let mapTween: gsap.core.Timeline | undefined;
@@ -221,7 +225,7 @@ export function HomeVenezuelaSection({
           const svg = host.querySelector("svg");
           if (!svg) return;
 
-          svg.setAttribute("class", "h-full w-full max-w-none text-ink");
+          svg.setAttribute("class", "h-full w-full text-ink");
           svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
           svg.setAttribute("aria-hidden", "true");
           svg.removeAttribute("width");
@@ -232,7 +236,8 @@ export function HomeVenezuelaSection({
           ) as SVGPathElement[];
           if (paths.length === 0) return;
 
-          if (prefersReduced) {
+          // Mobile: static map (no scrub/parallax travel). Desktop keeps draw scrub.
+          if (prefersReduced || isMobile) {
             showMapComplete(paths);
             return;
           }
@@ -260,44 +265,48 @@ export function HomeVenezuelaSection({
     <section
       ref={section}
       aria-labelledby="home-venezuela-heading"
-      className="relative mt-28 w-full overflow-hidden sm:mt-36 lg:mt-44"
+      className="relative mt-28 w-full overflow-x-clip sm:mt-36 lg:mt-44"
     >
       <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center"
+        className={`${contentColumn} ${contentInsetAfterGutter} relative z-10 flex flex-col gap-10 py-12 sm:min-h-[min(85vh,48rem)] sm:justify-center sm:py-20 lg:gap-0 lg:py-24`}
       >
+        {/*
+          Mobile: map in normal flow inside the content gutter.
+          Desktop: map sits absolutely behind the copy (full section stage).
+        */}
         <div
-          className="relative h-full max-h-full w-full max-w-full"
-          style={{ aspectRatio: MAP_ASPECT }}
+          aria-hidden="true"
+          className="relative z-0 w-full sm:pointer-events-none sm:absolute sm:inset-y-0 sm:left-1/2 sm:flex sm:w-screen sm:max-w-none sm:-translate-x-1/2 sm:items-center sm:justify-center"
         >
           <div
-            ref={mapHost}
-            className="absolute inset-0 [&_svg]:h-full [&_svg]:w-full"
-          />
-          <ul className="absolute inset-0">
-            {MAP_PINS.map((pin) => (
-              <li
-                key={pin.id}
-                data-map-pin
-                className="absolute -translate-x-1/2 -translate-y-full will-change-[opacity,transform]"
-                style={{ left: pin.left, top: pin.top }}
-              >
-                <FlagTriangleRight
-                  className="size-7 text-accent sm:size-8"
-                  strokeWidth={1.75}
-                  fill="currentColor"
-                  fillOpacity={0.2}
-                />
-              </li>
-            ))}
-          </ul>
+            className="relative w-full sm:h-full sm:max-h-full sm:w-full sm:max-w-6xl"
+            style={{ aspectRatio: MAP_ASPECT }}
+          >
+            <div
+              ref={mapHost}
+              className="absolute inset-0 [&_svg]:h-full [&_svg]:w-full"
+            />
+            <ul className="absolute inset-0">
+              {MAP_PINS.map((pin) => (
+                <li
+                  key={pin.id}
+                  data-map-pin
+                  className="absolute -translate-x-1/2 -translate-y-full will-change-[opacity,transform]"
+                  style={{ left: pin.left, top: pin.top }}
+                >
+                  <FlagTriangleRight
+                    className="size-6 text-accent sm:size-8"
+                    strokeWidth={1.75}
+                    fill="currentColor"
+                    fillOpacity={0.2}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </div>
 
-      <div
-        className={`${contentFrame} relative z-10 flex min-h-[min(85vh,48rem)] flex-col justify-center py-16 sm:py-20 lg:py-24`}
-      >
-        <div className="flex max-w-xl flex-col gap-6 text-ink sm:gap-8">
+        <div className="relative z-10 flex max-w-xl flex-col gap-6 text-ink sm:gap-8">
           <p
             data-venezuela-intro
             className="text-[11px] font-semibold uppercase tracking-[0.2em] will-change-[opacity,transform]"
@@ -328,8 +337,13 @@ export function HomeVenezuelaSection({
             </span>
           </p>
 
-          <div data-venezuela-intro className="will-change-[opacity,transform]">
-            <SiteButton href={ctaHref}>{ctaLabel}</SiteButton>
+          <div
+            data-venezuela-intro
+            className="w-full will-change-[opacity,transform] sm:w-auto"
+          >
+            <SiteButton href={ctaHref} layout="spread" className="sm:w-auto">
+              {ctaLabel}
+            </SiteButton>
           </div>
         </div>
       </div>

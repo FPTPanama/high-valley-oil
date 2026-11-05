@@ -5,7 +5,10 @@ import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { contentFrame } from "@/components/general-layout";
+import {
+  contentColumn,
+  contentInsetAfterGutter,
+} from "@/components/general-layout";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -136,13 +139,15 @@ export function CompanyAnimatedPanel({
     >
       <div
         ref={panel}
-        className={`${contentFrame} origin-center overflow-hidden will-change-transform`}
+        className={`${contentColumn} origin-center overflow-hidden will-change-transform`}
       >
         <div className="grid gap-0 lg:grid-cols-2 lg:items-stretch">
-          <div className="flex min-w-0 flex-col items-center justify-center bg-ink px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
+          <div
+            className={`${contentInsetAfterGutter} flex min-w-0 flex-col items-center justify-center bg-ink py-16 sm:py-20 lg:py-24`}
+          >
             <div
               data-company-reveal
-              className="flex w-2/3 max-w-xl flex-col gap-6 text-left text-canvas will-change-[opacity,transform]"
+              className="flex w-2/3 max-w-xl flex-col gap-6 text-center text-canvas will-change-[opacity,transform] lg:text-left"
             >
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em]">
                 <span className="text-accent">{index}</span>
@@ -167,7 +172,7 @@ export function CompanyAnimatedPanel({
 
           <div
             ref={rightCol}
-            className="relative flex min-w-0 flex-col justify-center overflow-hidden bg-canvas px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24"
+            className={`${contentInsetAfterGutter} relative flex min-w-0 flex-col justify-center overflow-hidden bg-canvas py-16 sm:py-20 lg:py-24`}
           >
             <div
               ref={parallax}

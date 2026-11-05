@@ -4,11 +4,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import {
-  contentFrame,
-  contentInset,
-  sectionShell,
-} from "@/components/general-layout";
+import { contentColumn, sectionShell } from "@/components/general-layout";
 import { SiteButton } from "@/components/site-button";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -172,48 +168,48 @@ export function HomeHero({
         <div className="pointer-events-none absolute inset-x-0 -bottom-px z-20 h-5 bg-canvas" />
       </div>
 
-      <div
-        ref={frame}
-        className={`${contentFrame} relative z-10 mt-40 sm:mt-48`}
-      >
-        <span
-          ref={top}
-          aria-hidden="true"
-          className="pointer-events-none absolute top-0 left-0 h-0.5 w-full bg-accent will-change-transform"
-        />
-        <span
-          ref={right}
-          aria-hidden="true"
-          className="pointer-events-none absolute top-0 right-0 h-full w-0.5 bg-accent will-change-transform"
-        />
-        <span
-          ref={bottom}
-          aria-hidden="true"
-          className="pointer-events-none absolute bottom-0 left-0 h-0.5 w-full bg-accent will-change-transform"
-        />
-        <span
-          ref={left}
-          aria-hidden="true"
-          className="pointer-events-none absolute top-0 left-0 h-full w-0.5 bg-accent will-change-transform"
-        />
+      {/* contentColumn: mobile gutter matches header; desktop keeps full frame width. */}
+      <div className={`${contentColumn} relative z-10 mt-40 sm:mt-48`}>
+        <div ref={frame} className="relative">
+          <span
+            ref={top}
+            aria-hidden="true"
+            className="pointer-events-none absolute top-0 left-0 h-0.5 w-full bg-accent will-change-transform"
+          />
+          <span
+            ref={right}
+            aria-hidden="true"
+            className="pointer-events-none absolute top-0 right-0 h-full w-0.5 bg-accent will-change-transform"
+          />
+          <span
+            ref={bottom}
+            aria-hidden="true"
+            className="pointer-events-none absolute bottom-0 left-0 h-0.5 w-full bg-accent will-change-transform"
+          />
+          <span
+            ref={left}
+            aria-hidden="true"
+            className="pointer-events-none absolute top-0 left-0 h-full w-0.5 bg-accent will-change-transform"
+          />
 
-        <div
-          className={`${contentInset} flex min-h-[min(28rem,58dvh)] flex-col justify-center py-10 sm:min-h-[min(32rem,60dvh)] sm:py-12`}
-        >
-          <h1 className="max-w-3xl text-5xl font-light tracking-[0.04em] text-balance text-canvas sm:text-6xl lg:text-7xl">
-            {title.map((line) => (
-              <span key={line} className="block">
-                {line}
-              </span>
-            ))}
-          </h1>
+          <div className="flex min-h-[min(28rem,58dvh)] flex-col justify-center px-5 py-10 sm:min-h-[min(32rem,60dvh)] sm:px-6 sm:py-12 lg:px-8">
+            <h1 className="max-w-3xl text-5xl font-light tracking-[0.04em] text-balance text-canvas sm:text-6xl lg:text-7xl">
+              {title.map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
+            </h1>
 
-          <p className="mt-6 max-w-xl text-lg font-black leading-relaxed tracking-[0.02em] text-canvas sm:text-xl">
-            {subtitle}
-          </p>
+            <p className="mt-6 max-w-xl text-lg font-black leading-relaxed tracking-[0.02em] text-canvas sm:text-xl">
+              {subtitle}
+            </p>
 
-          <div className="mt-10">
-            <SiteButton href={ctaHref}>{ctaLabel}</SiteButton>
+            <div className="mt-10 w-full sm:w-auto">
+              <SiteButton href={ctaHref} layout="spread" className="sm:w-auto">
+                {ctaLabel}
+              </SiteButton>
+            </div>
           </div>
         </div>
       </div>
