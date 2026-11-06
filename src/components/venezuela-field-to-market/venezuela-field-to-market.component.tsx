@@ -4,7 +4,10 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { contentFrame, contentInset } from "@/components/general-layout";
+import {
+  contentColumn,
+  contentInsetAfterGutter,
+} from "@/components/general-layout";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -370,7 +373,7 @@ export function VenezuelaFieldToMarket({
       ref={section}
       id="field-to-market"
       aria-labelledby="venezuela-field-to-market-heading"
-      className="relative isolate w-full scroll-mt-28 overflow-x-clip pb-8 sm:pb-12 lg:pb-16"
+      className="relative isolate w-full scroll-mt-28 overflow-x-clip pb-10 sm:pb-12 lg:pb-16"
     >
       <div
         aria-hidden="true"
@@ -386,12 +389,12 @@ export function VenezuelaFieldToMarket({
 
       <div
         ref={panel}
-        className={`${contentFrame} relative z-10 overflow-hidden bg-transparent text-ink`}
+        className={`${contentColumn} relative z-10 overflow-hidden bg-transparent text-ink`}
       >
         <div
-          className={`${contentInset} flex min-h-[min(70vh,40rem)] flex-col items-center justify-center gap-16 py-16 text-center sm:gap-20 sm:py-20 lg:min-h-[min(75vh,44rem)] lg:gap-24 lg:py-24`}
+          className={`${contentInsetAfterGutter} flex min-h-0 flex-col items-center justify-center gap-12 py-12 text-center sm:min-h-[min(70vh,40rem)] sm:gap-20 sm:py-20 lg:min-h-[min(75vh,44rem)] lg:gap-24 lg:py-24`}
         >
-          <div className="flex w-full max-w-4xl flex-col items-center gap-6 text-ink sm:gap-8">
+          <div className="flex w-full max-w-4xl flex-col items-center gap-5 text-ink sm:gap-8">
             <p
               data-ftm-eyebrow
               className="bg-canvas px-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-accent will-change-[opacity,transform] sm:text-sm"
@@ -401,7 +404,7 @@ export function VenezuelaFieldToMarket({
             <h2
               id="venezuela-field-to-market-heading"
               aria-label={headingLabel}
-              className="text-[clamp(1.65rem,7.2vw,2.25rem)] font-light tracking-[0.04em] uppercase sm:text-5xl lg:text-6xl xl:text-7xl"
+              className="text-[clamp(1.35rem,5.8vw,2.25rem)] font-light tracking-[0.04em] uppercase sm:text-5xl lg:text-6xl xl:text-7xl"
             >
               {lines.map((line) => (
                 <span
