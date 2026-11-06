@@ -4,9 +4,26 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { contentFrame, contentInset } from "@/components/general-layout";
+import {
+  contentColumn,
+  contentInsetAfterGutter,
+} from "@/components/general-layout";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
+
+/** Renders `**bold**` markers from i18n as semibold spans. */
+function renderHighlightedText(text: string) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, index) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return (
+        <strong key={index} className="font-semibold text-ink">
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    return <span key={index}>{part}</span>;
+  });
+}
 
 export type BusinessPageFocusBlock = {
   title: string;
@@ -237,9 +254,11 @@ export function BusinessPageFocuses({
       ref={section}
       id="focus-areas"
       aria-label={eyebrow}
-      className="relative mt-10 w-full scroll-mt-28 sm:mt-12 sm:scroll-mt-32 lg:mt-14"
+      className="relative mt-0 w-full scroll-mt-28 sm:scroll-mt-32"
     >
-      <div className={`${contentFrame} mb-10 sm:mb-12 lg:mb-14`}>
+      <div
+        className={`${contentColumn} ${contentInsetAfterGutter} mb-8 sm:mb-10 lg:mb-12`}
+      >
         <p
           data-focus-areas-intro
           className="text-[11px] font-semibold uppercase tracking-[0.2em] text-accent will-change-[opacity,transform]"
@@ -248,30 +267,30 @@ export function BusinessPageFocuses({
         </p>
       </div>
 
-      <div className="flex w-full flex-col gap-6 sm:gap-8">
+      <div className={`${contentColumn} flex w-full flex-col gap-6 sm:gap-8`}>
         {focuses.map((focus) => (
           <article
             key={focus.index}
             id={`business-focus-${focus.index}`}
             data-business-block
             aria-labelledby={`business-focus-${focus.index}-heading`}
-            className={`relative w-full bg-canvas ${contentFrame}`}
+            className="relative w-full bg-canvas"
           >
             <DrawFrame />
             <div
-              className={`grid w-full grid-cols-1 items-center gap-8 text-ink sm:gap-10 lg:grid-cols-[1fr_1.25fr_1fr] lg:gap-12 ${contentInset} py-10 sm:py-12`}
+              className="grid w-full grid-cols-1 items-center gap-6 px-5 py-8 text-ink sm:gap-8 sm:px-6 sm:py-10 lg:grid-cols-[1fr_1.25fr_1fr] lg:gap-12 lg:px-8 lg:py-12"
             >
               <span
                 data-focus-number
                 aria-hidden="true"
-                className="flex min-h-24 min-w-0 items-center justify-center p-4 text-7xl leading-none font-light tracking-tighter text-ink tabular-nums will-change-transform sm:text-8xl lg:min-h-0 lg:text-[16rem]"
+                className="flex min-h-20 min-w-0 items-center justify-end text-6xl leading-none font-light tracking-tighter text-ink tabular-nums will-change-transform sm:min-h-24 sm:text-8xl lg:min-h-0 lg:justify-center lg:text-[16rem]"
               >
                 {Number(focus.index)}
               </span>
 
               <div
                 data-focus-middle
-                className="flex min-w-0 flex-col gap-4 p-4 will-change-transform"
+                className="flex min-w-0 flex-col gap-3 will-change-transform sm:gap-4"
               >
                 <h3
                   id={`business-focus-${focus.index}-heading`}
@@ -280,24 +299,26 @@ export function BusinessPageFocuses({
                   {focus.label}
                 </h3>
                 {focus.lead ? (
-                  <p className="text-base font-normal leading-relaxed tracking-[0.02em] text-ink/80 sm:text-lg">
-                    {focus.lead}
+                  <p className="text-base font-light leading-relaxed tracking-[0.02em] text-ink/80 sm:text-lg">
+                    {renderHighlightedText(focus.lead)}
                   </p>
                 ) : null}
               </div>
 
               {focus.blocks.length > 0 ? (
-                <ul className="flex min-w-0 flex-col justify-center gap-4 border-t border-ink/15 p-4 pt-4 lg:border-t-0 lg:pt-4">
+                <ul className="flex min-w-0 flex-col justify-center gap-3 border-t border-ink/15 pt-4 sm:gap-4 lg:border-t-0 lg:pt-4">
                   {focus.blocks.map((block) => (
                     <li
                       key={block.title}
                       data-focus-item
                       className="min-w-0 text-base font-light leading-snug tracking-[0.02em] text-ink will-change-transform sm:text-lg"
                     >
-                      <span className="block">{block.title}</span>
+                      <span className="block">
+                        {renderHighlightedText(block.title)}
+                      </span>
                       {block.info ? (
                         <span className="mt-1 block text-sm text-ink/70 sm:text-base">
-                          {block.info}
+                          {renderHighlightedText(block.info)}
                         </span>
                       ) : null}
                     </li>

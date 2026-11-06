@@ -45,14 +45,20 @@
   },
   "home": {
     "hero": {
-      "title": ["Experiencia energética.", "Conectada."],
+      "title": [
+        "Experiencia energética.",
+        "Conectada."
+      ],
       "subtitle": "Reunimos producción, visión comercial y capacidades operativas a lo largo de la cadena de valor del petróleo y el gas.",
       "cta": "Explorar nuestro negocio"
     },
     "company": {
       "index": "01",
       "eyebrow": "Nuestra empresa",
-      "title": ["Una visión conectada.", "Un enfoque práctico."],
+      "title": [
+        "Una visión conectada.",
+        "Un enfoque práctico."
+      ],
       "lead": "High Valley Oil Production LLC es una empresa energética enfocada en la producción de petróleo, la comercialización de crudo y servicios petroleros integrados.",
       "body": "Reunimos consideraciones técnicas, comerciales y logísticas. En Venezuela, coordinamos socios locales especializados para alinear servicios de campo, ingeniería y suministro a cada proyecto.",
       "cta": "Cómo abordamos tu proyecto"
@@ -60,7 +66,10 @@
     "business": {
       "index": "02",
       "eyebrow": "Nuestro negocio",
-      "title": ["A lo largo de la cadena", "de valor energética."],
+      "title": [
+        "A lo largo de la cadena",
+        "de valor energética."
+      ],
       "subtitle": [
         "Cuatro áreas de enfoque conectadas.",
         "Una perspectiva coordinada."
@@ -91,76 +100,76 @@
         {
           "index": "01",
           "label": "Producción y desarrollo de campos",
-          "lead": "Un enfoque de campo para la producción, intervención de pozos y continuidad de las operaciones de petróleo y gas.",
+          "lead": "Trabajamos desde el **pozo** y las **instalaciones de superficie** para sostener **producción**, reducir tiempos muertos y alinear **intervención**, pruebas y mantenimiento con el plan del campo.",
           "blocks": [
             {
-              "title": "Optimización de producción",
-              "info": ""
+              "title": "**Optimización** de producción",
+              "info": "Ajustes operativos y de levantamiento para mejorar **caudal**, **confiabilidad** y recuperación a lo largo del ciclo de vida."
             },
             {
-              "title": "Intervención y pruebas de pozos",
-              "info": ""
+              "title": "**Intervención** y pruebas de pozos",
+              "info": "**Diagnóstico**, estimulación y pruebas para devolver **integridad** y desempeño al pozo con alcance claro."
             },
             {
-              "title": "Instalaciones de superficie y mantenimiento",
-              "info": ""
+              "title": "Instalaciones de superficie y **mantenimiento**",
+              "info": "Continuidad de plantas, líneas y equipos críticos para mantener la operación **estable** y **segura**."
             }
           ]
         },
         {
           "index": "02",
           "label": "Comercialización de crudo y derivados",
-          "lead": "Conectamos las necesidades comerciales con el suministro, la coordinación de cargamentos y los requerimientos del mercado energético.",
+          "lead": "Conectamos oferta y demanda con criterios **técnicos** y **comerciales**: calidad del crudo, ventanas de carga, documentación y seguimiento hasta la **entrega**.",
           "blocks": [
             {
-              "title": "Comercialización de petróleo crudo",
-              "info": ""
+              "title": "**Comercialización** de petróleo crudo",
+              "info": "Negociación y colocación de volúmenes según **especificaciones**, destino y condiciones de mercado."
             },
             {
-              "title": "Suministro de derivados",
-              "info": ""
+              "title": "**Suministro** de derivados",
+              "info": "Abastecimiento de productos alineado a **demanda** operativa, calidad requerida y plazos de entrega."
             },
             {
-              "title": "Coordinación comercial y logística",
-              "info": ""
+              "title": "Coordinación **comercial** y **logística**",
+              "info": "Puente entre **contrato**, programación de cargamentos y ejecución logística para cerrar cada operación."
             }
           ]
         },
         {
           "index": "03",
           "label": "Servicios petroleros integrados",
-          "lead": "Soporte técnico para el pozo, las instalaciones y los sistemas que mantienen la operación en marcha.",
+          "lead": "Capacidades **técnicas** coordinadas alrededor del **alcance**: del pozo a las instalaciones, con **ingeniería**, procura y soporte que mantienen la operación en marcha.",
           "blocks": [
             {
-              "title": "Intervención, pruebas de pozos y medición de producción",
-              "info": ""
+              "title": "**Intervención**, pruebas de pozos y **medición** de producción",
+              "info": "Servicios de campo para evaluar, intervenir y cuantificar producción con **trazabilidad** operativa."
             },
             {
-              "title": "Ingeniería, procura y puesta en marcha",
-              "info": ""
+              "title": "**Ingeniería**, procura y puesta en marcha",
+              "info": "Diseño, compra y arranque alineados al **cronograma**, con interfaces claras entre equipos y proveedores."
             },
             {
-              "title": "Mantenimiento, generación eléctrica y servicios ambientales",
-              "info": ""
+              "title": "**Mantenimiento**, generación eléctrica y servicios **ambientales**",
+              "info": "Soporte a **confiabilidad** energética y cumplimiento ambiental sin frenar la continuidad operativa."
             }
           ]
         },
         {
           "index": "04",
           "label": "Logística e infraestructura",
-          "lead": "Coordinación de infraestructura y manejo de fluidos para conectar las operaciones con el suministro y la entrega.",
+          "lead": "Movemos **fluidos** e información de **custodia** con infraestructura, medición y coordinación **marítima** que unen el campo con el mercado.",
           "blocks": [
             {
-              "title": "Terminales e infraestructura portuaria",
-              "info": ""
+              "title": "**Terminales** e infraestructura portuaria",
+              "info": "Operación y coordinación en puntos de recepción, **almacenamiento** y despacho vinculados al proyecto."
             },
             {
-              "title": "Medición para transferencia de custodia",
-              "info": ""
+              "title": "**Medición** para transferencia de custodia",
+              "info": "Sistemas y procedimientos que respaldan **volúmenes**, calidad y transferencia comercial confiable."
             },
             {
-              "title": "Manejo de fluidos y logística marítima",
-              "info": ""
+              "title": "Manejo de **fluidos** y logística **marítima**",
+              "info": "Programación de movimientos, buques y manejo de fluidos para una cadena de **entrega** continua."
             }
           ]
         }
@@ -284,13 +293,18 @@
   },
   "servicesPage": {
     "eyebrow": "Servicios",
-    "title": ["Servicios técnicos."],
+    "title": [
+      "Servicios técnicos."
+    ],
     "lead": "Capacidades especializadas coordinadas para el alcance de cada proyecto.",
     "ctaLabel": "Ver capacidades"
   },
   "businessPage": {
     "eyebrow": "Nuestro negocio",
-    "title": ["A lo largo de la cadena", "de valor energética."],
+    "title": [
+      "A lo largo de la cadena",
+      "de valor energética."
+    ],
     "lead": [
       "Cuatro áreas de enfoque conectadas.",
       "Una perspectiva coordinada."
@@ -336,7 +350,11 @@
   },
   "venezuelaPage": {
     "eyebrow": "Venezuela / Entrega de proyectos",
-    "title": ["Coordinación", "internacional.", "Ejecución local."],
+    "title": [
+      "Coordinación",
+      "internacional.",
+      "Ejecución local."
+    ],
     "lead": "Conectamos planificación comercial, procura y logística con recursos técnicos locales para apoyar proyectos de oil and gas en Venezuela.",
     "ctaLabel": "Del campo al mercado",
     "steps": [
@@ -400,7 +418,10 @@
   },
   "companyPage": {
     "eyebrow": "Nuestra empresa",
-    "title": ["Una visión conectada.", "Un enfoque práctico."],
+    "title": [
+      "Una visión conectada.",
+      "Un enfoque práctico."
+    ],
     "lead": "High Valley Oil Production LLC es una empresa energética enfocada en la producción de petróleo, la comercialización de crudo y servicios petroleros integrados.",
     "ctaLabel": "Cómo operamos",
     "intro": {
@@ -503,9 +524,15 @@
     "headline": "Nuestra próxima conversación.",
     "cta": "Iniciar una conversación",
     "addressLabel": "Dirección",
-    "addressLines": ["1925 Lovering Avenue", "Wilmington DE 19806"],
+    "addressLines": [
+      "1925 Lovering Avenue",
+      "Wilmington DE 19806"
+    ],
     "addressCountry": "Estados Unidos",
-    "company": ["High Valley", "Oil Production LLC"],
+    "company": [
+      "High Valley",
+      "Oil Production LLC"
+    ],
     "copyrightOwner": "High Valley Oil Production LLC"
   },
   "notFound": {

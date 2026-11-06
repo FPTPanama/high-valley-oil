@@ -6,7 +6,10 @@ import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { contentFrame, contentInset } from "@/components/general-layout";
+import {
+  contentColumn,
+  contentInsetAfterGutter,
+} from "@/components/general-layout";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -188,24 +191,31 @@ export function VenezuelaPageContent({
           return;
         }
 
+        const isMobile = window.matchMedia("(max-width: 1023px)").matches;
         const enter = 1;
-        const hold = 0.75;
-        const exit = 1;
+        // Mobile: longer hold so exit does not start while the block is still mid-screen.
+        const hold = isMobile ? 1.85 : 0.75;
+        const exit = isMobile ? 0.9 : 1;
         const offset = 72;
+        // Early enter, late exit — start when the slide arrives, finish after it has mostly left.
+        const slideStart = isMobile ? "top 92%" : "center 88%";
+        const slideEnd = isMobile ? "top -8%" : "center 12%";
 
+        // Sticky topo already lags the scroll; scrub must drift UP (negative),
+        // not down — positive yPercent reads as inverted parallax on mobile.
         const topoEl = sectionEl.querySelector<HTMLElement>("[data-vz-topo]");
         if (topoEl) {
           const topoTween = gsap.fromTo(
             topoEl,
-            { yPercent: 8 },
+            { yPercent: isMobile ? 4 : 8 },
             {
-              yPercent: 36,
+              yPercent: isMobile ? -18 : -22,
               ease: "none",
               scrollTrigger: {
                 trigger: sectionEl,
                 start: "top bottom",
                 end: "bottom top",
-                scrub: true,
+                scrub: isMobile ? 0.45 : true,
                 invalidateOnRefresh: true,
               },
             },
@@ -238,9 +248,9 @@ export function VenezuelaPageContent({
             defaults: { ease: "none" },
             scrollTrigger: {
               trigger: slideEl,
-              start: "center 88%",
-              end: "center 12%",
-              scrub: 0.5,
+              start: slideStart,
+              end: slideEnd,
+              scrub: isMobile ? 0.35 : 0.5,
               invalidateOnRefresh: true,
             },
           });
@@ -335,7 +345,7 @@ export function VenezuelaPageContent({
         aria-hidden="true"
         className="pointer-events-none sticky top-0 z-[1] h-dvh w-full overflow-x-clip"
       >
-        <div className="absolute top-[68%] right-0 h-[min(160vh,96rem)] w-[min(165vw,96rem)] -translate-y-1/2 translate-x-[38%]">
+        <div className="absolute top-[28%] right-0 h-[min(160vh,96rem)] w-[min(165vw,96rem)] -translate-y-1/2 translate-x-[38%]">
           <div
             data-vz-topo
             className="relative size-full will-change-transform"
@@ -349,10 +359,10 @@ export function VenezuelaPageContent({
       </div>
 
       <div
-        className={`${contentFrame} relative -mt-[100dvh] bg-transparent text-ink`}
+        className={`${contentColumn} relative -mt-[100dvh] bg-transparent text-ink`}
       >
         <div
-          className={`${contentInset} flex flex-col gap-0 pt-0 pb-10 sm:pb-14 lg:pb-16`}
+          className={`${contentInsetAfterGutter} flex flex-col gap-0 pt-0 pb-10 sm:pb-14 lg:pb-16`}
         >
           {steps.map((step, stepIndex) => {
             const panelOnRight = stepIndex % 2 === 1;
@@ -390,7 +400,7 @@ export function VenezuelaPageContent({
               <div className="relative flex flex-col gap-0">
                 <div
                   data-vz-side={sideKey}
-                  className={`relative z-0 h-[60dvh] w-full overflow-hidden opacity-0 will-change-[opacity,transform] motion-reduce:opacity-100 ${sideBorderClass}`}
+                  className={`relative z-0 h-[42dvh] w-full overflow-hidden opacity-0 will-change-[opacity,transform] motion-reduce:opacity-100 sm:h-[50dvh] lg:h-[60dvh] ${sideBorderClass}`}
                 >
                   <div
                     data-vz-parallax

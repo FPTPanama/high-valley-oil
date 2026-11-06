@@ -5,7 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { contentFrame } from "@/components/general-layout";
+import { contentColumn } from "@/components/general-layout";
 import { SiteButton } from "@/components/site-button";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -80,10 +80,10 @@ export function BusinessPageMethod({
     <section
       ref={section}
       aria-labelledby="business-method-heading"
-      className="relative z-30 mt-10 w-full sm:mt-12 lg:mt-14"
+      className="relative z-30 mt-8 w-full sm:mt-10 lg:mt-12"
     >
       <div
-        className={`${contentFrame} bg-canvas shadow-[0_-28px_56px_-18px_rgb(23_43_45_/_0.08),0_-8px_20px_-10px_rgb(23_43_45_/_0.04)]`}
+        className={`${contentColumn} bg-canvas shadow-[0_-28px_56px_-18px_rgb(23_43_45_/_0.08),0_-8px_20px_-10px_rgb(23_43_45_/_0.04)]`}
       >
         <div ref={panel} className="relative overflow-hidden text-ink">
           <div
@@ -100,8 +100,8 @@ export function BusinessPageMethod({
             />
           </div>
 
-          <div className="relative z-10 flex flex-col gap-10 p-4 sm:gap-12 sm:p-6 lg:gap-14 lg:p-8">
-            <header className="flex max-w-xl flex-col gap-5 bg-canvas p-4 sm:gap-6 sm:p-6 lg:p-8">
+          <div className="relative z-10 flex flex-col gap-8 p-4 sm:gap-10 sm:p-6 lg:gap-14 lg:p-8">
+            <header className="flex max-w-xl flex-col gap-4 bg-canvas p-4 sm:gap-6 sm:p-6 lg:p-8">
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em]">
                 <span>{index}</span>
                 <span className="mx-2 text-ink/40" aria-hidden="true">
@@ -117,7 +117,7 @@ export function BusinessPageMethod({
               </h2>
             </header>
 
-            <ol className="grid gap-6 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8">
+            <ol className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8">
               {steps.map((step) => (
                 <li
                   key={step.index}

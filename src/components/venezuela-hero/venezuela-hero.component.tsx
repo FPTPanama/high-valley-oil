@@ -5,11 +5,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import {
-  contentFrame,
-  contentInset,
-  sectionShell,
-} from "@/components/general-layout";
+import { contentColumn, sectionShell } from "@/components/general-layout";
 import { SiteButton } from "@/components/site-button";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
@@ -168,7 +164,7 @@ export function VenezuelaHero({
         className="absolute inset-0 overflow-hidden isolate"
         aria-hidden="true"
       >
-        <div className="absolute inset-x-0 top-0 bottom-2 z-0 overflow-hidden">
+        <div className="absolute inset-x-0 top-0 bottom-0 z-0 overflow-hidden">
           <div
             ref={mediaParallax}
             className="absolute inset-x-0 top-0 h-[120%] w-full will-change-transform"
@@ -186,65 +182,65 @@ export function VenezuelaHero({
           </div>
         </div>
         <div className="absolute inset-x-0 top-0 z-10 h-[32%] bg-linear-to-b from-ink from-10% via-ink/55 via-55% to-transparent to-100%" />
-        <div className="absolute inset-x-0 bottom-0 z-10 h-[40%] bg-linear-to-t from-canvas from-35% via-canvas/70 via-60% to-transparent to-100%" />
-        <div className="pointer-events-none absolute inset-x-0 -bottom-px z-20 h-5 bg-canvas" />
+        <div className="absolute inset-x-0 bottom-0 z-10 h-[22%] bg-linear-to-t from-canvas from-20% via-canvas/55 via-55% to-transparent to-100%" />
+        <div className="pointer-events-none absolute inset-x-0 -bottom-px z-20 h-3 bg-canvas" />
       </div>
 
-      <div
-        ref={frame}
-        className={`${contentFrame} relative z-10 mt-40 sm:mt-48`}
-      >
-        <span
-          ref={top}
-          aria-hidden="true"
-          className="pointer-events-none absolute top-0 left-0 h-0.5 w-full bg-accent will-change-transform"
-        />
-        <span
-          ref={right}
-          aria-hidden="true"
-          className="pointer-events-none absolute top-0 right-0 h-full w-0.5 bg-accent will-change-transform"
-        />
-        <span
-          ref={bottom}
-          aria-hidden="true"
-          className="pointer-events-none absolute bottom-0 left-0 h-0.5 w-full bg-accent will-change-transform"
-        />
-        <span
-          ref={left}
-          aria-hidden="true"
-          className="pointer-events-none absolute top-0 left-0 h-full w-0.5 bg-accent will-change-transform"
-        />
+      {/* contentColumn: mobile gutter matches header; accent frame height follows content. */}
+      <div className={`${contentColumn} relative z-10 mt-40 mb-0 sm:mt-48`}>
+        <div ref={frame} className="relative h-auto">
+          <span
+            ref={top}
+            aria-hidden="true"
+            className="pointer-events-none absolute top-0 left-0 h-0.5 w-full bg-accent will-change-transform"
+          />
+          <span
+            ref={right}
+            aria-hidden="true"
+            className="pointer-events-none absolute top-0 right-0 h-full w-0.5 bg-accent will-change-transform"
+          />
+          <span
+            ref={bottom}
+            aria-hidden="true"
+            className="pointer-events-none absolute bottom-0 left-0 h-0.5 w-full bg-accent will-change-transform"
+          />
+          <span
+            ref={left}
+            aria-hidden="true"
+            className="pointer-events-none absolute top-0 left-0 h-full w-0.5 bg-accent will-change-transform"
+          />
 
-        <div
-          className={`${contentInset} flex min-h-[min(28rem,58dvh)] flex-col justify-center py-10 sm:min-h-[min(32rem,60dvh)] sm:py-12`}
-        >
-          <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.2em] text-canvas">
-            {eyebrow}
-          </p>
+          <div className="flex flex-col px-5 py-10 sm:px-6 sm:py-12 lg:px-8">
+            <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.2em] text-canvas">
+              {eyebrow}
+            </p>
 
-          <h1 className="max-w-3xl text-5xl font-light tracking-[0.04em] text-balance text-canvas sm:text-6xl lg:text-7xl">
-            {title.map((line) => (
-              <span key={line} className="block">
-                {line}
-              </span>
-            ))}
-          </h1>
+            <h1 className="max-w-3xl text-5xl font-light tracking-[0.04em] text-balance text-canvas sm:text-6xl lg:text-7xl">
+              {title.map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
+            </h1>
 
-          <p className="mt-6 max-w-xl text-lg font-black leading-relaxed tracking-[0.02em] text-canvas sm:text-xl">
-            {subtitle}
-          </p>
+            <p className="mt-6 max-w-xl text-lg font-black leading-relaxed tracking-[0.02em] text-canvas sm:text-xl">
+              {subtitle}
+            </p>
 
-          <div className="mt-10">
-            <SiteButton
-              href={ctaHref}
-              onClick={(event: MouseEvent<HTMLAnchorElement>) => {
-                if (!ctaHref.startsWith("#")) return;
-                event.preventDefault();
-                scrollToHash(ctaHref);
-              }}
-            >
-              {ctaLabel}
-            </SiteButton>
+            <div className="mt-10 w-full">
+              <SiteButton
+                href={ctaHref}
+                layout="spread"
+                className="w-full"
+                onClick={(event: MouseEvent<HTMLAnchorElement>) => {
+                  if (!ctaHref.startsWith("#")) return;
+                  event.preventDefault();
+                  scrollToHash(ctaHref);
+                }}
+              >
+                {ctaLabel}
+              </SiteButton>
+            </div>
           </div>
         </div>
       </div>

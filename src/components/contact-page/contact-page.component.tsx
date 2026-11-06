@@ -5,11 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import {
-  contentFrame,
-  contentInset,
-  sectionShell,
-} from "@/components/general-layout";
+import { contentColumn, sectionShell } from "@/components/general-layout";
 import { SiteButton } from "@/components/site-button";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -163,10 +159,11 @@ export function ContactPageContent({
         className="absolute inset-0 overflow-hidden isolate"
         aria-hidden="true"
       >
-        <div className="absolute inset-0 z-0 overflow-hidden">
+        {/* Full-bleed photo on mobile so the form sits on the open image. */}
+        <div className="absolute inset-x-0 top-0 bottom-0 z-0 overflow-hidden">
           <div
             ref={backgroundParallax}
-            className="absolute inset-x-0 top-0 h-[max(56.25vw,72%)] w-full will-change-transform"
+            className="absolute inset-x-0 top-0 h-[120%] w-full will-change-transform"
           >
             <Image
               src={HERO_SRC}
@@ -180,95 +177,98 @@ export function ContactPageContent({
             <div className="absolute inset-0 bg-ink mix-blend-color" />
           </div>
         </div>
-        <div className="absolute inset-x-0 top-0 z-10 h-[32%] bg-linear-to-b from-ink from-10% via-ink/55 via-55% to-transparent to-100%" />
-        <div className="absolute inset-x-0 bottom-0 z-10 h-[40%] bg-linear-to-t from-canvas from-35% via-canvas/70 via-60% to-transparent to-100%" />
-        <div className="pointer-events-none absolute inset-x-0 -bottom-px z-20 h-5 bg-canvas" />
+        {/* Desktop-only washes; mobile keeps the photo clear behind the form. */}
+        <div className="absolute inset-x-0 top-0 z-10 hidden h-[32%] bg-linear-to-b from-ink from-10% via-ink/55 via-55% to-transparent to-100% sm:block" />
+        <div className="absolute inset-x-0 bottom-0 z-10 hidden h-[22%] bg-linear-to-t from-canvas from-20% via-canvas/55 via-55% to-transparent to-100% sm:block" />
+        <div className="pointer-events-none absolute inset-x-0 -bottom-px z-20 hidden h-3 bg-canvas sm:block" />
       </div>
 
-      <div
-        ref={frame}
-        className={`${contentFrame} relative z-10 mt-40 sm:mt-48`}
-      >
-        <span
-          ref={top}
-          aria-hidden="true"
-          className="pointer-events-none absolute top-0 left-0 h-0.5 w-full bg-accent will-change-transform"
-        />
-        <span
-          ref={right}
-          aria-hidden="true"
-          className="pointer-events-none absolute top-0 right-0 h-full w-0.5 bg-accent will-change-transform"
-        />
-        <span
-          ref={bottom}
-          aria-hidden="true"
-          className="pointer-events-none absolute bottom-0 left-0 h-0.5 w-full bg-accent will-change-transform"
-        />
-        <span
-          ref={left}
-          aria-hidden="true"
-          className="pointer-events-none absolute top-0 left-0 h-full w-0.5 bg-accent will-change-transform"
-        />
+      {/* contentColumn: mobile gutter matches header; accent frame height follows content. */}
+      <div className={`${contentColumn} relative z-10 mt-40 mb-0 sm:mt-48`}>
+        <div ref={frame} className="relative h-auto">
+          <span
+            ref={top}
+            aria-hidden="true"
+            className="pointer-events-none absolute top-0 left-0 h-0.5 w-full bg-accent will-change-transform"
+          />
+          <span
+            ref={right}
+            aria-hidden="true"
+            className="pointer-events-none absolute top-0 right-0 h-full w-0.5 bg-accent will-change-transform"
+          />
+          <span
+            ref={bottom}
+            aria-hidden="true"
+            className="pointer-events-none absolute bottom-0 left-0 h-0.5 w-full bg-accent will-change-transform"
+          />
+          <span
+            ref={left}
+            aria-hidden="true"
+            className="pointer-events-none absolute top-0 left-0 h-full w-0.5 bg-accent will-change-transform"
+          />
 
-        <div
-          className={`${contentInset} flex min-h-[min(28rem,58dvh)] flex-col justify-center py-10 sm:min-h-[min(32rem,60dvh)] sm:py-12`}
-        >
-          <div className="grid w-full gap-12 lg:grid-cols-2 lg:items-center lg:gap-16 xl:gap-20">
-            <header className="flex max-w-xl flex-col justify-center gap-5 text-left lg:h-full">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-canvas">
-                {eyebrow}
-              </p>
-              <h1
-                id="contact-heading"
-                className="text-5xl font-light tracking-[0.04em] text-balance text-canvas sm:text-6xl lg:text-7xl"
-              >
-                {title}
-              </h1>
-            </header>
+          <div className="flex flex-col px-5 py-10 sm:px-6 sm:py-12 lg:px-8">
+            <div className="grid w-full gap-10 sm:gap-12 lg:grid-cols-2 lg:items-center lg:gap-16 xl:gap-20">
+              <header className="flex max-w-xl flex-col justify-center gap-5 text-left lg:h-full">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-canvas">
+                  {eyebrow}
+                </p>
+                <h1
+                  id="contact-heading"
+                  className="text-5xl font-light tracking-[0.04em] text-balance text-canvas sm:text-6xl lg:text-7xl"
+                >
+                  {title}
+                </h1>
+              </header>
 
-            <div className="w-full max-w-xl p-6 backdrop-blur-xs sm:p-8 lg:max-w-none lg:justify-self-stretch">
-              <form
-                className="flex flex-col justify-center gap-4"
-                action="#"
-                method="post"
-                noValidate
-              >
-                {fields.map((field) => (
-                  <label
-                    key={field.id}
-                    className="flex flex-col gap-1.5"
-                    htmlFor={field.id}
-                  >
-                    <span className="text-sm font-medium tracking-[0.02em] text-canvas">
-                      {field.label}
-                    </span>
-                    {field.type === "textarea" ? (
-                      <textarea
-                        id={field.id}
-                        name={field.name}
-                        rows={4}
-                        required={field.required}
-                        className={`${fieldClassName} min-h-24 resize-y`}
-                      />
-                    ) : (
-                      <input
-                        id={field.id}
-                        name={field.name}
-                        type={field.type}
-                        autoComplete={field.autoComplete}
-                        required={field.required}
-                        className={fieldClassName}
-                      />
-                    )}
-                  </label>
-                ))}
+              <div className="w-full max-w-xl sm:p-0 lg:max-w-none lg:justify-self-stretch">
+                <form
+                  className="flex flex-col justify-center gap-4"
+                  action="#"
+                  method="post"
+                  noValidate
+                >
+                  {fields.map((field) => (
+                    <label
+                      key={field.id}
+                      className="flex flex-col gap-1.5"
+                      htmlFor={field.id}
+                    >
+                      <span className="text-sm font-medium tracking-[0.02em] text-canvas">
+                        {field.label}
+                      </span>
+                      {field.type === "textarea" ? (
+                        <textarea
+                          id={field.id}
+                          name={field.name}
+                          rows={4}
+                          required={field.required}
+                          className={`${fieldClassName} min-h-24 resize-y`}
+                        />
+                      ) : (
+                        <input
+                          id={field.id}
+                          name={field.name}
+                          type={field.type}
+                          autoComplete={field.autoComplete}
+                          required={field.required}
+                          className={fieldClassName}
+                        />
+                      )}
+                    </label>
+                  ))}
 
-                <div className="pt-1">
-                  <SiteButton type="submit" layout="spread">
-                    {submitLabel}
-                  </SiteButton>
-                </div>
-              </form>
+                  <div className="pt-1">
+                    <SiteButton
+                      type="submit"
+                      layout="spread"
+                      className="w-full"
+                    >
+                      {submitLabel}
+                    </SiteButton>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
