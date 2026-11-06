@@ -343,17 +343,44 @@
       {
         "index": "01",
         "title": "Definir el alcance",
-        "body": "Establecer objetivos, requerimientos técnicos y el plan de entrega."
+        "details": [
+          {
+            "title": "Objetivos",
+            "body": "Aclarar metas operativas y comerciales antes de dar forma a la solución y al plan de trabajo."
+          }
+        ],
+        "caption": {
+          "title": "Requerimientos y plan",
+          "body": "Definir necesidades técnicas, prioridades de entrega y el plan con el que se medirá el avance."
+        }
       },
       {
         "index": "02",
         "title": "Coordinar recursos",
-        "body": "Alinear socios especializados, equipos, personal y requerimientos de sitio."
+        "details": [
+          {
+            "title": "Socios y equipos",
+            "body": "Alinear socios especializados y equipos de campo con el alcance y las condiciones de cada sitio."
+          }
+        ],
+        "caption": {
+          "title": "Personal y sitio",
+          "body": "Coordinar personal, logística y requerimientos de sitio para sostener la ejecución sin fricción."
+        }
       },
       {
         "index": "03",
         "title": "Seguir la entrega",
-        "body": "Acordar reporte de avance, criterios de aceptación y cierre del proyecto."
+        "details": [
+          {
+            "title": "Reporte de avance",
+            "body": "Acordar cómo se reporta el progreso, con qué frecuencia y qué señales marcan desviaciones."
+          }
+        ],
+        "caption": {
+          "title": "Aceptación y cierre",
+          "body": "Definir criterios de aceptación y el cierre del proyecto con trazabilidad clara para todas las partes."
+        }
       }
     ]
   },
@@ -417,12 +444,12 @@
       "body": "Con sede en Wilmington, Delaware, y un modelo de entrega enfocado en proyectos de oil and gas en Venezuela—coordinando socios locales especializados alrededor de cada alcance.",
       "points": [
         {
-          "title": "Estados Unidos",
-          "body": "Base corporativa en Wilmington, Delaware, para coordinación comercial y seguimiento de proyectos."
+          "title": "Venezuela",
+          "body": "Presencia operativa en **campo**: **servicios**, **ingeniería** y **suministro** con socios locales especializados, alineados al alcance de cada proyecto."
         },
         {
-          "title": "Venezuela",
-          "body": "Coordinación en campo de servicios, ingeniería y recursos de suministro ajustados a cada proyecto."
+          "title": "Estados Unidos",
+          "body": "**Sede corporativa** en Wilmington, Delaware: **coordinación comercial**, seguimiento contractual y **supervisión de proyectos** con alcance internacional."
         }
       ]
     },

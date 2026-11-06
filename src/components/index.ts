@@ -2,7 +2,10 @@ export { AccentRule } from "./accent-rule";
 export {
   GeneralLayout,
   contentFrame,
+  contentMobileGutter,
+  contentColumn,
   contentInset,
+  contentInsetAfterGutter,
   contentFramePadded,
   sectionShell,
   sectionStackGap,

@@ -131,7 +131,14 @@ export type Dictionary = {
     steps: {
       index: string;
       title: string;
-      body: string;
+      details: {
+        title: string;
+        body: string;
+      }[];
+      caption?: {
+        title: string;
+        body: string;
+      };
     }[];
   };
   venezuelaFieldToMarket: {

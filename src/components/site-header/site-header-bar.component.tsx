@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { contentFrame } from "@/components/general-layout";
+import { contentFrame, contentInset } from "@/components/general-layout";
 import {
   SiteHeaderNav,
   type SiteHeaderNavProps,
@@ -53,7 +53,7 @@ export function SiteHeaderBar(props: SiteHeaderNavProps) {
   return (
     <header className="fixed inset-x-0 top-0 z-50 pt-3 md:pt-25">
       <div className={contentFrame}>
-        <div className="relative px-6 sm:px-6 lg:px-8">
+        <div className={`relative ${contentInset}`}>
           {/* Clip only the fill surface so mobile drawer is not trapped. */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
             <div

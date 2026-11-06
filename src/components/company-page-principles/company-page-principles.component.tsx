@@ -5,7 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { contentFrame } from "@/components/general-layout";
+import { contentColumn } from "@/components/general-layout";
 import { SiteButton } from "@/components/site-button";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -83,7 +83,7 @@ export function CompanyPagePrinciples({
       className="relative z-30 mt-10 w-full scroll-mt-28 sm:mt-12 lg:mt-14"
     >
       <div
-        className={`${contentFrame} bg-canvas shadow-[0_-28px_56px_-18px_rgb(23_43_45_/_0.08),0_-8px_20px_-10px_rgb(23_43_45_/_0.04)]`}
+        className={`${contentColumn} bg-canvas shadow-[0_-28px_56px_-18px_rgb(23_43_45_/_0.08),0_-8px_20px_-10px_rgb(23_43_45_/_0.04)]`}
       >
         <div ref={panel} className="relative overflow-hidden text-ink">
           <div
