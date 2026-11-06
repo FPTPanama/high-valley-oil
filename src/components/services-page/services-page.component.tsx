@@ -5,7 +5,10 @@ import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { contentFrame } from "@/components/general-layout";
+import {
+  contentColumn,
+  contentInsetAfterGutter,
+} from "@/components/general-layout";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -256,9 +259,11 @@ export function ServicesPageContent({ eyebrow, items }: ServicesPageProps) {
       ref={section}
       id="services"
       aria-label={eyebrow}
-      className="relative mt-10 w-full scroll-mt-28 sm:mt-12 sm:scroll-mt-32 lg:mt-14"
+      className="relative mt-0 w-full scroll-mt-28 sm:scroll-mt-32"
     >
-      <div className={`${contentFrame} mb-10 sm:mb-12 lg:mb-14`}>
+      <div
+        className={`${contentColumn} ${contentInsetAfterGutter} mb-8 sm:mb-10 lg:mb-12`}
+      >
         <p
           data-services-intro
           className="text-[11px] font-semibold uppercase tracking-[0.2em] text-accent will-change-[opacity,transform]"
@@ -267,18 +272,18 @@ export function ServicesPageContent({ eyebrow, items }: ServicesPageProps) {
         </p>
       </div>
 
-      <div className="flex w-full flex-col gap-6 sm:gap-8">
+      <div className={`${contentColumn} flex w-full flex-col gap-6 sm:gap-8`}>
         {items.map((item) => (
           <article
             key={item.slug}
             id={item.slug}
             data-service-block
             aria-labelledby={`services-${item.slug}-heading`}
-            className={`relative w-full scroll-mt-28 bg-canvas sm:scroll-mt-32 ${contentFrame}`}
+            className="relative w-full scroll-mt-28 bg-canvas sm:scroll-mt-32"
           >
             <DrawFrame />
             <div className="grid w-full grid-cols-1 gap-3 text-accent sm:gap-4 lg:grid-cols-3 lg:gap-5">
-              <div className="relative flex min-h-24 min-w-0 items-center justify-center overflow-hidden lg:aspect-square lg:min-h-0">
+              <div className="relative flex min-h-24 min-w-0 items-center justify-end overflow-hidden px-5 sm:px-6 lg:aspect-square lg:min-h-0 lg:justify-center lg:px-8">
                 <div
                   data-service-topo
                   aria-hidden="true"
@@ -295,13 +300,13 @@ export function ServicesPageContent({ eyebrow, items }: ServicesPageProps) {
                 <span
                   data-service-number
                   aria-hidden="true"
-                  className="relative z-10 flex min-w-0 items-center justify-center text-7xl leading-none font-light tracking-tighter text-accent tabular-nums will-change-transform sm:text-8xl lg:text-[clamp(4rem,22vw,16rem)]"
+                  className="relative z-10 flex min-w-0 items-center justify-end text-6xl leading-none font-light tracking-tighter text-accent tabular-nums will-change-transform sm:text-8xl lg:justify-center lg:text-[clamp(4rem,22vw,16rem)]"
                 >
                   {Number(item.index)}
                 </span>
               </div>
 
-              <div className="flex min-w-0 items-center p-5 sm:p-6 lg:aspect-square">
+              <div className="flex min-w-0 items-center px-5 py-5 sm:px-6 sm:py-6 lg:aspect-square lg:px-8">
                 <div
                   data-service-middle
                   className="flex min-w-0 flex-col gap-4 will-change-transform"
@@ -313,14 +318,14 @@ export function ServicesPageContent({ eyebrow, items }: ServicesPageProps) {
                     {item.title}
                   </h3>
                   {item.body ? (
-                    <p className="text-base font-normal leading-relaxed tracking-[0.02em] text-accent/80 sm:text-lg">
+                    <p className="text-base font-light leading-relaxed tracking-[0.02em] text-accent/80 sm:text-lg">
                       {item.body}
                     </p>
                   ) : null}
                 </div>
               </div>
 
-              <div className="flex min-w-0 items-center border-t border-accent/20 p-5 sm:p-6 lg:aspect-square lg:border-t-0">
+              <div className="flex min-w-0 items-center border-t border-accent/20 px-5 py-5 sm:px-6 sm:py-6 lg:aspect-square lg:border-t-0 lg:px-8">
                 {item.points.length > 0 ? (
                   <ul className="flex min-w-0 flex-col justify-center gap-4">
                     {item.points.map((point, pointIndex) => (

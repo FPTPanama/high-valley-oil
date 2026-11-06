@@ -29,6 +29,7 @@ export default async function ServicesPage() {
 
   return (
     <main className={`flex flex-col ${sectionStackGap}`}>
+      {/* TEMP services-mobile-responsive: hero + services list; polish section by section. */}
       <PageHero
         eyebrow={servicesPage.eyebrow}
         title={servicesPage.title}
