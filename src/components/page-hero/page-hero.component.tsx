@@ -6,11 +6,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import {
-  contentFrame,
-  contentInset,
-  sectionShell,
-} from "@/components/general-layout";
+import { contentColumn, sectionShell } from "@/components/general-layout";
 import { SiteButton } from "@/components/site-button";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
@@ -37,6 +33,11 @@ export type PageHeroProps = {
   subtitle?: string | string[];
   /** Optional full-bleed background image (same wash language as the home video). */
   backgroundSrc?: string;
+  /**
+   * Tailwind `object-*` position for the background crop.
+   * Useful on mobile when the subject sits off-center in a landscape asset.
+   */
+  backgroundObjectPosition?: string;
   ctaLabel?: string;
   ctaHref?: string;
 };
@@ -46,6 +47,7 @@ export function PageHero({
   title,
   subtitle,
   backgroundSrc,
+  backgroundObjectPosition = "object-center",
   ctaLabel,
   ctaHref,
 }: PageHeroProps) {
@@ -173,10 +175,10 @@ export function PageHero({
           className="absolute inset-0 overflow-hidden isolate"
           aria-hidden="true"
         >
-          <div className="absolute inset-0 z-0 overflow-hidden">
+          <div className="absolute inset-x-0 top-0 bottom-2 z-0 overflow-hidden">
             <div
               ref={backgroundParallax}
-              className="absolute inset-x-0 top-0 h-[max(56.25vw,72%)] w-full will-change-transform"
+              className="absolute inset-x-0 top-0 h-[120%] w-full will-change-transform"
             >
               <Image
                 src={backgroundSrc}
@@ -185,7 +187,7 @@ export function PageHero({
                 priority
                 quality={90}
                 sizes="100vw"
-                className="object-cover object-center grayscale brightness-[0.62] contrast-[1.05]"
+                className={`object-cover grayscale brightness-[0.62] contrast-[1.05] ${backgroundObjectPosition}`}
               />
               <div className="absolute inset-0 bg-ink mix-blend-color" />
             </div>
@@ -197,74 +199,78 @@ export function PageHero({
         </div>
       ) : null}
 
+      {/* contentColumn: mobile gutter matches header; frame fills the remaining first-screen height. */}
       <div
-        ref={frame}
-        className={`${contentFrame} relative z-10 mt-40 sm:mt-48`}
+        className={`${contentColumn} relative z-10 mt-40 mb-6 flex min-h-0 flex-1 flex-col sm:mt-48 sm:mb-8`}
       >
-        <span
-          ref={top}
-          aria-hidden="true"
-          className={`pointer-events-none absolute top-0 left-0 h-0.5 w-full will-change-transform ${backgroundSrc ? "bg-accent" : "bg-ink"}`}
-        />
-        <span
-          ref={right}
-          aria-hidden="true"
-          className={`pointer-events-none absolute top-0 right-0 h-full w-0.5 will-change-transform ${backgroundSrc ? "bg-accent" : "bg-ink"}`}
-        />
-        <span
-          ref={bottom}
-          aria-hidden="true"
-          className={`pointer-events-none absolute bottom-0 left-0 h-0.5 w-full will-change-transform ${backgroundSrc ? "bg-accent" : "bg-ink"}`}
-        />
-        <span
-          ref={left}
-          aria-hidden="true"
-          className={`pointer-events-none absolute top-0 left-0 h-full w-0.5 will-change-transform ${backgroundSrc ? "bg-accent" : "bg-ink"}`}
-        />
+        <div ref={frame} className="relative flex min-h-0 flex-1 flex-col">
+          <span
+            ref={top}
+            aria-hidden="true"
+            className={`pointer-events-none absolute top-0 left-0 h-0.5 w-full will-change-transform ${backgroundSrc ? "bg-accent" : "bg-ink"}`}
+          />
+          <span
+            ref={right}
+            aria-hidden="true"
+            className={`pointer-events-none absolute top-0 right-0 h-full w-0.5 will-change-transform ${backgroundSrc ? "bg-accent" : "bg-ink"}`}
+          />
+          <span
+            ref={bottom}
+            aria-hidden="true"
+            className={`pointer-events-none absolute bottom-0 left-0 h-0.5 w-full will-change-transform ${backgroundSrc ? "bg-accent" : "bg-ink"}`}
+          />
+          <span
+            ref={left}
+            aria-hidden="true"
+            className={`pointer-events-none absolute top-0 left-0 h-full w-0.5 will-change-transform ${backgroundSrc ? "bg-accent" : "bg-ink"}`}
+          />
 
-        <div
-          className={`${contentInset} flex min-h-[min(28rem,58dvh)] flex-col justify-center py-10 sm:min-h-[min(32rem,60dvh)] sm:py-12`}
-        >
-          <p
-            className={`mb-5 text-[11px] font-semibold uppercase tracking-[0.2em] ${backgroundSrc ? "text-canvas" : "text-ink"}`}
-          >
-            {eyebrow}
-          </p>
-
-          <h1
-            className={`max-w-3xl font-light tracking-[0.04em] text-balance ${backgroundSrc ? "text-5xl text-canvas sm:text-6xl lg:text-7xl" : "text-4xl text-ink sm:text-5xl lg:text-6xl"}`}
-          >
-            {title.map((line) => (
-              <span key={line} className="block">
-                {line}
-              </span>
-            ))}
-          </h1>
-
-          {subtitle ? (
-            <div
-              className={`mt-6 flex max-w-xl flex-col gap-1 text-lg leading-relaxed tracking-[0.02em] sm:text-xl ${backgroundSrc ? "font-black text-canvas" : "font-normal text-ink"}`}
+          <div className="flex flex-1 flex-col justify-center px-5 py-10 sm:px-6 sm:py-12 lg:px-8">
+            <p
+              className={`mb-5 text-[11px] font-semibold uppercase tracking-[0.2em] ${backgroundSrc ? "text-canvas" : "text-ink"}`}
             >
-              {(Array.isArray(subtitle) ? subtitle : [subtitle]).map((line) => (
-                <p key={line}>{line}</p>
-              ))}
-            </div>
-          ) : null}
+              {eyebrow}
+            </p>
 
-          {ctaLabel && ctaHref ? (
-            <div className="mt-10">
-              <SiteButton
-                href={ctaHref}
-                onClick={(event: MouseEvent<HTMLAnchorElement>) => {
-                  if (!ctaHref.startsWith("#")) return;
-                  event.preventDefault();
-                  scrollToHash(ctaHref);
-                }}
+            <h1
+              className={`max-w-3xl font-light tracking-[0.04em] text-balance ${backgroundSrc ? "text-5xl text-canvas sm:text-6xl lg:text-7xl" : "text-4xl text-ink sm:text-5xl lg:text-6xl"}`}
+            >
+              {title.map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
+            </h1>
+
+            {subtitle ? (
+              <div
+                className={`mt-6 flex max-w-xl flex-col gap-1 text-lg leading-relaxed tracking-[0.02em] sm:text-xl ${backgroundSrc ? "font-black text-canvas" : "font-normal text-ink"}`}
               >
-                {ctaLabel}
-              </SiteButton>
-            </div>
-          ) : null}
+                {(Array.isArray(subtitle) ? subtitle : [subtitle]).map(
+                  (line) => (
+                    <p key={line}>{line}</p>
+                  ),
+                )}
+              </div>
+            ) : null}
+
+            {ctaLabel && ctaHref ? (
+              <div className="mt-10 w-full sm:w-auto">
+                <SiteButton
+                  href={ctaHref}
+                  layout="spread"
+                  className="sm:w-auto"
+                  onClick={(event: MouseEvent<HTMLAnchorElement>) => {
+                    if (!ctaHref.startsWith("#")) return;
+                    event.preventDefault();
+                    scrollToHash(ctaHref);
+                  }}
+                >
+                  {ctaLabel}
+                </SiteButton>
+              </div>
+            ) : null}
+          </div>
         </div>
       </div>
     </section>
