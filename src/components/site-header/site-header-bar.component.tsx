@@ -15,7 +15,7 @@ const SCROLL_THRESHOLD = 24;
 
 export function SiteHeaderBar(props: SiteHeaderNavProps) {
   const [scrolled, setScrolled] = useState(false);
-  const surface = useRef<HTMLDivElement>(null);
+  const root = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const update = () => {
@@ -29,21 +29,27 @@ export function SiteHeaderBar(props: SiteHeaderNavProps) {
 
   useGSAP(
     () => {
-      const panel = surface.current;
-      if (!panel) return;
+      const rootEl = root.current;
+      if (!rootEl) return;
+
+      const panels = gsap.utils.toArray<HTMLElement>(
+        "[data-header-surface]",
+        rootEl,
+      );
+      if (panels.length === 0) return;
 
       const prefersReduced = window.matchMedia(
         "(prefers-reduced-motion: reduce)",
       ).matches;
 
-      gsap.to(panel, {
+      gsap.to(panels, {
         scaleX: scrolled ? 1 : 0,
         duration: prefersReduced ? 0 : 0.55,
         ease: scrolled ? "power2.out" : "power2.inOut",
         overwrite: "auto",
       });
     },
-    { dependencies: [scrolled] },
+    { scope: root, dependencies: [scrolled] },
   );
 
   useEffect(() => {
@@ -51,13 +57,23 @@ export function SiteHeaderBar(props: SiteHeaderNavProps) {
   }, [scrolled]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 pt-3 md:pt-25">
+    // Mobile: flush to the top so scroll content cannot peek above the bar.
+    // Desktop keeps the floating offset (`md:pt-25`).
+    <header ref={root} className="fixed inset-x-0 top-0 z-50 pt-0 md:pt-25">
+      {/* Mobile full-bleed canvas — covers the whole strip edge-to-edge. */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden md:hidden">
+        <div
+          data-header-surface
+          aria-hidden="true"
+          className="absolute inset-0 origin-left scale-x-0 bg-canvas"
+        />
+      </div>
       <div className={contentFrame}>
         <div className={`relative ${contentInset}`}>
-          {/* Clip only the fill surface so mobile drawer is not trapped. */}
-          <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          {/* Desktop fill stays inside the content inset (floating bar). */}
+          <div className="pointer-events-none absolute inset-0 hidden overflow-hidden md:block">
             <div
-              ref={surface}
+              data-header-surface
               aria-hidden="true"
               className="absolute inset-0 origin-left scale-x-0 bg-canvas"
             />
