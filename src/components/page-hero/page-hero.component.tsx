@@ -38,6 +38,12 @@ export type PageHeroProps = {
    * Useful on mobile when the subject sits off-center in a landscape asset.
    */
   backgroundObjectPosition?: string;
+  /**
+   * Tailwind `object-cover` / `object-contain` (and breakpoints).
+   * Use `object-contain sm:object-cover` to keep full image width on mobile
+   * without shrinking the layer (avoids empty gaps from CSS `scale`).
+   */
+  backgroundObjectFit?: string;
   ctaLabel?: string;
   ctaHref?: string;
 };
@@ -48,6 +54,7 @@ export function PageHero({
   subtitle,
   backgroundSrc,
   backgroundObjectPosition = "object-center",
+  backgroundObjectFit = "object-cover",
   ctaLabel,
   ctaHref,
 }: PageHeroProps) {
@@ -175,7 +182,7 @@ export function PageHero({
           className="absolute inset-0 overflow-hidden isolate"
           aria-hidden="true"
         >
-          <div className="absolute inset-x-0 top-0 bottom-2 z-0 overflow-hidden">
+          <div className="absolute inset-x-0 top-0 bottom-0 z-0 overflow-hidden">
             <div
               ref={backgroundParallax}
               className="absolute inset-x-0 top-0 h-[120%] w-full will-change-transform"
@@ -187,23 +194,23 @@ export function PageHero({
                 priority
                 quality={90}
                 sizes="100vw"
-                className={`object-cover grayscale brightness-[0.62] contrast-[1.05] ${backgroundObjectPosition}`}
+                className={`h-full w-full grayscale brightness-[0.62] contrast-[1.05] ${backgroundObjectFit} ${backgroundObjectPosition}`}
               />
               <div className="absolute inset-0 bg-ink mix-blend-color" />
             </div>
           </div>
           <div className="absolute inset-x-0 top-0 z-10 h-[32%] bg-linear-to-b from-ink from-10% via-ink/55 via-55% to-transparent to-100%" />
-          <div className="absolute inset-x-0 bottom-0 z-10 h-[40%] bg-linear-to-t from-canvas from-35% via-canvas/70 via-60% to-transparent to-100%" />
+          <div className="absolute inset-x-0 bottom-0 z-10 h-[22%] bg-linear-to-t from-canvas from-20% via-canvas/55 via-55% to-transparent to-100%" />
           {/* Overhang seal: covers subpixel gaps / blend edges at the section join. */}
-          <div className="pointer-events-none absolute inset-x-0 -bottom-px z-20 h-5 bg-canvas" />
+          <div className="pointer-events-none absolute inset-x-0 -bottom-px z-20 h-3 bg-canvas" />
         </div>
       ) : null}
 
-      {/* contentColumn: mobile gutter matches header; frame fills the remaining first-screen height. */}
+      {/* contentColumn: mobile gutter matches header; accent frame height follows content. */}
       <div
-        className={`${contentColumn} relative z-10 mt-40 mb-6 flex min-h-0 flex-1 flex-col sm:mt-48 sm:mb-8`}
+        className={`${contentColumn} relative z-10 mt-40 mb-0 sm:mt-48`}
       >
-        <div ref={frame} className="relative flex min-h-0 flex-1 flex-col">
+        <div ref={frame} className="relative h-auto">
           <span
             ref={top}
             aria-hidden="true"
@@ -225,7 +232,7 @@ export function PageHero({
             className={`pointer-events-none absolute top-0 left-0 h-full w-0.5 will-change-transform ${backgroundSrc ? "bg-accent" : "bg-ink"}`}
           />
 
-          <div className="flex flex-1 flex-col justify-center px-5 py-10 sm:px-6 sm:py-12 lg:px-8">
+          <div className="flex flex-col px-5 py-10 sm:px-6 sm:py-12 lg:px-8">
             <p
               className={`mb-5 text-[11px] font-semibold uppercase tracking-[0.2em] ${backgroundSrc ? "text-canvas" : "text-ink"}`}
             >
@@ -255,11 +262,11 @@ export function PageHero({
             ) : null}
 
             {ctaLabel && ctaHref ? (
-              <div className="mt-10 w-full sm:w-auto">
+              <div className="mt-10 w-full">
                 <SiteButton
                   href={ctaHref}
                   layout="spread"
-                  className="sm:w-auto"
+                  className="w-full"
                   onClick={(event: MouseEvent<HTMLAnchorElement>) => {
                     if (!ctaHref.startsWith("#")) return;
                     event.preventDefault();

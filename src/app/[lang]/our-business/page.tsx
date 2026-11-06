@@ -33,10 +33,13 @@ export default async function OurBusinessPage() {
 
   return (
     <main className={`flex flex-col ${sectionStackGap}`}>
+      {/* TEMP business-mobile-responsive: full stack live for polish. */}
       <PageHero
         eyebrow={businessPage.eyebrow}
         title={businessPage.title}
         backgroundSrc="/images/negocio_hero.webp"
+        backgroundObjectPosition="object-[72%_center] sm:object-center"
+        backgroundObjectFit="object-cover"
         ctaLabel={businessPage.ctaLabel}
         ctaHref="#focus-areas"
       />
