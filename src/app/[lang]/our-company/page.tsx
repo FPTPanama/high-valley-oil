@@ -34,11 +34,13 @@ export default async function OurCompanyPage() {
 
   return (
     <main className={`flex flex-col ${sectionStackGap}`}>
+      {/* TEMP company-mobile-responsive: full stack live for final polish. */}
       <PageHero
         eyebrow={companyPage.eyebrow}
         title={companyPage.title}
         subtitle={companyPage.lead}
         backgroundSrc="/images/toma_variable_high.webp"
+        backgroundObjectPosition="object-[72%_center] sm:object-center"
         ctaLabel={companyPage.ctaLabel}
         ctaHref="#how-we-operate"
       />
