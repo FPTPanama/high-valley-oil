@@ -186,9 +186,9 @@ export function VenezuelaHero({
         <div className="pointer-events-none absolute inset-x-0 -bottom-px z-20 h-3 bg-canvas" />
       </div>
 
-      {/* contentColumn: mobile gutter matches header; accent frame height follows content. */}
+      {/* contentColumn: mobile gutter matches header; desktop keeps full frame width. */}
       <div className={`${contentColumn} relative z-10 mt-40 mb-0 sm:mt-48`}>
-        <div ref={frame} className="relative h-auto">
+        <div ref={frame} className="relative">
           <span
             ref={top}
             aria-hidden="true"
@@ -210,7 +210,7 @@ export function VenezuelaHero({
             className="pointer-events-none absolute top-0 left-0 h-full w-0.5 bg-accent will-change-transform"
           />
 
-          <div className="flex flex-col px-5 py-10 sm:px-6 sm:py-12 lg:px-8">
+          <div className="flex min-h-[min(28rem,58dvh)] flex-col justify-center px-5 py-10 sm:min-h-[min(32rem,60dvh)] sm:px-6 sm:py-12 lg:px-8">
             <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.2em] text-canvas">
               {eyebrow}
             </p>
@@ -227,11 +227,11 @@ export function VenezuelaHero({
               {subtitle}
             </p>
 
-            <div className="mt-10 w-full">
+            <div className="mt-10 w-full sm:w-auto">
               <SiteButton
                 href={ctaHref}
                 layout="spread"
-                className="w-full"
+                className="sm:w-auto"
                 onClick={(event: MouseEvent<HTMLAnchorElement>) => {
                   if (!ctaHref.startsWith("#")) return;
                   event.preventDefault();
