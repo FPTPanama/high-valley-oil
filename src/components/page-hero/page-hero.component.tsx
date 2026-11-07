@@ -206,11 +206,9 @@ export function PageHero({
         </div>
       ) : null}
 
-      {/* contentColumn: mobile gutter matches header; accent frame height follows content. */}
-      <div
-        className={`${contentColumn} relative z-10 mt-40 mb-0 sm:mt-48`}
-      >
-        <div ref={frame} className="relative h-auto">
+      {/* contentColumn: mobile gutter matches header; desktop keeps full frame width. */}
+      <div className={`${contentColumn} relative z-10 mt-40 mb-0 sm:mt-48`}>
+        <div ref={frame} className="relative">
           <span
             ref={top}
             aria-hidden="true"
@@ -232,7 +230,7 @@ export function PageHero({
             className={`pointer-events-none absolute top-0 left-0 h-full w-0.5 will-change-transform ${backgroundSrc ? "bg-accent" : "bg-ink"}`}
           />
 
-          <div className="flex flex-col px-5 py-10 sm:px-6 sm:py-12 lg:px-8">
+          <div className="flex min-h-[min(28rem,58dvh)] flex-col justify-center px-5 py-10 sm:min-h-[min(32rem,60dvh)] sm:px-6 sm:py-12 lg:px-8">
             <p
               className={`mb-5 text-[11px] font-semibold uppercase tracking-[0.2em] ${backgroundSrc ? "text-canvas" : "text-ink"}`}
             >
@@ -262,11 +260,11 @@ export function PageHero({
             ) : null}
 
             {ctaLabel && ctaHref ? (
-              <div className="mt-10 w-full">
+              <div className="mt-10 w-full sm:w-auto">
                 <SiteButton
                   href={ctaHref}
                   layout="spread"
-                  className="w-full"
+                  className="sm:w-auto"
                   onClick={(event: MouseEvent<HTMLAnchorElement>) => {
                     if (!ctaHref.startsWith("#")) return;
                     event.preventDefault();
