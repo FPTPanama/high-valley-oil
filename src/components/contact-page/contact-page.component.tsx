@@ -183,9 +183,9 @@ export function ContactPageContent({
         <div className="pointer-events-none absolute inset-x-0 -bottom-px z-20 hidden h-3 bg-canvas sm:block" />
       </div>
 
-      {/* contentColumn: mobile gutter matches header; accent frame height follows content. */}
+      {/* contentColumn: mobile gutter matches header; desktop keeps full frame width. */}
       <div className={`${contentColumn} relative z-10 mt-40 mb-0 sm:mt-48`}>
-        <div ref={frame} className="relative h-auto">
+        <div ref={frame} className="relative">
           <span
             ref={top}
             aria-hidden="true"
@@ -207,7 +207,7 @@ export function ContactPageContent({
             className="pointer-events-none absolute top-0 left-0 h-full w-0.5 bg-accent will-change-transform"
           />
 
-          <div className="flex flex-col px-5 py-10 sm:px-6 sm:py-12 lg:px-8">
+          <div className="flex min-h-[min(28rem,58dvh)] flex-col justify-center px-5 py-10 sm:min-h-[min(32rem,60dvh)] sm:px-6 sm:py-12 lg:px-8">
             <div className="grid w-full gap-10 sm:gap-12 lg:grid-cols-2 lg:items-center lg:gap-16 xl:gap-20">
               <header className="flex max-w-xl flex-col justify-center gap-5 text-left lg:h-full">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-canvas">
