@@ -194,6 +194,14 @@ export type Dictionary = {
     eyebrow: string;
     title: string;
     submitLabel: string;
+    sendingLabel: string;
+    errorMessage: string;
+    thankYou: {
+      eyebrow: string;
+      title: string;
+      body: string;
+      ctaLabel: string;
+    };
     fields: {
       id: string;
       label: string;

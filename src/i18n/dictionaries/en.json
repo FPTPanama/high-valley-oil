@@ -485,6 +485,14 @@
     "eyebrow": "Let's connect",
     "title": "Tell us about your project.",
     "submitLabel": "Send",
+    "sendingLabel": "Sending…",
+    "errorMessage": "Could not send. Please try again.",
+    "thankYou": {
+      "eyebrow": "Message sent",
+      "title": "Thank you. We received your message.",
+      "body": "Our team will review it and get back to you soon.",
+      "ctaLabel": "Back to home"
+    },
     "fields": [
       {
         "id": "name",
