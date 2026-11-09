@@ -5,8 +5,8 @@ import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ContactForm } from "@/components/contact-form";
 import { contentColumn, sectionShell } from "@/components/general-layout";
-import { SiteButton } from "@/components/site-button";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -24,18 +24,21 @@ export type ContactPageProps = {
   title: string;
   fields: ContactPageField[];
   submitLabel: string;
+  sendingLabel: string;
+  errorMessage: string;
+  locale: string;
 };
 
 const HERO_SRC = "/images/obreros_en_fabrica.webp";
-
-const fieldClassName =
-  "w-full border border-canvas bg-transparent px-3 py-2 text-sm font-light tracking-[0.02em] text-canvas outline-none transition-colors placeholder:text-canvas/40 focus-visible:border-accent";
 
 export function ContactPageContent({
   eyebrow,
   title,
   fields,
   submitLabel,
+  sendingLabel,
+  errorMessage,
+  locale,
 }: ContactPageProps) {
   const section = useRef<HTMLElement>(null);
   const frame = useRef<HTMLDivElement>(null);
@@ -221,53 +224,14 @@ export function ContactPageContent({
                 </h1>
               </header>
 
-              <div className="w-full max-w-xl sm:p-0 lg:max-w-none lg:justify-self-stretch">
-                <form
-                  className="flex flex-col justify-center gap-4"
-                  action="#"
-                  method="post"
-                  noValidate
-                >
-                  {fields.map((field) => (
-                    <label
-                      key={field.id}
-                      className="flex flex-col gap-1.5"
-                      htmlFor={field.id}
-                    >
-                      <span className="text-sm font-medium tracking-[0.02em] text-canvas">
-                        {field.label}
-                      </span>
-                      {field.type === "textarea" ? (
-                        <textarea
-                          id={field.id}
-                          name={field.name}
-                          rows={4}
-                          required={field.required}
-                          className={`${fieldClassName} min-h-24 resize-y`}
-                        />
-                      ) : (
-                        <input
-                          id={field.id}
-                          name={field.name}
-                          type={field.type}
-                          autoComplete={field.autoComplete}
-                          required={field.required}
-                          className={fieldClassName}
-                        />
-                      )}
-                    </label>
-                  ))}
-
-                  <div className="pt-1">
-                    <SiteButton
-                      type="submit"
-                      layout="spread"
-                      className="w-full"
-                    >
-                      {submitLabel}
-                    </SiteButton>
-                  </div>
-                </form>
+              <div className="w-full max-w-xl rounded-sm bg-ink/25 p-6 backdrop-blur-md sm:p-8 lg:max-w-none lg:justify-self-stretch">
+                <ContactForm
+                  fields={fields}
+                  submitLabel={submitLabel}
+                  sendingLabel={sendingLabel}
+                  errorMessage={errorMessage}
+                  locale={locale}
+                />
               </div>
             </div>
           </div>

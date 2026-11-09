@@ -21,6 +21,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ContactPage() {
+  const locale = await lang();
+  const resolvedLocale = isLocale(locale) ? locale : "en";
   const dict = await getDictionary();
   const { contactPage } = dict;
 
@@ -30,6 +32,9 @@ export default async function ContactPage() {
       title={contactPage.title}
       fields={contactPage.fields}
       submitLabel={contactPage.submitLabel}
+      sendingLabel={contactPage.sendingLabel}
+      errorMessage={contactPage.errorMessage}
+      locale={resolvedLocale}
     />
   );
 }
