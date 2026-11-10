@@ -36,6 +36,7 @@ export type SiteButtonProps = SiteButtonSharedProps &
           "button" | "submit" | "reset"
         >;
         onClick?: MouseEventHandler<HTMLButtonElement>;
+        disabled?: boolean;
       }
   );
 
@@ -142,7 +143,12 @@ export function SiteButton({
   }
 
   return (
-    <button type={props.type} onClick={props.onClick} className={classNames}>
+    <button
+      type={props.type}
+      onClick={props.onClick}
+      disabled={props.disabled}
+      className={`${classNames} disabled:pointer-events-none disabled:opacity-50`}
+    >
       {content}
     </button>
   );

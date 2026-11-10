@@ -485,6 +485,14 @@
     "eyebrow": "Conectemos",
     "title": "Cuéntanos sobre tu proyecto.",
     "submitLabel": "Enviar",
+    "sendingLabel": "Enviando…",
+    "errorMessage": "No se pudo enviar. Inténtalo de nuevo.",
+    "thankYou": {
+      "eyebrow": "Mensaje enviado",
+      "title": "Gracias. Recibimos tu mensaje.",
+      "body": "Nuestro equipo lo revisará y te responderá pronto.",
+      "ctaLabel": "Volver al inicio"
+    },
     "fields": [
       {
         "id": "name",
